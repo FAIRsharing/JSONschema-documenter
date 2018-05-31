@@ -40,9 +40,8 @@
             }
 
             loadJSON(fetch_url, 0, 'none');
-
+            console.log(json_schema);
             function parseJson(src){
-                console.log(src);
                 var request = new XMLHttpRequest();
                 request.open("GET", src, false);
                 try{
