@@ -3,7 +3,7 @@
 **************************************** */
 @font-face {
     font-family: customFont;
-    src: url(./font/AvenirNextLTPro-Cn.otf);
+    /*src: url(./font/AvenirNextLTPro-Cn.otf);*/
     font-weight: lighter;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
