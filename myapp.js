@@ -4,7 +4,7 @@
 
     my_app.controller('documenterController', ['$scope',
         function($scope, queryJSON) {
-            var base_url = 'schema/';
+            var base_url = 'schemas/';
             var fetch_url = base_url+'study_schema.json';
             var json_schema = this;
             json_schema.loaded_specs = {};
@@ -40,6 +40,7 @@
             }
 
             loadJSON(fetch_url, 0, 'none');
+            console.log(json_schema);
 
             function parseJson(src){
                 console.log(src);

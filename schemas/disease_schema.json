@@ -1,0 +1,51 @@
+{
+  "id": "https://w3id.org/dats/schema/disease_schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "DATS disease schema",
+  "description": "A disorder of structure or function in a human, animal, or plant, that produces specific symptoms or that affects a specific location.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "@id": { "type": "string", "format": "uri" },
+    "@type": { "type": "string", "enum": [ "Disease" ]},
+    "identifier": {
+      "$ref": "identifier_info_schema.json#"
+    },
+    "alternateIdentifiers": {
+      "description": "Alternate identifiers for the disease.",
+      "type": "array",
+      "items": {
+        "$ref": "alternate_identifier_info_schema.json#"
+      }
+    },
+    "relatedIdentifiers": {
+      "description": "Related identifiers for the disease.",
+      "type": "array",
+      "items": {
+        "$ref": "related_identifier_info_schema.json#"
+      }
+    },
+    "name": {
+      "description": "The name of the disease.",
+      "type" :  "string"
+    },
+    "extraProperties": {
+      "description": "Extra properties that do not fit in the previous specified attributes. ",
+      "type": "array",
+      "items": {
+        "$ref" : "category_values_pair_schema.json#"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required" : [ "name" ]
+}

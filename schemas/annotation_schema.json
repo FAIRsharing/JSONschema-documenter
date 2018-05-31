@@ -1,0 +1,32 @@
+{
+  "id": "https://w3id.org/dats/schema/annotation_schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "DATS annotation schema",
+  "description": "A pair of value (string or numeric) with a corresponding ontology term (IRI), if applicable.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "@id": { "type": "string", "format": "uri" },
+    "@type": { "type": "string", "enum": [ "Annotation" ]},
+    "value": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "number"}
+      ]
+    },
+    "valueIRI": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false
+}

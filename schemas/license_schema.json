@@ -1,0 +1,64 @@
+{
+  "id": "https://w3id.org/dats/schema/license_schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "DATS license schema",
+  "description": "A legal document giving official permission to do something with a Resource. It is assumed that an external vocabulary will describe with sufficient granularity the permission for redistribution, modification, derivation, reuse, etc. and conditions for citation/acknowledgment.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "@id": { "type": "string", "format": "uri" },
+    "@type": { "type": "string", "enum": [ "License" ]},
+    "identifier": {
+      "$ref": "identifier_info_schema.json#"
+    },
+    "alternateIdentifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "alternate_identifier_info_schema.json#"
+      }
+    },
+    "relatedIdentifiers": {
+      "type": "array",
+      "items": {
+        "$ref": "related_identifier_info_schema.json#"
+      }
+    },
+    "name": {
+      "description": "The name of the license.",
+      "type" :  "string"
+    },
+    "version": {
+      "description": "The version of the license.",
+      "type" :  "string"
+    },
+    "creators" : {
+      "description": "The person(s) or organization(s) responsible for writing the license.",
+      "type" : "array",
+      "items" : {
+        "oneOf": [
+          {"$ref" : "person_schema.json#"},
+          {"$ref" : "organization_schema.json#"}
+        ]
+      },
+      "minItems" : 1
+    },
+    "extraProperties": {
+      "description": "Extra properties that do not fit in the previous specified attributes. ",
+      "type": "array",
+      "items": {
+        "$ref" : "category_values_pair_schema.json#"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "name"]
+}

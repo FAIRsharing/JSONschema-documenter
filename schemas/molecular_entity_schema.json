@@ -1,0 +1,79 @@
+{
+  "id": "https://w3id.org/dats/schema/molecular_entity_schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "DATS molecular entity schema",
+  "description": "A physical entity of molecular scales such as proteins, nucleic acids, chemical materials. They can be abiotic, biological or synthetic origin.",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "@id": { "type": "string", "format": "uri" },
+    "@type": { "type": "string", "enum": [ "MolecularEntity" ]},
+    "identifier": {
+      "$ref": "identifier_info_schema.json#"
+    },
+    "alternateIdentifiers": {
+      "description": "Alternate identifiers for the molecular entity.",
+      "type": "array",
+      "items": {
+        "$ref": "alternate_identifier_info_schema.json#"
+      }
+    },
+    "relatedIdentifiers": {
+      "description": "Related identifiers for the molecular entity.",
+      "type": "array",
+      "items": {
+        "$ref": "related_identifier_info_schema.json#"
+      }
+    },
+    "name": {
+      "description": "The name of the molecular entity.",
+      "type" :  "string"
+    },
+    "taxonomy" : {
+      "description": "The taxonomic information for this material (ideally specified from a controlled vocabulary/ontology).",
+      "type": "array",
+      "items": {
+        "$ref": "taxonomic_info_schema.json#"
+      }
+    },
+    "characteristics" : {
+      "description": "The characteristic information or attributes denoting the material.",
+      "type" : "array",
+      "items" : {
+        "oneOf": [
+          {"$ref": "dimension_schema.json#"},
+          {"$ref": "material_schema.json#"}
+        ]
+      }
+    },
+    "structure": {
+      "description": "The primary sequence of the molecular entity (e.g. inchi code;DNA sequence in FASTA format)",
+      "type" :  "string"
+    },
+    "roles" : {
+      "description": "The roles played by the molecular entity.",
+      "type" : "array",
+      "items" : {
+        "$ref": "annotation_schema.json#"
+      }
+    },
+    "extraProperties": {
+      "description": "Extra properties that do not fit in the previous specified attributes. ",
+      "type": "array",
+      "items": {
+        "$ref" : "category_values_pair_schema.json#"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "name" ]
+}
