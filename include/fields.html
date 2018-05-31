@@ -1,0 +1,52 @@
+<table>
+
+    <tbody>
+
+        <tr>
+            <th class="firstCol">Field's Name</th>
+            <th>Field's Properties</th>
+        </tr>
+        <tr ng-repeat="(fieldKey, fieldValue) in fields">
+            <td class="firstCol">
+                {{fieldKey}}
+            </td>
+            <td>
+                <i> <b>{{fields[fieldKey].description}}</b></i>
+
+                <div ng-if="fields[fieldKey].anyOf">
+                    Expected types:
+                    <ul>
+                        <li ng-repeat="item in fields[fieldKey].anyOf">
+                            {{item.type}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-if="fields[fieldKey].format">
+                    Expected type : {{fields[fieldKey].format}}
+                </div>
+
+                <div ng-if="!fields[fieldKey].format && fields[fieldKey].type && fields[fieldKey].type!='array'">
+                    Expected type : {{fields[fieldKey].type}}
+                </div>
+
+                <div ng-if="fields[fieldKey].enum">
+                    Expected value(s) :
+                    <ul>
+                        <li ng-repeat="item in fields[fieldKey].enum">
+                            {{item}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-if="fields[fieldKey]['$ref'] || fields[fieldKey].items['$ref']">
+                    <a ng-href="#{{fieldKey}}"> See below</a> for {{fieldKey}} reference
+                </div>
+
+            </td>
+        </tr>
+
+    </tbody>
+
+
+</table>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="generatorApp">
+
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="app.css">
+        <script src="lib/angular.min.js"></script>
+        <script src="myapp.js"></script>
+        <title> JSON schema document generator</title>
+    </head>
+
+    <body ng-controller="documenterController as documenter">
+
+        <div schema-loader="documenter.main_spec" parent-key="''">
+        </div>
+
+
+        <div ng-repeat="(key, item) in documenter.loaded_specs"
+             schema-loader="documenter.loaded_specs[key]"
+             parent-key="key">
+
+        </div>
+
+    </body>
+
+</html>

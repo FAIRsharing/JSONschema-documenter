@@ -1,0 +1,113 @@
+/******************************************
+************** GENERAL  *************
+**************************************** */
+@font-face {
+    font-family: customFont;
+    src: url(font/AvenirNextLTPro-Cn.otf);
+    font-weight: lighter;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+html *:not(pre) {
+    font-family:customFont,Arial,Helvetica;
+}
+
+html{
+    overflow-x: hidden;
+    padding:10px 20px 10px 10px;
+}
+
+div *{
+    font-size:18px;
+}
+
+
+h1{
+    background-color:rgb(11,121,75);
+    color:white;
+    margin-bottom:0px;
+    font-size:30px;
+}
+
+h2{
+    font-size:24px
+}
+
+h2, h3, pre{
+    margin:0px;
+    color:rgb(11,121,75);
+}
+
+
+div.main_container, div.debug, h1, div.metadata, div.data{
+    border:1px solid #ccc;
+    padding:10px;
+    box-shadow:4px 4px 3px #D6D6D6;
+    margin-bottom: 15px;
+}
+
+div.main_container{
+    background-color: #ECF0F1;
+    padding:0px 20px 10px 20px;
+}
+
+div.metadata, div.data{
+    margin-top:15px;
+}
+
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top:10px;
+}
+
+tr{
+    border-bottom:1px solid #ccc;
+}
+
+th {
+    padding-left:10px;
+    color:rgb(11,121,75);
+}
+
+td {
+    border-bottom:1px solid #ccc;
+    padding-left: 10px;
+}
+
+tr:hover{
+    background-color: #ccc;
+}
+
+.firstCol{
+    width:15%;
+    min-width: 80px;
+    border-right:1px solid #ccc;
+}
+
+.lastCol{
+    width:15%;
+}
+
+table  ul{
+    margin-top:0px !important;
+    margin-bottom:0px !important;
+}
+
+/* OTHER */
+.required{
+    font-weight:bold;
+    color:red;
+}
+
+.italic{
+    font-style: italic;
+}
+
+a:visited{
+    color:rgb(11,121,75);
+}

@@ -1,0 +1,28 @@
+<div class="main_container" id="{{parent}}">
+    <h1> {{json_source.title}} </h1>
+
+    <div class="metadata">
+        <h2> Schema Metadata </h2>
+        <ul>
+            <li ng-if="json_source['$schema']">
+                <b>$schema : </b> {{json_source['$schema']}}
+            </li>
+
+            <li ng-repeat="(key, item) in json_source" ng-if="key != 'properties'">
+                <b>{{key}} : </b>{{item}}
+            </li>
+
+            <li ng-if="parent != ''">
+                <b>Referenced from:</b> {{parent}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="main_container">
+        <h2> Schema Fields </h2>
+
+        <div schema-fields="json_source.properties" parent-key="parent"> </div>
+
+    </div>
+
+</div>
