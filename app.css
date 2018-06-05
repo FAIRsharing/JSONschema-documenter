@@ -18,20 +18,26 @@ html{
     padding:10px 20px 10px 10px;
 }
 
+body, html{
+    padding:0px
+}
+
 div *{
-    font-size:18px;
+    font-size:14px;
 }
 
 
 h1{
     background-color:rgb(11,121,75);
-    color:white;
+    background-color:#2980B9;
+    color:#fcfcfc !important;
     margin-bottom:0px;
     font-size:30px;
+    margin-top:10px !important;
 }
 
 h2{
-    font-size:24px
+    font-size:24px;
 }
 
 h2, h3, pre{
@@ -39,6 +45,15 @@ h2, h3, pre{
     color:rgb(11,121,75);
 }
 
+
+/* LAYOUT */
+
+div.sidebar{
+    background:#343131;
+    height:100vh;
+    position: fixed;
+    padding:0px;
+}
 
 div.main_container, div.debug, h1, div.metadata, div.data{
     border:1px solid #ccc;
@@ -56,13 +71,32 @@ div.metadata, div.data{
     margin-top:15px;
 }
 
+div.schema{
+    margin:10px 10px 0px 10px;
+}
+
+div.welcome{
+    background: #2980B9;
+    width:100%;
+    color:#fcfcfc;
+}
+
+div.welcome h2{
+    text-align:center;
+    padding:10px;
+    font-size:18px;
+}
+
+div.welcome hr{
+    background:#fcfcfc;
+}
 
 /* TABLE */
 table{
     width:100%;
     border-collapse: collapse;
-    table-layout: fixed;
     margin-top:10px;
+    table-layout: fixed;
 }
 
 tr{
@@ -71,7 +105,7 @@ tr{
 
 th {
     padding-left:10px;
-    color:rgb(11,121,75);
+    color:#2980B9;
 }
 
 td {
@@ -79,13 +113,17 @@ td {
     padding-left: 10px;
 }
 
-tr:hover{
-    background-color: #ccc;
+tr:not(.first_line):hover{
+    background-color: #2980B9;
+    color:#fcfcfc;
+}
+
+tr:not(.first_line):hover a{
+    color:#fcfcfc;
 }
 
 .firstCol{
-    width:15%;
-    min-width: 80px;
+    width: 15%;
     border-right:1px solid #ccc;
 }
 
@@ -109,5 +147,21 @@ table  ul{
 }
 
 a:visited{
-    color:rgb(11,121,75);
+    color:#2980B9;
+    text-decoration: underline;
+}
+
+.re_position{
+    position: relative;
+    left: 120px;
+}
+
+.sidebar li{
+    color:#b3b3b3;
+}
+
+.sidebar ul{
+    margin-top:20px;
+    list-style-type: none;
+    padding-left:15px;
 }

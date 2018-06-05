@@ -2,7 +2,7 @@
 
     <tbody>
 
-        <tr>
+        <tr class="first_line">
             <th class="firstCol">Field's Name</th>
             <th>Field's Properties</th>
         </tr>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div ng-if="fields[fieldKey]['$ref'] || fields[fieldKey].items['$ref']">
-                    <a ng-href="#{{fieldKey}}"> See below</a> for {{fieldKey}} reference
+                    Expected type: <a ng-href="#{{fieldKey}}" target="_self">click here </a>
                 </div>
 
             </td>

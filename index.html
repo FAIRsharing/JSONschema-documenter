@@ -4,21 +4,49 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="app.css">
+        <link rel="stylesheet" href="lib/bootstrap.css">
+
         <script src="lib/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
         <script src="myapp.js"></script>
+
         <title> JSON schema document generator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
     <body ng-controller="documenterController as documenter">
 
-        <div schema-loader="documenter.main_spec" parent-key="''">
-        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="sidebar col-lg-2">
+                    <div class="welcome">
+                        <h2> Json Schemas Documents <HR> {{documenter.main_spec.title}} </h2>
+                    </div>
+                    <ul>
+                        <li>{{documenter.main_spec.title}}</li>
+                        <li ng-repeat="(key, item) in documenter.loaded_specs">
+                            {{item.title}}
+                        </li>
+                    </ul>
 
+                    <div class="schemas_list">
 
-        <div ng-repeat="(key, item) in documenter.loaded_specs"
-             schema-loader="documenter.loaded_specs[key]"
-             parent-key="key">
+                    </div>
+                </div>
 
+                <div class="container-fluid col-lg-10 re_position">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-md-12 schema" schema-loader="documenter.main_spec" parent-key="''">
+                        </div>
+
+                        <div ng-repeat="(key, item) in documenter.loaded_specs"
+                             schema-loader="documenter.loaded_specs[key]"
+                             parent-key="key"
+                             class="col-lg-12 col-sm-12 col-md-12 schema">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </body>

@@ -1,13 +1,22 @@
 (function(){
 
-    var my_app = angular.module('generatorApp', []);
+    var my_app = angular.module('generatorApp', ['ngRoute']);
 
-    my_app.controller('documenterController', ['$scope',
-        function($scope, queryJSON) {
-            var base_url = 'schema/';
-            var fetch_url = base_url+'study_schema.json';
+    my_app.controller('documenterController', ['$scope','$location',
+        function($scope, $location, queryJSON) {
+            var base_url = 'schemas/';
+            var schema_file = getUrlFromUrl()["url"];
+            var fetch_url = "";
+            if (typeof schema_file != 'undefined'){
+                fetch_url = base_url + schema_file + '.json';
+            }
+            else{
+                fetch_url = base_url+'study_schema.json';
+            }
             var json_schema = this;
             json_schema.loaded_specs = {};
+            loadJSON(fetch_url, 0, 'none');
+
             function loadJSON(json_file, lvl, field){
                 json_file = json_file.replace("#", "");
                 if (lvl == 0){
@@ -39,10 +48,8 @@
                 }
             }
 
-            loadJSON(fetch_url, 0, 'none');
-            console.log(json_schema);
             function parseJson(src){
-                var request = new XMLHttpRequest();
+                let request = new XMLHttpRequest();
                 request.open("GET", src, false);
                 try{
                     request.send(null);
@@ -51,6 +58,16 @@
                 catch(e){
                     return false;
                 }
+            }
+
+            function getUrlFromUrl() {
+                let query = location.search.substr(1);
+                let result = {};
+                query.split("&").forEach(function(part) {
+                    let item = part.split("=");
+                    result[item[0]] = decodeURIComponent(item[1]);
+                });
+                return result;
             }
 
         }
