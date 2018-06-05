@@ -167,27 +167,27 @@ a:visited{
 }
 
 /* FIELD TYPES */
-.string_field{
+.string{
     color:rgb(11,121,75);
     font-weight:bold;
 }
 
-.integer_field{
+.integer{
     color:#A9A9A9;
     font-weight:bold;
 }
 
-.uri_field{
+.uri{
     color:#0000FF;
     font-weight:bold;
 }
 
-.date_field{
+.date{
     color:#003366;
     font-weight:bold;
 }
 
-.object_field{
+.object{
     color:#8b0000;
     font-weight:bold;
 }
