@@ -17,17 +17,19 @@
                     Expected types:
                     <ul>
                         <li ng-repeat="item in fields[fieldKey].anyOf">
-                            {{item.type}}
+                            <span field-type="item.type"> </span>
                         </li>
                     </ul>
                 </div>
 
                 <div ng-if="fields[fieldKey].format">
-                    Expected type : {{fields[fieldKey].format}}
+                    Expected type :
+                    <span field-type="fields[fieldKey].format"> </span>
                 </div>
 
                 <div ng-if="!fields[fieldKey].format && fields[fieldKey].type && fields[fieldKey].type!='array'">
-                    Expected type : {{fields[fieldKey].type}}
+                    Expected type :
+                    <span field-type="fields[fieldKey].type"> </span>
                 </div>
 
                 <div ng-if="fields[fieldKey].enum">
@@ -40,13 +42,11 @@
                 </div>
 
                 <div ng-if="fields[fieldKey]['$ref'] || fields[fieldKey].items['$ref']">
-                    Expected type: <a ng-href="#{{fieldKey}}" target="_self">click here </a>
+                    Expected type: <span field-type="'object'"> </span> {{type}}
+                    <a ng-href="#{{fieldKey}}" target="_self">(click here to see sub-specification)</a>
                 </div>
 
             </td>
         </tr>
-
     </tbody>
-
-
 </table>

@@ -165,3 +165,29 @@ a:visited{
     list-style-type: none;
     padding-left:15px;
 }
+
+/* FIELD TYPES */
+.string_field{
+    color:rgb(11,121,75);
+    font-weight:bold;
+}
+
+.integer_field{
+    color:#A9A9A9;
+    font-weight:bold;
+}
+
+.uri_field{
+    color:#0000FF;
+    font-weight:bold;
+}
+
+.date_field{
+    color:#003366;
+    font-weight:bold;
+}
+
+.object_field{
+    color:#8b0000;
+    font-weight:bold;
+}

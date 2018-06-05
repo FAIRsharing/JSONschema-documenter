@@ -4,9 +4,9 @@
 
     my_app.controller('documenterController', ['$scope','$location',
         function($scope, $location, queryJSON) {
-            var base_url = 'schemas/';
-            var schema_file = getUrlFromUrl()["url"];
-            var fetch_url = "";
+            let base_url = 'schemas/';
+            let schema_file = getUrlFromUrl()["url"];
+            let fetch_url = "";
             if (typeof schema_file != 'undefined'){
                 fetch_url = base_url + schema_file + '.json';
             }
@@ -104,5 +104,19 @@
             }
         }
     });
+
+    my_app.directive('fieldType', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/field.html',
+            scope: {
+                fieldType: '=',
+            },
+            link: function($scope, element, attr){
+                $scope.field = $scope.fieldType;
+            }
+        }
+    });
+
 
 })();
