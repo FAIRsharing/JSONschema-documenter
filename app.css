@@ -156,7 +156,7 @@ a:visited{
     left: 8%;
 }
 
-.sidebar li{
+.sidebar li, .sidebar a, .sidebar a:visited, .sidebar a:hover{
     color:#b3b3b3;
 }
 
@@ -172,7 +172,7 @@ a:visited{
     font-weight:bold;
 }
 
-.integer{
+.number, .integer{
     color:#A9A9A9;
     font-weight:bold;
 }

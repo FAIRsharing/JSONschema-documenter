@@ -22,6 +22,15 @@
                     </ul>
                 </div>
 
+                <div ng-if="fields[fieldKey].oneOf">
+                    Expected types:
+                    <ul>
+                        <li ng-repeat="item in fields[fieldKey].oneOf">
+                            <span field-type="item.type"> </span>
+                        </li>
+                    </ul>
+                </div>
+
                 <div ng-if="fields[fieldKey].format">
                     Expected type :
                     <span field-type="fields[fieldKey].format"> </span>
@@ -41,9 +50,33 @@
                     </ul>
                 </div>
 
-                <div ng-if="fields[fieldKey]['$ref'] || fields[fieldKey].items['$ref']">
+                <div ng-if="fields[fieldKey]['$ref']">
                     Expected type: <span field-type="'object'"> </span> {{type}}
-                    <a ng-href="#{{fieldKey}}" target="_self">(click here to see sub-specification)</a>
+                    <a ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
+                        <ul>
+                            <li>click here to see {{fields[fieldKey]['$ref'] | removeExtraStr}}</li>
+                        </ul>
+                    </a>
+                </div>
+
+                <div ng-if="fields[fieldKey].items['$ref']">
+                    Expected type: <span field-type="'object'"> </span> {{type}}
+                    <a ng-href="#{{fields[fieldKey].items['$ref'] | removeExtraStr}}" target="_self">
+                        <ul>
+                            <li>click here to see {{fields[fieldKey].items['$ref'] | removeExtraStr}}</li>
+                        </ul>
+                    </a>
+                </div>
+
+                <div ng-if="fields[fieldKey].items.anyOf">
+                    Expected type: <span field-type="'object'"> </span> {{type}}
+                    <ul>
+                        <li ng-repeat="url in fields[fieldKey].items.anyOf">
+                            <a ng-href="#{{url['$ref'] | removeExtraStr}}" target="_self">
+                                click here to see {{url['$ref']| removeExtraStr}} <BR>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
             </td>

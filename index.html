@@ -25,7 +25,7 @@
                     <ul>
                         <li>{{documenter.main_spec.title}}</li>
                         <li ng-repeat="(key, item) in documenter.loaded_specs">
-                            {{item.title}}
+                            <a href="#{{key|removeExtraStr}}">{{item.title}}</a>
                         </li>
                     </ul>
 

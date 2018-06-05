@@ -8,12 +8,18 @@
                 <b>$schema : </b> {{json_source['$schema']}}
             </li>
 
-            <li ng-repeat="(key, item) in json_source" ng-if="key != 'properties'">
+            <li ng-repeat="(key, item) in json_source"
+                ng-if="key != 'properties' && key != 'referencedFrom' ">
                 <b>{{key}} : </b>{{item}}
             </li>
 
             <li ng-if="parent != ''">
-                <b>Referenced from:</b> {{parent}}
+                <b>Referenced from:</b>
+                <ul>
+                    <li ng-repeat="(childKey, childVal) in json_source.referencedFrom">
+                        {{childVal}}
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
