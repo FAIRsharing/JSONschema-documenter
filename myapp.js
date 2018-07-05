@@ -54,7 +54,8 @@
 
                     // If the spec has already been loaded
                     else{
-                        if (spec_name !== "undefined"){
+                        if (spec_name !== "undefined"
+                            && typeof json_schema.loaded_specs[spec_name]['referencedFrom'] !== 'undefined'){
                             if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
                                 json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
                             }
@@ -80,9 +81,38 @@
                         }
 
                         // Structure is root[key]['items']['anyOf']
-                        if (properties[property].items.anyOf !== 'undefined'){
-                            for (let sub_item in properties[property].items.anyOf){
-                                let new_spec = properties[property].items.anyOf[sub_item]['$ref'];
+                        if (properties[property].items['anyOf'] !== 'undefined'){
+                            for (let sub_item in properties[property].items['anyOf']){
+                                let new_spec = properties[property].items['anyOf'][sub_item]['$ref'];
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+
+                        // Structure is root[key]['items']['oneOf']
+                        if (properties[property].items['oneOf'] !== 'undefined'){
+                            for (let sub_item in properties[property].items['oneOf']){
+                                let new_spec = properties[property].items['oneOf'][sub_item]['$ref'];
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+                    }
+
+                    // Structure is root[key]['anyOf']
+                    if (typeof properties[property]['anyOf'] !== 'undefined'){
+                        for (let sub_item in properties[property]['anyOf']){
+                            if (typeof properties[property]['anyOf'][sub_item]['ref'] !== 'undefined'){
+                                let new_spec = properties[property]['anyOf'][sub_item]['$ref'];
+                                console.log("Loading: "+new_spec);
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+                    }
+
+                    // Structure is root[key]['oneOf']
+                    if (typeof properties[property]['oneOf'] !== 'undefined'){
+                        for (let sub_item in properties[property]['oneOf']){
+                            if (typeof properties[property]['oneOf'][sub_item]['ref'] !== 'undefined'){
+                                let new_spec = properties[property]['oneOf'][sub_item]['$ref'];
                                 loadJSON(base_url+new_spec, 1, property, parent_name);
                             }
                         }
@@ -138,12 +168,13 @@
             templateUrl: 'include/fields.html',
             scope: {
                 schemaFields: '=',
-                parentKey: '='
+                parentKey: '=',
+                requiredProp: '='
             },
             link: function($scope, element, attr){
                 $scope.fields = $scope.schemaFields;
                 $scope.parent = $scope.parentKey;
-
+                $scope.required = $scope.requiredProp.required;
             }
         }
     });
@@ -166,8 +197,9 @@
         // In the return function, we must pass in a single parameter which will be the data we will work on.
         // We have the ability to support multiple other parameters that can be passed into the filter optionally
         return function(input) {
-            let output = input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
-            return output;
+            if (input) {
+                return input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
+            }
         }
 
     });

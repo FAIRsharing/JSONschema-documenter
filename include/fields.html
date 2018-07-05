@@ -13,11 +13,22 @@
             <td>
                 <i> <b>{{fields[fieldKey].description}}</b></i>
 
+                <div ng-if="fieldKey!='@context' && fieldKey!='@id' && fieldKey!='@type'">
+                    Cardinality:
+                    (<span ng-if="required.indexOf(fieldKey) != -1"> 0 </span> <span ng-if="required.indexOf(fieldKey) == -1"> 1 </span>
+                    ...
+                    <span ng-if="fields[fieldKey].type != 'array'"> 1 </span>
+                    <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
+                </div>
+
                 <div ng-if="fields[fieldKey].anyOf">
                     Expected types:
                     <ul>
                         <li ng-repeat="item in fields[fieldKey].anyOf">
                             <span field-type="item.type"> </span>
+                            <a ng-if="item['$ref']" ng-href="#{{item['$ref'] | removeExtraStr}}" target="_self">
+                                click here to see {{item['$ref']| removeExtraStr}}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -27,6 +38,9 @@
                     <ul>
                         <li ng-repeat="item in fields[fieldKey].oneOf">
                             <span field-type="item.type"> </span>
+                            <a ng-if="item['$ref']" ng-href="#{{item['$ref'] | removeExtraStr}}" target="_self">
+                                click here to see {{item['$ref']| removeExtraStr}}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -72,9 +86,22 @@
                     Expected type: <span field-type="'object'"> </span> {{type}}
                     <ul>
                         <li ng-repeat="url in fields[fieldKey].items.anyOf">
-                            <a ng-href="#{{url['$ref'] | removeExtraStr}}" target="_self">
-                                click here to see {{url['$ref']| removeExtraStr}} <BR>
+                            <a ng-if="url['$ref']" ng-href="#{{url['$ref'] | removeExtraStr}}" target="_self">
+                                click here to see {{url['$ref']| removeExtraStr}}
                             </a>
+                            <span field-type="url.type"> </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-if="fields[fieldKey].items.oneOf">
+                    Expected type: <span field-type="'object'"> </span> {{type}}
+                    <ul>
+                        <li ng-repeat="url in fields[fieldKey].items.oneOf">
+                            <a ng-if="url['$ref']" ng-href="#{{url['$ref'] | removeExtraStr}}" target="_self">
+                                click here to see {{url['$ref']| removeExtraStr}}
+                            </a>
+                            <span field-type="url.type"> </span>
                         </li>
                     </ul>
                 </div>
