@@ -45,15 +45,12 @@ Open the HTML file you want to edit (html/dats.html for dats) with a text editor
 - Under the ```<!DOCTYPE html>``` declaration modify
 
         <html class="no-js lt-ie9" lang="en">
-to
-
+        to
          <html class="no-js lt-ie9" lang="en" ng-app="generatorApp">
-
-    and
-
+        
+        and
         <html class="no-js" lang="en">
-
-    to
+        to
 
         <html class="no-js" lang="en" ng-app="generatorApp">```
 
