@@ -32,13 +32,13 @@ extensions = ['sphinx_git']
 make html
 </pre>
 
-
-### EDIT THE CODE
-
 Clone the code:
 <pre>
 git clone https://github.com/terazus/json_documenter.git
 </pre>
+
+
+### EDIT THE CODE
 
 Open the HTML file you want to edit (html/dats.html for dats) with a text editor and do the following:
 
