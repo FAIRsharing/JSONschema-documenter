@@ -2,8 +2,8 @@
 
     var my_app = angular.module('generatorApp', ['ngRoute']);
 
-    my_app.controller('documenterController', ['$scope','$location',
-        function($scope, $location) {
+    my_app.controller('documenterController', ['$scope','$location','$http',
+        function($scope, $location, $http) {
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
             let fetch_url = "";
@@ -22,8 +22,17 @@
 
                 // When lvl = 0 it means we are processing the most upper spec
                 if (lvl === 0){
-                    json_schema.main_spec = parseJson(json_file);
-                    seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
+
+                    $http.get(json_file)
+                        .then(function(res){
+                            $scope.main_spec = res.data;
+                            json_schema.main_spec = res.data;
+                            seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
+                        });
+
+
+                    //json_schema.main_spec = parseJson(json_file);
+                    //seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
                 }
 
                 /* level > 0 means it's a sub spec */
@@ -34,33 +43,42 @@
                     if (typeof json_schema.loaded_specs[spec_name] === 'undefined'){
 
                         // Parse the json schema
-                        json_schema.loaded_specs[spec_name] = parseJson(json_file);
+                        //json_schema.loaded_specs[spec_name] = parseJson(json_file);
+                        $http.get(json_file)
+                            .then(function(res){
+                                $scope.main_spec = res.data;
+                                json_schema.loaded_specs[spec_name] = res.data;
 
-                        // If the result isn't false
-                        if (json_schema.loaded_specs[spec_name]){
+                                // If the result isn't false
+                                if (json_schema.loaded_specs[spec_name]){
 
-                            // Create an empty array to display the object the field is referenced from
-                            if (typeof json_schema.loaded_specs[spec_name]['referencedFrom'] === 'undefined'){
-                                json_schema.loaded_specs[spec_name]['referencedFrom'] = [];
-                            }
+                                    // Create an empty array to display the object the field is referenced from
+                                    if (typeof json_schema.loaded_specs[spec_name]['referencedFrom'] === 'undefined'){
+                                        json_schema.loaded_specs[spec_name]['referencedFrom'] = [];
+                                    }
 
-                            // Add the object name: field to it
-                            if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
-                                json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
-                            }
-                        }
-                        seek_subSpecs(json_schema.loaded_specs[spec_name]['properties'], json_schema.loaded_specs[spec_name]['title']);
+                                    // Add the object name: field to it
+                                    if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
+                                        json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
+                                    }
+                                }
+                                seek_subSpecs(json_schema.loaded_specs[spec_name]['properties'], json_schema.loaded_specs[spec_name]['title']);
+                            });
+
+
                     }
 
                     // If the spec has already been loaded
                     else{
-                        if (spec_name !== "undefined"){
+                        if (spec_name !== "undefined"
+                            && typeof json_schema.loaded_specs[spec_name]['referencedFrom'] !== 'undefined'){
                             if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
                                 json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
                             }
                         }
                     }
                 }
+
             }
 
             function seek_subSpecs(properties, parent_name) {
@@ -80,26 +98,42 @@
                         }
 
                         // Structure is root[key]['items']['anyOf']
-                        if (properties[property].items.anyOf !== 'undefined'){
-                            for (let sub_item in properties[property].items.anyOf){
-                                let new_spec = properties[property].items.anyOf[sub_item]['$ref'];
+                        if (properties[property].items['anyOf'] !== 'undefined'){
+                            for (let sub_item in properties[property].items['anyOf']){
+                                let new_spec = properties[property].items['anyOf'][sub_item]['$ref'];
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+
+                        // Structure is root[key]['items']['oneOf']
+                        if (properties[property].items['oneOf'] !== 'undefined'){
+                            for (let sub_item in properties[property].items['oneOf']){
+                                let new_spec = properties[property].items['oneOf'][sub_item]['$ref'];
                                 loadJSON(base_url+new_spec, 1, property, parent_name);
                             }
                         }
                     }
-                }
-            }
 
-            function parseJson(src){
-                let request = new XMLHttpRequest();
-                request.open("GET", src, false);
-                try{
-                    request.send(null);
-                    return JSON.parse(request.responseText);
-                }
-                catch(e){
-                    console.warn("Error loading: "+src);
-                    return false;
+                    // Structure is root[key]['anyOf']
+                    if (typeof properties[property]['anyOf'] !== 'undefined'){
+                        for (let sub_item in properties[property]['anyOf']){
+                            if (typeof properties[property]['anyOf'][sub_item]['ref'] !== 'undefined'){
+                                let new_spec = properties[property]['anyOf'][sub_item]['$ref'];
+                                console.log("Loading: "+new_spec);
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+                    }
+
+                    // Structure is root[key]['oneOf']
+                    if (typeof properties[property]['oneOf'] !== 'undefined'){
+                        for (let sub_item in properties[property]['oneOf']){
+                            if (typeof properties[property]['oneOf'][sub_item]['ref'] !== 'undefined'){
+                                let new_spec = properties[property]['oneOf'][sub_item]['$ref'];
+                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -126,8 +160,11 @@
                 parentKey: '='
             },
             link: function($scope, element, attr) {
-                $scope.json_source = $scope.schemaLoader;
-                $scope.parent = $scope.parentKey;
+                $scope.$watch('schemaLoader', function(schemaLoader){
+                    if(schemaLoader)
+                        $scope.json_source = $scope.schemaLoader;
+                    $scope.parent = $scope.parentKey;
+                });
             }
         }
     });
@@ -138,12 +175,16 @@
             templateUrl: 'include/fields.html',
             scope: {
                 schemaFields: '=',
-                parentKey: '='
+                parentKey: '=',
+                requiredProp: '='
             },
             link: function($scope, element, attr){
-                $scope.fields = $scope.schemaFields;
-                $scope.parent = $scope.parentKey;
-
+                $scope.$watch('schemaFields', function(schemaFields){
+                    if(schemaFields)
+                        $scope.fields = $scope.schemaFields;
+                    $scope.parent = $scope.parentKey;
+                    $scope.required = $scope.required;
+                });
             }
         }
     });
@@ -156,7 +197,10 @@
                 fieldType: '=',
             },
             link: function($scope, element, attr){
-                $scope.field = $scope.fieldType;
+                $scope.$watch('fieldType', function(fieldType){
+                    if(fieldType)
+                        $scope.field = $scope.fieldType;
+                });
             }
         }
     });
@@ -166,8 +210,9 @@
         // In the return function, we must pass in a single parameter which will be the data we will work on.
         // We have the ability to support multiple other parameters that can be passed into the filter optionally
         return function(input) {
-            let output = input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
-            return output;
+            if (input) {
+                return input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
+            }
         }
 
     });
