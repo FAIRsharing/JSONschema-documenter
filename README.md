@@ -66,7 +66,7 @@ Open the HTML file you want to edit (html/dats.html for dats) with a text editor
 - Search the HTML list that controls the left menu. Add to it (under the proper item) the following code:
 
         <ul>
-            <li ng-repeat="(key, item) in documenter.loaded_specs">
+            <li class="toctree-l2" ng-repeat="(key, item) in documenter.loaded_specs">
                 <a class="reference internal" ng-href="#{{key|removeExtraStr}}" target="_self">{{item.title}}</a>
             </li>
         </ul>
