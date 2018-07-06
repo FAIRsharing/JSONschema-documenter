@@ -83,6 +83,13 @@ Open the HTML file you want to edit (html/dats.html for dats) with a text editor
         </div>
 wherever you want to add the doc.
 
+- You can also open json_documenter/myapp.js and edit
+        
+        let base_url = 'https://w3id.org/dats/schema/'; // to change the base URL where to fetch the schemas
+        and
+        fetch_url = base_url+'study_schema.json'; // to edit the main spec to load when not using url parameters
+
 - Open index.html in your navigator and verify the output.
 
 - Remove the .git repo in the json_documenter/ directory, publish to github and enable web hosting.
+
