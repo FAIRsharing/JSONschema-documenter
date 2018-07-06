@@ -43,8 +43,7 @@ git clone https://github.com/terazus/json_documenter.git
 Open the HTML file you want to edit (html/dats.html for dats) with a text editor and do the following:
 
 - Under the ```<!DOCTYPE html>``` declaration modify
-
-        <html class="no-js lt-ie9" lang="en">
+```<html class="no-js lt-ie9" lang="en">```
         to
          <html class="no-js lt-ie9" lang="en" ng-app="generatorApp">
         
