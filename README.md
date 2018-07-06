@@ -59,9 +59,9 @@ Open the HTML file you want to edit (html/dats.html for dats) with a text editor
 
 - Change tag:
 
-         <body class="wy-body-for-nav">
-to
-         <body class="wy-body-for-nav" ng-controller="documenterController as documenter">
+        <body class="wy-body-for-nav">
+        to
+        <body class="wy-body-for-nav" ng-controller="documenterController as documenter">
 
 - Search the HTML list that controls the left menu. Add to it (under the proper item) the following code:
 
