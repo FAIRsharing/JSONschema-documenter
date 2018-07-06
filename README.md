@@ -79,7 +79,7 @@ Open the HTML file you want to edit (html/dats.html for dats) with a text editor
         <div ng-repeat="(key, item) in documenter.loaded_specs"
              schema-loader="documenter.loaded_specs[key]"
              parent-key="key"
-             class="col-lg-12 col-sm-12 col-md-12 schema">
+             class="schema">
         </div>
 wherever you want to add the doc.
 
