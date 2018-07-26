@@ -28,7 +28,7 @@ div *{
 
 
 h1{
-    background-color:rgb(11,121,75);
+    /*background-color:rgb(11,121,75);*/
     background-color:#2980B9;
     color:#fcfcfc !important;
     margin-bottom:0px;
@@ -123,12 +123,14 @@ tr:not(.first_line):hover a{
 }
 
 .firstCol{
-    width: 15%;
+    width: 8%;
     border-right:1px solid #ccc;
+    padding-right: 10px;
 }
 
-.lastCol{
-    width:15%;
+.fieldTitle{
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table  ul{

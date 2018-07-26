@@ -6,14 +6,19 @@
         function($scope, $location, $http) {
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
+
             let fetch_url = "";
+
             if (typeof schema_file !== 'undefined'){
                 fetch_url = base_url + schema_file + '.json';
             }
             else{
                 fetch_url = base_url+'study_schema.json';
             }
+
+
             var json_schema = this;
+            json_schema.media_type = getUrlFromUrl()["output"];
             json_schema.loaded_specs = {};
             loadJSON(fetch_url, 0, 'none', null);
 
@@ -224,6 +229,19 @@
         return function(input) {
             if (input) {
                 return input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
+            }
+        }
+
+    });
+
+    my_app.filter('ellipsisFilter', function() {
+        return function(input) {
+            if (input.length>12) {
+                console.log(input);
+                return input.substring(0, 12)+"...";
+            }
+            else{
+                return input;
             }
         }
 

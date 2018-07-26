@@ -7,11 +7,21 @@
             <th>Field Properties</th>
         </tr>
         <tr ng-repeat="(fieldKey, fieldValue) in fields">
+
             <td class="firstCol">
-                {{fieldKey}}
+                <div class="fieldTitle">{{fieldKey}}</div>
             </td>
+
             <td>
                 <i> <b>{{fields[fieldKey].description}}</b></i>
+
+                <div ng-if="fieldKey!='@context' && fieldKey!='@id' && fieldKey!='@type'">
+                    Cardinality:
+                    (<span ng-if="required.indexOf(fieldKey) != -1"> 0 </span> <span ng-if="required.indexOf(fieldKey) == -1"> 1 </span>
+                    ...
+                    <span ng-if="fields[fieldKey].type != 'array'"> 1 </span>
+                    <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
+                </div>
 
                 <div ng-if="fields[fieldKey].anyOf">
                     Expected types:
