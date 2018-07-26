@@ -44,10 +44,15 @@
 
                         // Parse the json schema
                         //json_schema.loaded_specs[spec_name] = parseJson(json_file);
-                        $http.get(json_file)
-                            .then(function(res){
+
+                        $http.get(json_file).then(function(res){
+
+                            // Remove #/def/pos has it creates a bug
+                            if (json_file !== 'https://w3id.org/dats/schema/#/definitions/position'){
+
                                 $scope.main_spec = res.data;
                                 json_schema.loaded_specs[spec_name] = res.data;
+                                //console.log(res);
 
                                 // If the result isn't false
                                 if (json_schema.loaded_specs[spec_name]){
@@ -63,7 +68,10 @@
                                     }
                                 }
                                 seek_subSpecs(json_schema.loaded_specs[spec_name]['properties'], json_schema.loaded_specs[spec_name]['title']);
-                            });
+                            }
+                        }, function(error){
+                            console.log(referencingParent);
+                        });
 
 
                     }
@@ -84,6 +92,7 @@
             function seek_subSpecs(properties, parent_name) {
                 // iterate over the loaded spec and try to locate if sub specs need to be loaded
                 for (let property in properties) {
+
                     // Structure is root[key]['$ref']
                     if (typeof properties[property]['$ref'] !== 'undefined'){
                         loadJSON(base_url+properties[property]['$ref'], 1, property, parent_name);
@@ -108,8 +117,11 @@
                         // Structure is root[key]['items']['oneOf']
                         if (properties[property].items['oneOf'] !== 'undefined'){
                             for (let sub_item in properties[property].items['oneOf']){
-                                let new_spec = properties[property].items['oneOf'][sub_item]['$ref'];
-                                loadJSON(base_url+new_spec, 1, property, parent_name);
+                                if(typeof properties[property].items['oneOf'][sub_item]['$ref']!== "undefined"){
+                                    let new_spec = properties[property].items['oneOf'][sub_item]['$ref'];
+                                    loadJSON(base_url+new_spec, 1, property, parent_name);
+                                }
+
                             }
                         }
                     }
