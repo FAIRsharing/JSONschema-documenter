@@ -6,7 +6,10 @@
         <link rel="stylesheet" href="app.css">
         <link rel="stylesheet" href="lib/bootstrap.css">
 
-        <script src="lib/angular.min.js"></script>
+        <script type="text/javascript" src="lib/angular.min.js"></script>
+        <!--<script type="text/javascript" src="lib/angular-material.min.js"></script>
+        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
+        <script type="text/javascript" src="lib/angular-animate.min.js"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
         <script src="myapp.js"></script>
 
@@ -14,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-controller="documenterController as documenter">
+    <body ng-controller="documenterController as documenter" class="json_documenter">
 
         <div class="container-fluid" ng-if="documenter.media_type=='page'">
 
