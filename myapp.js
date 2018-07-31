@@ -1,6 +1,6 @@
 (function(){
 
-    var my_app = angular.module('generatorApp', ['ngRoute']);
+    var my_app = angular.module('generatorApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate']);
 
     my_app.controller('documenterController', ['$scope','$location','$http',
         function($scope, $location, $http) {

@@ -14,12 +14,18 @@
             </li>
 
             <li ng-if="parent != ''">
-                <b>Referenced from:</b>
-                <ul>
-                    <li ng-repeat="(childKey, childVal) in json_source.referencedFrom">
-                        {{childVal}}
-                    </li>
-                </ul>
+                <b class="md-title">Referenced from: </b>
+
+                <md-content>
+                    <md-chips>
+                        <md-chip  ng-repeat="(childKey, childVal) in json_source.referencedFrom"> {{childVal}}</md-chip>
+                    </md-chips>
+                </md-content>
+
+
+
+
+
             </li>
         </ul>
     </div>
