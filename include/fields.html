@@ -8,13 +8,17 @@
         </tr>
         <tr ng-repeat="(fieldKey, fieldValue) in fields">
 
+            <!-- field title -->
             <td class="firstCol">
                 <div class="fieldTitle">{{fieldKey}}</div>
             </td>
 
             <td>
+
+                <!-- field description -->
                 <i> <b>{{fields[fieldKey].description}}</b></i>
 
+                <!-- field cardinality -->
                 <div ng-if="fieldKey!='@context' && fieldKey!='@id' && fieldKey!='@type'">
                     Cardinality:
                     (<span ng-if="required.indexOf(fieldKey) != -1"> 0 </span> <span ng-if="required.indexOf(fieldKey) == -1"> 1 </span>
@@ -23,16 +27,82 @@
                     <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
                 </div>
 
-                <div ng-if="fields[fieldKey].anyOf">
-                    Expected types:
+                <!-- field types for structure field['items']-->
+                <div ng-if="fields[fieldKey].hasOwnProperty('items')">
+
+                    <!-- structure field['items']['$ref'] -->
+                    <div ng-if="fields[fieldKey]['items'].hasOwnProperty('$ref')">
+                        Expected type:
+                        <ul>
+                            <li>
+                                <a ng-href="#{{fields[fieldKey]['items']['$ref']|removeExtraStr}}" target="_self">
+                                    Click here to see {{fields[fieldKey]['items']['$ref']|removeExtraStr}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- structure field['items']['oneOf'] -->
+                    <div ng-if="fields[fieldKey]['items'].hasOwnProperty('oneOf')">
+                        Expected type (only one from above):
+                        <ul>
+                            <li ng-repeat="item in fields[fieldKey]['items']['oneOf']">
+                                <span ng-if="item.hasOwnProperty('type')">
+                                    <span field-type="item.type"> </span>
+                                </span>
+                                <span ng-if="item.hasOwnProperty('$ref')">
+                                    <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
+                                        Click here to see {{item['$ref']|removeExtraStr}}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- structure field['items']['anyOf'] -->
+                    <div ng-if="fields[fieldKey]['items'].hasOwnProperty('anyOf')">
+                        Expected type (any number from above):
+                        <ul>
+                            <li ng-repeat="item in fields[fieldKey]['items']['anyOf']">
+                                <span ng-if="item.hasOwnProperty('type')">
+                                    <span field-type="item.type"> </span>
+                                </span>
+                                <span ng-if="item.hasOwnProperty('$ref')">
+                                    <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
+                                        Click here to see {{item['$ref']|removeExtraStr}} POUET
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- field types for structure field['$ref']-->
+                <div ng-if="fields[fieldKey].hasOwnProperty('$ref')">
+                    Expected type: <span field-type="'object'"> </span> {{type}}
+                    <a ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
+                        <ul>
+                            <li>click here to see {{fields[fieldKey]['$ref'] | removeExtraStr}}</li>
+                        </ul>
+                    </a>
+                </div>
+
+                <!-- field types for structure field['anyOf']-->
+                <div ng-if="fields[fieldKey].hasOwnProperty('anyOf')">
+                    Expected types (any number from below):
                     <ul>
                         <li ng-repeat="item in fields[fieldKey].anyOf">
-                            <span field-type="item.type"> </span>
+                            <span field-type="item.type" ng-if="!fields[fieldKey].anyOf[item].hasOwnProperty('$ref')"> </span>
+                            <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self" ng-if="item.hasOwnProperty('$ref')">
+                                Click here to see {{item['$ref']|removeExtraStr}}
+                            </a>
                         </li>
                     </ul>
                 </div>
 
-                <div ng-if="fields[fieldKey].oneOf">
+                <!-- field types for structure field['oneOf']-->
+                <div ng-if="fields[fieldKey].hasOwnProperty('oneOf')">
                     Expected types:
                     <ul>
                         <li ng-repeat="item in fields[fieldKey].oneOf">
@@ -41,16 +111,7 @@
                     </ul>
                 </div>
 
-                <div ng-if="fields[fieldKey].format">
-                    Expected type :
-                    <span field-type="fields[fieldKey].format"> </span>
-                </div>
-
-                <div ng-if="!fields[fieldKey].format && fields[fieldKey].type && fields[fieldKey].type!='array'">
-                    Expected type :
-                    <span field-type="fields[fieldKey].type"> </span>
-                </div>
-
+                <!-- field pre-determined values-->
                 <div ng-if="fields[fieldKey].enum">
                     Expected value(s) :
                     <ul>
@@ -60,33 +121,14 @@
                     </ul>
                 </div>
 
-                <div ng-if="fields[fieldKey]['$ref']">
-                    Expected type: <span field-type="'object'"> </span> {{type}}
-                    <a ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
-                        <ul>
-                            <li>click here to see {{fields[fieldKey]['$ref'] | removeExtraStr}}</li>
-                        </ul>
-                    </a>
+                <!-- TO FIX-->
+                <div ng-if="fields[fieldKey].format">
+                    Expected type :
+                    <span field-type="fields[fieldKey].format"> </span>
                 </div>
-
-                <div ng-if="fields[fieldKey].items['$ref']">
-                    Expected type: <span field-type="'object'"> </span> {{type}}
-                    <a ng-href="#{{fields[fieldKey].items['$ref'] | removeExtraStr}}" target="_self">
-                        <ul>
-                            <li>click here to see {{fields[fieldKey].items['$ref'] | removeExtraStr}}</li>
-                        </ul>
-                    </a>
-                </div>
-
-                <div ng-if="fields[fieldKey].items.anyOf">
-                    Expected type: <span field-type="'object'"> </span> {{type}}
-                    <ul>
-                        <li ng-repeat="url in fields[fieldKey].items.anyOf">
-                            <a ng-href="#{{url['$ref'] | removeExtraStr}}" target="_self">
-                                click here to see {{url['$ref']| removeExtraStr}} <BR>
-                            </a>
-                        </li>
-                    </ul>
+                <div ng-if="!fields[fieldKey].format && fields[fieldKey].type && fields[fieldKey].type!='array'">
+                    Expected type :
+                    <span field-type="fields[fieldKey].type"> </span>
                 </div>
 
             </td>

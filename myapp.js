@@ -120,32 +120,30 @@
                         }
 
                         // Structure is root[key]['items']['oneOf']
-                        if (properties[property].items['oneOf'] !== 'undefined'){
+                        if (properties[property].items.hasOwnProperty('oneOf')){
                             for (let sub_item in properties[property].items['oneOf']){
-                                if(typeof properties[property].items['oneOf'][sub_item]['$ref']!== "undefined"){
+                                if(properties[property].items['oneOf'][sub_item].hasOwnProperty('$ref')){
                                     let new_spec = properties[property].items['oneOf'][sub_item]['$ref'];
                                     loadJSON(base_url+new_spec, 1, property, parent_name);
                                 }
-
                             }
                         }
                     }
 
                     // Structure is root[key]['anyOf']
-                    if (typeof properties[property]['anyOf'] !== 'undefined'){
+                    if (properties[property].hasOwnProperty('anyOf')){
                         for (let sub_item in properties[property]['anyOf']){
-                            if (typeof properties[property]['anyOf'][sub_item]['ref'] !== 'undefined'){
+                            if (properties[property]['anyOf'][sub_item].hasOwnProperty('$ref')){
                                 let new_spec = properties[property]['anyOf'][sub_item]['$ref'];
-                                console.log("Loading: "+new_spec);
                                 loadJSON(base_url+new_spec, 1, property, parent_name);
                             }
                         }
                     }
 
                     // Structure is root[key]['oneOf']
-                    if (typeof properties[property]['oneOf'] !== 'undefined'){
+                    if (properties[property].hasOwnProperty('oneOf')){
                         for (let sub_item in properties[property]['oneOf']){
-                            if (typeof properties[property]['oneOf'][sub_item]['ref'] !== 'undefined'){
+                            if (properties[property]['oneOf'][sub_item].hasOwnProperty('$ref')){
                                 let new_spec = properties[property]['oneOf'][sub_item]['$ref'];
                                 loadJSON(base_url+new_spec, 1, property, parent_name);
                             }
