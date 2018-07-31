@@ -200,12 +200,11 @@ body.json_documenter .object{
     color:#8b0000;
     font-weight:bold;
 }
-/*
-body.json_documenter md-chip{
-    padding:10px;
-    border-radius: 10px;
-    margin: 10px 5px;
-}*/
+
+body.json_documenter md-chip:hover{
+    background-color: #2980B9;
+    color:#fcfcfc;
+}
 
 body.json_documenter md-chips, body.json_documenter md-chips-wrap{
     box-shadow:none;
