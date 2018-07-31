@@ -9,25 +9,25 @@
     -webkit-font-smoothing: antialiased;
 }
 
-html *:not(pre) {
+body.json_documenter *:not(pre) {
     font-family:customFont,Arial,Helvetica;
 }
 
-html{
+body.json_documenter{
     overflow-x: hidden;
     padding:10px 20px 10px 10px;
 }
 
-body, html{
+body.json_documenter{
     padding:0px
 }
 
-div *{
+body.json_documenter div *{
     font-size:14px;
 }
 
 
-h1{
+body.json_documenter h1{
     /*background-color:rgb(11,121,75);*/
     background-color:#2980B9;
     color:#fcfcfc !important;
@@ -36,11 +36,11 @@ h1{
     margin-top:10px !important;
 }
 
-h2{
+body.json_documenter h2{
     font-size:24px;
 }
 
-h2, h3, pre{
+body.json_documenter h2, body.json_documenter h3, body.json_documenter pre{
     margin:0px;
     color:rgb(11,121,75);
 }
@@ -48,148 +48,155 @@ h2, h3, pre{
 
 /* LAYOUT */
 
-div.sidebar{
+body.json_documenter div.sidebar{
     background:#343131;
     height:100vh;
     position: fixed;
     padding:0px;
 }
 
-div.main_container, div.debug, h1, div.metadata, div.data{
+body.json_documenter div.main_container,
+body.json_documenter div.debug,
+body.json_documenter h1,
+body.json_documenter div.metadata,
+body.json_documenter div.data{
     border:1px solid #ccc;
     padding:10px;
     box-shadow:4px 4px 3px #D6D6D6;
     margin-bottom: 15px;
 }
 
-div.main_container{
+body.json_documenter div.main_container{
     background-color: #ECF0F1;
     padding:0px 20px 10px 20px;
 }
 
-div.metadata, div.data{
+body.json_documenter div.metadata, div.data{
     margin-top:15px;
 }
 
-div.schema{
+body.json_documenter div.schema{
     margin:10px 10px 0px 10px;
 }
 
-div.welcome{
+body.json_documenter div.welcome{
     background: #2980B9;
     width:100%;
     color:#fcfcfc;
 }
 
-div.welcome h2{
+body.json_documenter div.welcome h2{
     text-align:center;
     padding:10px;
     font-size:18px;
 }
 
-div.welcome hr{
+body.json_documenter div.welcome hr{
     background:#fcfcfc;
 }
 
 /* TABLE */
-table{
+body.json_documenter table{
     width:100%;
     border-collapse: collapse;
     margin-top:10px;
     table-layout: fixed;
 }
 
-tr{
+body.json_documenter tr{
     border-bottom:1px solid #ccc;
 }
 
-th {
+body.json_documenter th {
     padding-left:10px;
     color:#2980B9;
 }
 
-td {
+body.json_documenter td {
     border-bottom:1px solid #ccc;
     padding-left: 10px;
 }
 
-tr:not(.first_line):hover{
+body.json_documenter tr:not(.first_line):hover{
     background-color: #2980B9;
     color:#fcfcfc;
 }
 
-tr:not(.first_line):hover a{
+body.json_documenter tr:not(.first_line):hover a{
     color:#fcfcfc;
 }
 
-.firstCol{
+body.json_documenter .firstCol{
     width: 8%;
     border-right:1px solid #ccc;
     padding-right: 10px;
 }
 
-.fieldTitle{
+body.json_documenter .fieldTitle{
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-table  ul{
+body.json_documenter table  ul{
     margin-top:0px !important;
     margin-bottom:0px !important;
 }
 
 /* OTHER */
-.required{
+body.json_documenter .required{
     font-weight:bold;
     color:red;
 }
 
-.italic{
+body.json_documenter .italic{
     font-style: italic;
 }
 
-a:visited{
+body.json_documenter a:visited{
     color:#2980B9;
     text-decoration: underline;
 }
 
-.re_position{
+body.json_documenter .re_position{
     position: relative;
     left: 8%;
 }
 
-.sidebar li, .sidebar a, .sidebar a:visited, .sidebar a:hover{
+body.json_documenter .sidebar li,
+body.json_documenter .sidebar a,
+body.json_documenter .sidebar a:visited,
+body.json_documenter .sidebar a:hover{
     color:#b3b3b3;
 }
 
-.sidebar ul{
+body.json_documenter .sidebar ul{
     margin-top:20px;
     list-style-type: none;
     padding-left:15px;
 }
 
 /* FIELD TYPES */
-.string{
+body.json_documenter .string{
     color:rgb(11,121,75);
     font-weight:bold;
 }
 
-.number, .integer{
+body.json_documenter .number, .integer{
     color:#A9A9A9;
     font-weight:bold;
 }
 
-.uri{
+body.json_documenter .uri{
     color:#0000FF;
     font-weight:bold;
 }
 
-.date{
+body.json_documenter .date{
     color:#003366;
     font-weight:bold;
 }
 
-.object{
+body.json_documenter .object{
     color:#8b0000;
     font-weight:bold;
 }
