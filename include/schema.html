@@ -14,7 +14,7 @@
             </li>
 
             <li ng-if="parent != ''">
-                <b class="md-title">Referenced from: </b>
+                <b>Referenced from: </b>
 
                 <md-content>
                     <md-chips>
@@ -32,8 +32,9 @@
 
     <div class="main_container">
         <h2> Schema Fields </h2>
-
-        <div schema-fields="json_source.properties" parent-key="parent"> </div>
+        <div schema-fields="json_source.properties"
+             parent-key="parent">
+        </div>
 
     </div>
 

@@ -9,13 +9,14 @@
     -webkit-font-smoothing: antialiased;
 }
 
-body.json_documenter *:not(pre) {
+body.json_documenter *:not(pre):not(.fas) {
     font-family:customFont,Arial,Helvetica;
 }
 
 body.json_documenter{
     overflow-x: hidden;
     padding:10px 20px 10px 10px;
+    background-color: rgb(250,250,250);
 }
 
 body.json_documenter{
@@ -175,6 +176,10 @@ body.json_documenter .sidebar ul{
     padding-left:15px;
 }
 
+body.json_documenter li{
+    list-style: none;
+}
+
 /* FIELD TYPES */
 body.json_documenter .string{
     color:rgb(11,121,75);
@@ -209,4 +214,67 @@ body.json_documenter md-chip:hover{
 body.json_documenter md-chips, body.json_documenter md-chips-wrap{
     box-shadow:none;
     background-color:#ECF0F1;;
+}
+
+body.json_documenter .menuBar{
+    margin-top:10px;
+}
+
+
+body.json_documenter .menuBar h2{
+    background-color:#2980B9;
+    color:#fcfcfc;
+    border-bottom:1px solid #ccc;
+    width:100%
+}
+
+body.json_documenter .menuBar div.row{
+    padding: 0 6px 0px 25px;
+}
+
+body.json_documenter .menuBar md-toolbar div.layout-row{
+    border:1px solid #ccc;
+    box-shadow:4px 4px 3px #D6D6D6;
+}
+
+body.json_documenter md-toolbar.md-menu-toolbar h2.md-toolbar-tools{
+    padding-top:25px;
+    padding-bottom:25px;
+}
+
+
+
+body.json_documenter a,
+body.json_documenter a:visited,
+body.json_documenter a:hover,
+body.json_documenter a:focus{
+    text-decoration: none;
+    color:#212529;
+}
+
+body.json_documenter .backUp{
+    position: sticky;
+    bottom:10px;
+    left:10px;
+    font-size: 32px;
+    border:1px solid #ccc;
+    box-shadow:4px 4px 3px #D6D6D6;
+    padding:10px;
+    color:#2980B9 !important;
+    background-color: #fcfcfc;
+}
+
+body.json_documenter .menuBar md-menu-bar{
+    padding:10px;
+}
+
+body.json_documenter .menuBar button{
+    border:0px;
+    color: #fcfcfc;
+    background-color: #2980B9;
+    box-shadow:4px 4px 3px #D6D6D6;
+}
+
+body.json_documenter .menuBar md-toolbar.md-menu-toolbar{
+    backgound-color:rgb(250,250,250) !important;
 }

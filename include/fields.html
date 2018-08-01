@@ -36,7 +36,7 @@
                         <ul>
                             <li>
                                 <a ng-href="#{{fields[fieldKey]['items']['$ref']|removeExtraStr}}" target="_self">
-                                    Click here to see {{fields[fieldKey]['items']['$ref']|removeExtraStr}}
+                                    {{fields[fieldKey]['items']['$ref']|removeExtraStr}}
                                 </a>
                             </li>
                         </ul>
@@ -52,7 +52,7 @@
                                 </span>
                                 <span ng-if="item.hasOwnProperty('$ref')">
                                     <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                        Click here to see {{item['$ref']|removeExtraStr}}
+                                        {{item['$ref']|removeExtraStr}}
                                     </a>
                                 </span>
                             </li>
@@ -69,7 +69,7 @@
                                 </span>
                                 <span ng-if="item.hasOwnProperty('$ref')">
                                     <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                        Click here to see {{item['$ref']|removeExtraStr}}
+                                        {{item['$ref']|removeExtraStr}}
                                     </a>
                                 </span>
                             </li>
@@ -81,11 +81,13 @@
                 <!-- field types for structure field['$ref']-->
                 <div ng-if="fields[fieldKey].hasOwnProperty('$ref')">
                     Expected type: <span field-type="'object'"> </span> {{type}}
-                    <a ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
-                        <ul>
-                            <li>click here to see {{fields[fieldKey]['$ref'] | removeExtraStr}}</li>
-                        </ul>
-                    </a>
+                    <ul>
+                        <li>
+                            <a ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
+                                {{fields[fieldKey]['$ref'] | removeExtraStr}}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- field types for structure field['anyOf']-->
@@ -95,7 +97,7 @@
                         <li ng-repeat="item in fields[fieldKey].anyOf">
                             <span field-type="item.type" ng-if="!fields[fieldKey].anyOf[item].hasOwnProperty('$ref')"> </span>
                             <a ng-href="#{{item['$ref']|removeExtraStr}}" target="_self" ng-if="item.hasOwnProperty('$ref')">
-                                Click here to see {{item['$ref']|removeExtraStr}}
+                                {{item['$ref']|removeExtraStr}}
                             </a>
                         </li>
                     </ul>

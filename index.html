@@ -6,11 +6,16 @@
         <link rel="stylesheet" href="app.css">
         <link rel="stylesheet" href="lib/bootstrap.css">
         <link rel="stylesheet" href="lib/angular-material.min.css">
+        <link rel="stylesheet"
+              href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+              integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+              crossorigin="anonymous">
 
         <script type="text/javascript" src="lib/angular.min.js"></script>
         <script type="text/javascript" src="lib/angular-material.min.js"></script>
         <script type="text/javascript" src="lib/angular-aria.min.js"></script>
         <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
         <script src="myapp.js"></script>
 
@@ -20,6 +25,44 @@
 
     <body ng-controller="documenterController as documenter" class="json_documenter">
 
+
+    <div class="main">
+
+        <!-- MENU -->
+        <div id="pageTop" class="container menuBar">
+            <div class="row">
+                <md-toolbar class="md-menu-toolbar">
+                    <div layout="row">
+                        <md-toolbar-filler layout="" layout-align="center center">
+                        </md-toolbar-filler>
+                        <div style="display:block;width:100%">
+
+                            <h2 class="md-toolbar-tools">JSon documenter (<i>by FAIRSharing</i>)</h2>
+
+                            <md-menu-bar>
+                                <md-menu>
+                                    <button aria-label="Open menu"
+                                            ng-click="$mdOpenMenu()">
+                                        {{documenter.main_spec.title}}
+                                    </button>
+
+                                    <md-menu-content width="3">
+                                        <md-menu-item ng-repeat="(specName, spec) in documenter.loaded_specs">
+                                                <md-button ng-href="#{{specName|removeExtraStr}}" target="_self">
+                                                    {{spec.title}}
+                                                </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-menu-bar>
+                        </div>
+                    </div>
+                </md-toolbar>
+            </div>
+        </div>
+
+
+        <!-- left menu -->
         <div class="container-fluid" ng-if="documenter.media_type=='page'">
 
             <div class="row">
@@ -55,23 +98,27 @@
         </div>
 
 
+        <!-- main spec -->
+        <div class="container" ng-if="documenter.media_type=='table'">
 
-        <div class="container-fluid" ng-if="documenter.media_type=='table'">
-                <div class="container-fluid col-lg-10">
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-12 col-md-12 schema" schema-loader="documenter.main_spec" parent-key="''">
-                        </div>
+        <!-- Sub specs -->
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 schema" schema-loader="documenter.main_spec" parent-key="''">
+            </div>
 
-                        <div ng-repeat="(key, item) in documenter.loaded_specs"
-                             schema-loader="documenter.loaded_specs[key]"
-                             parent-key="key"
-                             class="col-lg-12 col-sm-12 col-md-12 schema">
-                        </div>
-                    </div>
-                </div>
+            <div ng-repeat="(key, item) in documenter.loaded_specs"
+                 schema-loader="documenter.loaded_specs[key]"
+                 parent-key="key"
+                 class="col-lg-12 col-sm-12 col-md-12 schema">
             </div>
         </div>
 
+        </div>
+
+
+        <a href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
+        </a>
+    </div>
 
     </body>
 

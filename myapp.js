@@ -1,6 +1,6 @@
 (function(){
 
-    var my_app = angular.module('generatorApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate']);
+    var my_app = angular.module('generatorApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages']);
 
     my_app.controller('documenterController', ['$scope','$location','$http',
         function($scope, $location, $http) {
@@ -19,6 +19,9 @@
 
             var json_schema = this;
             json_schema.media_type = getUrlFromUrl()["output"];
+            if(json_schema.media_type === undefined){
+                json_schema.media_type = "table";
+            }
             json_schema.loaded_specs = {};
             loadJSON(fetch_url, 0, 'none', null);
 
