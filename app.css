@@ -254,7 +254,7 @@ body.json_documenter a:focus{
 
 body.json_documenter .backUp{
     position: sticky;
-    bottom:10px;
+    bottom:30px;
     left:10px;
     font-size: 32px;
     border:1px solid #ccc;
