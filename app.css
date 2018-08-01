@@ -278,3 +278,11 @@ body.json_documenter .menuBar button{
 body.json_documenter .menuBar md-toolbar.md-menu-toolbar{
     backgound-color:rgb(250,250,250) !important;
 }
+
+body.json_documenter .md-open-menu-container a{
+    text-transform: none;
+}
+
+body.json_documenter .md-open-menu-container .container{
+    max-width: 710px;
+}

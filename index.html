@@ -46,13 +46,33 @@
                                         {{documenter.main_spec.title}}
                                     </button>
 
-                                    <md-menu-content width="3">
-                                        <md-menu-item ng-repeat="(specName, spec) in documenter.loaded_specs">
-                                                <md-button ng-href="#{{specName|removeExtraStr}}" target="_self">
+                                    <md-menu-content width="4">
+
+                                        <div class="container">
+                                            <div class="row">
+                                                <md-button ng-href="#{{specName|removeExtraStr}}"
+                                                           target="_self"
+                                                           ng-repeat="(specName, spec) in documenter.loaded_specs track by $index"
+                                                           class="col-5">
                                                     {{spec.title}}
                                                 </md-button>
+                                            </div>
+                                        </div>
+                                        <!--
+                                        <md-menu-item ng-repeat="(specName, spec) in documenter.loaded_specs track by $index"
+                                                      ng-if="$even">
+                                            <md-button ng-href="#{{specName|removeExtraStr}}"
+                                                       target="_self">
+                                                {{spec.title}}
+                                            </md-button>
+                                            <md-button ng-href="#{{}}"
+                                                       target="_self">
+                                                test
+                                            </md-button>
                                         </md-menu-item>
+                                        -->
                                     </md-menu-content>
+
                                 </md-menu>
                             </md-menu-bar>
                         </div>
