@@ -2,8 +2,9 @@
 
     var my_app = angular.module('generatorApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages']);
 
-    my_app.controller('documenterController', ['$scope','$location','$http',
-        function($scope, $location, $http) {
+    my_app.controller('documenterController', ['$scope','$location','$http','$templateCache',
+        function($scope, $location, $http, $templateCache) {
+            $templateCache.removeAll();
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
 
