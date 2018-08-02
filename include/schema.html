@@ -15,20 +15,64 @@
 
             <li ng-if="parent != ''">
                 <b>Referenced from: </b>
-
                 <md-content>
                     <md-chips>
-                        <md-chip  ng-repeat="(childKey, childVal) in json_source.referencedFrom"> {{childVal}}</md-chip>
+                        <md-chip ng-repeat="(childKey, childVal) in ctrl.loaded_specs[parent].referencedFrom">
+                            {{childKey}}
+                            <md-tooltip md-direction="bottom" class="tooltip">
+                                <div class="container">
+                                    <div class="row" ng-repeat="item in childVal">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </md-tooltip>
+                        </md-chip>
+
                     </md-chips>
                 </md-content>
 
 
 
 
+                <!--
+                <ul>
+                    <div class="d-inline-block" ng-repeat="(childKey, childVal) in ctrl.loaded_specs[parent].referencedFrom">
 
+
+
+
+
+                        <md-button aria-label="Play">
+                            {{childKey}}
+                            <md-tooltip md-direction="bottom" class="tooltip">
+                                <div class="container">
+                                    <div class="row" ng-repeat="item in ctrl.loaded_specs[parent].referencedFrom[childKey]">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </md-tooltip>
+
+                        </md-button>
+
+                        <!--
+                        <div ng-repeat="item in ctrl.loaded_specs[parent].referencedFrom[childKey]"
+                             class="d-inline-block">
+                            <md-chips>
+                                <md-chip>
+                                    {{item}}
+                                </md-chip>
+                            </md-chips>
+                        </div>
+
+                    </div>
+²
+                </ul>
+                -->
             </li>
         </ul>
     </div>
+
+
 
     <div class="main_container">
         <h2> Schema Fields </h2>

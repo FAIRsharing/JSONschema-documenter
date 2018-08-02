@@ -1,9 +1,16 @@
 (function(){
 
-    var my_app = angular.module('generatorApp', ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages']);
+    var my_app = angular.module('generatorApp',
+        ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages'])
+        .config(function($mdThemingProvider) {
+            $mdThemingProvider.theme('altTheme')
+                .primaryPalette('blue');
+
+        });
 
     my_app.controller('documenterController', ['$scope','$location','$http','$templateCache',
-        function($scope, $location, $http, $templateCache) {
+        function($scope, $location, $http, $templateCache, $mdDialog) {
+
             $templateCache.removeAll();
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
@@ -34,7 +41,6 @@
 
                     $http.get(json_file)
                         .then(function(res){
-                            $scope.main_spec = res.data;
                             json_schema.main_spec = res.data;
                             seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
                         });
@@ -58,22 +64,28 @@
 
                             // Remove #/def/pos has it creates a bug
                             if (json_file !== 'https://w3id.org/dats/schema/#/definitions/position'){
-
-                                $scope.main_spec = res.data;
                                 json_schema.loaded_specs[spec_name] = res.data;
                                 //console.log(res);
 
                                 // If the result isn't false
                                 if (json_schema.loaded_specs[spec_name]){
 
-                                    // Create an empty array to display the object the field is referenced from
-                                    if (typeof json_schema.loaded_specs[spec_name]['referencedFrom'] === 'undefined'){
-                                        json_schema.loaded_specs[spec_name]['referencedFrom'] = [];
+                                    // Create an empty dict to display the field from which the object is referenced
+                                    if (!json_schema.loaded_specs[spec_name].hasOwnProperty('referencedFrom')){
+                                        json_schema.loaded_specs[spec_name]['referencedFrom'] = {};
                                     }
 
-                                    // Add the object name: field to it
-                                    if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
-                                        json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
+                                    // if the parent name isn't in the dict
+                                    if (!json_schema.loaded_specs[spec_name]['referencedFrom'].hasOwnProperty(parent_type)){
+                                        // create an array for that parent
+                                        json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type]= [];
+                                        json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].push(parent_field);
+                                    }
+
+                                    if(json_schema.loaded_specs[spec_name]['referencedFrom'].hasOwnProperty(parent_type)){
+                                        if(json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].indexOf(parent_field)===-1){
+                                            json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].push(parent_field);
+                                        }
                                     }
                                 }
                                 seek_subSpecs(json_schema.loaded_specs[spec_name]['properties'], json_schema.loaded_specs[spec_name]['title']);
@@ -87,10 +99,15 @@
 
                     // If the spec has already been loaded
                     else{
-                        if (spec_name !== "undefined"
-                            && typeof json_schema.loaded_specs[spec_name]['referencedFrom'] !== 'undefined'){
-                            if (json_schema.loaded_specs[spec_name]['referencedFrom'].indexOf(referencingParent) === -1){
-                                json_schema.loaded_specs[spec_name]['referencedFrom'].push(referencingParent);
+                        if (json_schema.loaded_specs[spec_name].hasOwnProperty('referencedFrom')){
+                            if (json_schema.loaded_specs[spec_name]['referencedFrom'].hasOwnProperty(parent_type)){
+                                if(json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].indexOf(parent_field)===-1){
+                                    json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].push(parent_field);
+                                }
+                            }
+                            else{
+                                json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type]= [];
+                                json_schema.loaded_specs[spec_name]['referencedFrom'][parent_type].push(parent_field);
                             }
                         }
                     }
@@ -176,13 +193,15 @@
             templateUrl: 'include/schema.html',
             scope: {
                 schemaLoader: '=',
-                parentKey: '='
+                parentKey: '=',
+                containerCtrl: "="
             },
             link: function($scope, element, attr) {
                 $scope.$watch('schemaLoader', function(schemaLoader){
                     if(schemaLoader)
                         $scope.json_source = $scope.schemaLoader;
-                    $scope.parent = $scope.parentKey;
+                        $scope.parent = $scope.parentKey;
+                        $scope.ctrl = $scope.containerCtrl;
                 });
             }
         }
@@ -203,6 +222,7 @@
                         $scope.fields = $scope.schemaFields;
                     $scope.parent = $scope.parentKey;
                     $scope.required = $scope.required;
+
                 });
             }
         }
@@ -248,7 +268,5 @@
         }
 
     });
-
-
 
 })();

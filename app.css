@@ -13,6 +13,7 @@ body.json_documenter *:not(pre):not(.fas) {
     font-family:customFont,Arial,Helvetica;
 }
 
+
 body.json_documenter{
     overflow-x: hidden;
     padding:10px 20px 10px 10px;
@@ -42,8 +43,18 @@ body.json_documenter h2{
 }
 
 body.json_documenter h2, body.json_documenter h3, body.json_documenter pre{
-    margin:0px;
-    color:rgb(11,121,75);
+    margin:0;
+    color:#2980B9;
+}
+
+body.json_documenter .mainPage h2{
+    margin-bottom: 10px;
+}
+
+
+body.json_documenter label{
+    font-weight: bold;
+    margin-bottom: 0px;
 }
 
 
@@ -69,7 +80,7 @@ body.json_documenter div.data{
 
 body.json_documenter div.main_container{
     background-color: #ECF0F1;
-    padding:0px 20px 10px 20px;
+    padding:10px 20px 10px 20px;
 }
 
 body.json_documenter div.metadata, div.data{
@@ -128,7 +139,7 @@ body.json_documenter tr:not(.first_line):hover a{
 }
 
 body.json_documenter .firstCol{
-    width: 8%;
+    width: 14%;
     border-right:1px solid #ccc;
     padding-right: 10px;
 }
@@ -174,10 +185,6 @@ body.json_documenter .sidebar ul{
     margin-top:20px;
     list-style-type: none;
     padding-left:15px;
-}
-
-body.json_documenter li{
-    list-style: none;
 }
 
 /* FIELD TYPES */
@@ -229,7 +236,7 @@ body.json_documenter .menuBar h2{
 }
 
 body.json_documenter .menuBar div.row{
-    padding: 0 6px 0px 25px;
+    padding: 0 6px 0 25px;
 }
 
 body.json_documenter .menuBar md-toolbar div.layout-row{
@@ -285,4 +292,21 @@ body.json_documenter .md-open-menu-container a{
 
 body.json_documenter .md-open-menu-container .container{
     max-width: 710px;
+}
+
+body.json_documenter .linkToNextSpec{
+    display: inline-block;
+}
+
+body.json_documenter .md-button{
+    text-transform: lowercase !important;
+}
+
+body.json_documenter .md-panel{
+    opacity: 1;
+}
+
+body.json_documenter .tooltip{
+    padding:10px;
+    border:1px solid #ccc;
 }

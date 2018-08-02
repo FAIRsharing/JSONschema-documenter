@@ -11,19 +11,23 @@
               integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
               crossorigin="anonymous">
 
-        <script type="text/javascript" src="lib/angular.min.js"></script>
-        <script type="text/javascript" src="lib/angular-material.min.js"></script>
+
+        <script type="text/javascript" src="lib/angular.js"></script>
+        <script type="text/javascript" src="lib/angular-material.js"></script>
         <script type="text/javascript" src="lib/angular-aria.min.js"></script>
         <script type="text/javascript" src="lib/angular-animate.min.js"></script>
         <script type="text/javascript" src="lib/angular-messages.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+
+
         <script src="myapp.js"></script>
 
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
-    <body ng-controller="documenterController as documenter" class="json_documenter">
+    <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
 
 
     <div class="main">
@@ -37,12 +41,12 @@
                         </md-toolbar-filler>
                         <div style="display:block;width:100%">
 
-                            <h2 class="md-toolbar-tools">JSon documenter (<i>by FAIRSharing</i>)</h2>
+                            <h2 class="md-toolbar-tools">JSON documenter (<i>by FAIRSharing</i>)</h2>
 
                             <md-menu-bar>
                                 <md-menu>
                                     <button aria-label="Open menu"
-                                            ng-click="$mdOpenMenu()">
+                                            ng-click="$mdMenu.open($event)">
                                         {{documenter.main_spec.title}}
                                     </button>
 
@@ -58,19 +62,7 @@
                                                 </md-button>
                                             </div>
                                         </div>
-                                        <!--
-                                        <md-menu-item ng-repeat="(specName, spec) in documenter.loaded_specs track by $index"
-                                                      ng-if="$even">
-                                            <md-button ng-href="#{{specName|removeExtraStr}}"
-                                                       target="_self">
-                                                {{spec.title}}
-                                            </md-button>
-                                            <md-button ng-href="#{{}}"
-                                                       target="_self">
-                                                test
-                                            </md-button>
-                                        </md-menu-item>
-                                        -->
+
                                     </md-menu-content>
 
                                 </md-menu>
@@ -118,20 +110,27 @@
         </div>
 
 
-        <!-- main spec -->
-        <div class="container" ng-if="documenter.media_type=='table'">
+        <!-- specs -->
+        <div class="container mainPage" ng-if="documenter.media_type=='table'">
 
-        <!-- Sub specs -->
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 col-md-12 schema" schema-loader="documenter.main_spec" parent-key="''">
-            </div>
 
-            <div ng-repeat="(key, item) in documenter.loaded_specs"
-                 schema-loader="documenter.loaded_specs[key]"
-                 parent-key="key"
-                 class="col-lg-12 col-sm-12 col-md-12 schema">
+
+            <div class="row mainPage">
+                <!-- main spec -->
+                <div class="col-lg-12 col-sm-12 col-md-12 schema"
+                     schema-loader="documenter.main_spec"
+                     parent-key="''"
+                     container-ctrl ="documenter">
+                </div>
+
+                <!-- Sub specs -->
+                <div ng-repeat="(key, item) in documenter.loaded_specs"
+                     schema-loader="documenter.loaded_specs[key]"
+                     parent-key="key"
+                     class="col-lg-12 col-sm-12 col-md-12 schema"
+                     container-ctrl="documenter">
+                </div>
             </div>
-        </div>
 
         </div>
 
