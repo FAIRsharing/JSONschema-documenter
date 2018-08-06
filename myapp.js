@@ -254,7 +254,6 @@
         }
     });
 
-
     my_app.directive('buttonLink', function(){
         return{
             restrict: 'A',
@@ -272,9 +271,7 @@
             }
         }
     });
-
-
-
+    
     my_app.filter('removeExtraStr', function() {
 
         // In the return function, we must pass in a single parameter which will be the data we will work on.
