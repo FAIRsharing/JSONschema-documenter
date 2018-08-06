@@ -8,17 +8,14 @@
 
         });
 
-    my_app.controller('documenterController', ['$scope','$location','$http','$templateCache',
-        function($scope, $location, $http, $templateCache, $mdDialog) {
+    my_app.controller('documenterController', ['$scope','$location','$http','$templateCache','SchemaLoader',
+        function($scope, $location, $http, $templateCache, SchemaLoader) {
 
-            let spec = this;
             this.loaded = false;
 
             this.logMsg = function(msg){
                 console.log(msg);
             };
-
-
             $templateCache.removeAll();
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
@@ -32,7 +29,6 @@
                 fetch_url = base_url+'study_schema.json';
             }
 
-
             var json_schema = this;
             json_schema.media_type = getUrlFromUrl()["output"];
             if(json_schema.media_type === undefined){
@@ -40,7 +36,7 @@
             }
             json_schema.loaded_specs = {};
 
-            loadJSON(fetch_url, 0, 'none', null);
+            //loadJSON(fetch_url, 0, 'none', null);
 
             function loadJSON(json_file, lvl, parent_field, parent_type){
                 let spec_name = json_file.replace('schemas/', '').replace(".json", "");
@@ -52,7 +48,6 @@
                         .then(function(res){
                             json_schema.main_spec = res.data;
                             seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
-                            spec.loaded = true;
                         });
 
 
@@ -125,7 +120,7 @@
 
             }
 
-             function seek_subSpecs(properties, parent_name) {
+            function seek_subSpecs(properties, parent_name) {
                 // iterate over the loaded spec and try to locate if sub specs need to be loaded
                 for (let property in properties) {
 
@@ -193,6 +188,15 @@
                 return result;
             }
 
+
+            let schemaLoader = new SchemaLoader();
+            schemaLoader.load(fetch_url, 0, null).then(
+                function(response){
+                    json_schema.main_spec=schemaLoader.main_spec;
+                    json_schema.loaded_specs=schemaLoader.loaded_specs;
+                    json_schema.loaded = true;
+                }
+            );
         }
     ]);
 

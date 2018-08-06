@@ -60,6 +60,12 @@ body.json_documenter label{
 
 /* LAYOUT */
 
+body.json_documenter .loader{
+    padding:15px;
+}
+
+
+
 body.json_documenter div.sidebar{
     background:#343131;
     height:100vh;

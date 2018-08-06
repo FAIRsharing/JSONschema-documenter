@@ -21,6 +21,7 @@
 
 
         <script src="myapp.js"></script>
+        <script type="text/javascript" src="loaderFactory.js"></script>
 
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,6 +73,14 @@
             </div>
         </div>
 
+        <div class="container" ng-show="!documenter.loaded">
+            <div class="row">
+                <div class="col-12 loader">
+                    <div class="main_container">Loading ... !</div>
+                </div>
+            </div>
+        </div>
+
         <!-- left menu -->
         <div class="container-fluid" ng-if="documenter.media_type=='page'">
 
@@ -109,7 +118,7 @@
 
 
         <!-- specs -->
-        <div class="container mainPage" ng-if="documenter.media_type=='table'">
+        <div class="container mainPage" ng-if="documenter.media_type=='table'" ng-show="documenter.loaded">
 
 
 
