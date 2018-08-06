@@ -27,17 +27,18 @@
                     <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
                 </div>
 
+
+                <!-- ---------------------------------------------
+                                       REFERENCES
+                ---------------------------------------------  -->
+
                 <!-- field types for structure field['items']-->
                 <div ng-if="fields[fieldKey].hasOwnProperty('items')">
 
                     <!-- structure field['items']['$ref'] -->
                     <div ng-if="fields[fieldKey]['items'].hasOwnProperty('$ref')">
                         <div><label>Expected type:</label> <span field-type="'object'"> </span> {{type}} </div>
-                        <md-button type="button"
-                                   class="md-primary md-raised"
-                                   ng-href="#{{fields[fieldKey]['items']['$ref']|removeExtraStr}}" target="_self">
-                            {{fields[fieldKey]['items']['$ref']|removeExtraStr}}
-                        </md-button>
+                        <div button-link="fields[fieldKey]['items']['$ref']"></div>
                     </div>
 
                     <!-- structure field['items']['oneOf'] -->
@@ -51,11 +52,7 @@
                                 </li>
                             </ul>
                             <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['items']['oneOf']" ng-if="item.hasOwnProperty('$ref')">
-                                <md-button type="button"
-                                           class="md-primary md-raised"
-                                           ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                    {{item['$ref']|removeExtraStr}}
-                                </md-button>
+                                <div button-link="item['$ref']"></div>
                             </div>
                         </div>
                     </div>
@@ -71,11 +68,7 @@
                                 </li>
                             </ul>
                             <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['items']['anyOf']" ng-if="item.hasOwnProperty('$ref')">
-                                <md-button type="button"
-                                           class="md-primary md-raised"
-                                           ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                    {{item['$ref']|removeExtraStr}}
-                                </md-button>
+                                <div button-link="item['$ref']"></div>
                             </div>
                         </div>
                     </div>
@@ -85,11 +78,7 @@
                 <!-- field types for structure field['$ref']-->
                 <div ng-if="fields[fieldKey].hasOwnProperty('$ref')">
                     <div><label>Expected type:</label> <span field-type="'object'"> </span> {{type}} </div>
-                    <md-button type="button"
-                               class="md-primary md-raised"
-                               ng-href="#{{fields[fieldKey]['$ref'] | removeExtraStr}}" target="_self">
-                        {{fields[fieldKey]['$ref'] | removeExtraStr}}
-                    </md-button>
+                    <div button-link="fields[fieldKey]['$ref']"></div>
                 </div>
 
                 <!-- field types for structure field['anyOf']-->
@@ -102,12 +91,7 @@
                             </li>
                         </ul>
                         <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey].anyOf" ng-if="item.hasOwnProperty('$ref')">
-                            <md-button type="button"
-                                       class="md-primary md-raised"
-                                       md-theme="altTheme"
-                                       ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                    {{item['$ref']|removeExtraStr}}
-                            </md-button>
+                            <div button-link="item['$ref']"></div>
                         </div>
                     </div>
                 </div>
@@ -122,11 +106,7 @@
                             </li>
                         </ul>
                         <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey].oneOf" ng-if="item.hasOwnProperty('$ref')">
-                            <md-button type="button"
-                                       class="md-primary md-raised"
-                                       ng-href="#{{item['$ref']|removeExtraStr}}" target="_self">
-                                {{item['$ref']|removeExtraStr}}
-                            </md-button>
+                            <div button-link="item['$ref']"></div>
                         </div>
                     </div>
 
@@ -139,6 +119,8 @@
                     </ul>
                     -->
                 </div>
+
+
 
                 <!-- field pre-determined values-->
                 <div ng-if="fields[fieldKey].enum">

@@ -17,7 +17,6 @@
         <script type="text/javascript" src="lib/angular-aria.min.js"></script>
         <script type="text/javascript" src="lib/angular-animate.min.js"></script>
         <script type="text/javascript" src="lib/angular-messages.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
 
 
@@ -71,6 +70,11 @@
                     </div>
                 </md-toolbar>
             </div>
+        </div>
+
+        <div>
+            <div ng-if="documenter.loaded===true"> Finished Loading</div>
+            <div ng-if="!documenter.loaded===true"> Still loading ... </div>
         </div>
 
 

@@ -11,6 +11,14 @@
     my_app.controller('documenterController', ['$scope','$location','$http','$templateCache',
         function($scope, $location, $http, $templateCache, $mdDialog) {
 
+            let spec = this;
+            this.loaded = false;
+
+            this.logMsg = function(msg){
+                console.log(msg);
+            };
+
+
             $templateCache.removeAll();
             let base_url = 'https://w3id.org/dats/schema/';
             let schema_file = getUrlFromUrl()["url"];
@@ -31,6 +39,7 @@
                 json_schema.media_type = "table";
             }
             json_schema.loaded_specs = {};
+
             loadJSON(fetch_url, 0, 'none', null);
 
             function loadJSON(json_file, lvl, parent_field, parent_type){
@@ -43,6 +52,7 @@
                         .then(function(res){
                             json_schema.main_spec = res.data;
                             seek_subSpecs(json_schema.main_spec.properties, json_schema.main_spec['title']);
+                            spec.loaded = true;
                         });
 
 
@@ -115,7 +125,7 @@
 
             }
 
-            function seek_subSpecs(properties, parent_name) {
+             function seek_subSpecs(properties, parent_name) {
                 // iterate over the loaded spec and try to locate if sub specs need to be loaded
                 for (let property in properties) {
 
@@ -243,6 +253,27 @@
             }
         }
     });
+
+
+    my_app.directive('buttonLink', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/objectLink.html',
+            scope: {
+                buttonLink: '='
+            },
+            link: function($scope, element, attr){
+                $scope.$watch('buttonLink',
+                    function(buttonLink){
+                    if(buttonLink)
+                        $scope.link = $scope.buttonLink;
+                    }
+                );
+            }
+        }
+    });
+
+
 
     my_app.filter('removeExtraStr', function() {
 
