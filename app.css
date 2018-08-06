@@ -314,10 +314,11 @@ body.json_documenter .tooltip{
 }
 
 body.json_documenter .card{
-    margin-top:0px;
-    margin-bottom:5px;
+    margin-top:0;
+    margin-bottom:0;
     box-shadow:4px 4px 3px #D6D6D6;
     min-height:100%;
+    border-radius: 25px 0 25px 0;
 }
 
 body.json_documenter h5{
@@ -328,6 +329,8 @@ body.json_documenter .card-header
 {
     background-color: #2980B9;
     color:white;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 0;
 }
 
 body.json_documenter .descriptionLabel{
@@ -335,6 +338,6 @@ body.json_documenter .descriptionLabel{
 }
 
 body.json_documenter .colMaginTop{
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-top:10px;
+    margin-bottom:10px;
 }
