@@ -118,10 +118,10 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
                         }
-                        if (field['items'].hasOwnProperty('allOf')){
-                            for (let item in field['items']['allOf']){
-                                if (field['items']['allOf'][item].hasOwnProperty('$ref')){
-                                    let path = loadSubSpec(field['items']['allOf'][item]['$ref'], baseURL);
+                        if (field['items'].hasOwnProperty('anyOf')){
+                            for (let item in field['items']['anyOf']){
+                                if (field['items']['anyOf'][item].hasOwnProperty('$ref')){
+                                    let path = loadSubSpec(field['items']['anyOf'][item]['$ref'], baseURL);
                                     if (path){
                                         let parentDict = {
                                             'parentName':response.data.title,
@@ -160,10 +160,10 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
                         }
                     }
-                    if (field.hasOwnProperty('oneOf')){
-                        for (let item in field['allOf']){
-                            if (field['allOf'][item].hasOwnProperty('$ref')){
-                                let path = loadSubSpec(field['allOf'][item]['$ref'], baseURL);
+                    if (field.hasOwnProperty('anyOf')){
+                        for (let item in field['anyOf']){
+                            if (field['anyOf'][item].hasOwnProperty('$ref')){
+                                let path = loadSubSpec(field['anyOf'][item]['$ref'], baseURL);
                                 if (path){
                                     let parentDict = {
                                         'parentName':response.data.title,
