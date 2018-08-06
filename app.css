@@ -301,7 +301,7 @@ body.json_documenter .linkToNextSpec{
 body.json_documenter .md-button{
     text-transform: lowercase !important;
     margin-left:0;
-    margin-right:0;
+    margin-right:5px;
 }
 
 body.json_documenter .md-panel{
@@ -317,6 +317,7 @@ body.json_documenter .card{
     margin-top:5px;
     margin-bottom:5px;
     box-shadow:4px 4px 3px #D6D6D6;
+    min-height:95%;
 }
 
 body.json_documenter h5{
