@@ -288,6 +288,15 @@ body.json_documenter .menuBar button{
     box-shadow:4px 4px 3px #D6D6D6;
 }
 
+
+body.json_documenter .menuBar button:focus,
+body.json_documenter md-menu-bar.md-altTheme-theme md-menu.md-open{
+    background-color: #2980B9;
+}
+
+
+
+
 body.json_documenter .menuBar md-toolbar.md-menu-toolbar{
     backgound-color:rgb(250,250,250) !important;
 }
@@ -328,10 +337,9 @@ body.json_documenter .card{
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
-    border-left:3px solid #ECF0F1;
-    border-top:3px solid #ECF0F1;
-    border-bottom:3px solid transparent;
-    border-right:3px solid transparent;
+    border: 3px solid #ECF0F1;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
 }
 
 body.json_documenter .card:hover{
