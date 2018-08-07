@@ -15,11 +15,32 @@
 
             <li ng-if="parent != ''">
                 <b>Referenced from: </b>
-                <ul>
+
+                <ul ng-if="ctrl.display==='table'">
                     <li ng-repeat="(childKey, childVal) in json_source.referencedFrom">
                         {{childKey}} : <span ng-repeat="item in childVal">{{item}} <span ng-if="!$last">, </span></span>
                     </li>
                 </ul>
+
+                <div class="container" ng-if="ctrl.display==='grid'">
+                    <div class="row">
+                        <div class=" miniCard col-lg-3 col-sm-6 col-md-6" ng-repeat="(childKey, childVal) in json_source.referencedFrom">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <label class="descriptionLabel">{{childKey}}: </label>
+                                    </h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <!--<label class="descriptionLabel">Referencing fields: </label>-->
+                                        <span ng-repeat="item in childVal">
+                                            {{item}}<span ng-if="!$last">, </span>
+                                        </span>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </li>
         </ul>

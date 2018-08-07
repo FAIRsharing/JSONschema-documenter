@@ -347,3 +347,11 @@ body.json_documenter .colMaginTop{
     margin-top:10px;
     margin-bottom:10px;
 }
+
+body.json_documenter .miniCard{
+    margin-top:5px;
+}
+
+body.json_documenter .miniCard .card-body{
+    padding-bottom: 5px;
+}
