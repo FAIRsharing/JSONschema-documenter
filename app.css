@@ -327,6 +327,10 @@ body.json_documenter .card{
     border-radius: 25px 0 25px 0;
 }
 
+body.json_documenter .card:hover{
+    border:3px solid #2980B9;
+}
+
 body.json_documenter h5{
     margin-bottom:0;
 }
