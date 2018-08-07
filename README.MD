@@ -3,7 +3,7 @@ To access the docs: https://fairsharing.github.io/json_documenter
 To customize, create a JSON string with
 
 {
-    "target":"the URL where the schema live"
+    "target":"the URL where the schema live",
     "display":"grid or table"
 }
 
