@@ -1,4 +1,4 @@
-<div class="main_container" id="{{parent | removeExtraStr}}" ng-click="">
+<div class="main_container" id="{{parent | removeExtraStr}}">
     <h1> {{json_source.title}} </h1>
 
     <div class="metadata">
@@ -21,60 +21,18 @@
                     </li>
                 </ul>
 
-                <!--
-                <md-chips>
-                    <md-chip ng-repeat="(childKey, childVal) in json_source.referencedFrom">
-                        {{childKey}}
-                    </md-chip>
-                </md-chips>
-                -->
-
-
-
-                <!--
-                <ul>
-                    <div class="d-inline-block" ng-repeat="(childKey, childVal) in ctrl.loaded_specs[parent].referencedFrom">
-
-
-
-
-
-                        <md-button aria-label="Play">
-                            {{childKey}}
-                            <md-tooltip md-direction="bottom" class="tooltip">
-                                <div class="container">
-                                    <div class="row" ng-repeat="item in ctrl.loaded_specs[parent].referencedFrom[childKey]">
-                                        {{item}}
-                                    </div>
-                                </div>
-                            </md-tooltip>
-
-                        </md-button>
-
-                        <!--
-                        <div ng-repeat="item in ctrl.loaded_specs[parent].referencedFrom[childKey]"
-                             class="d-inline-block">
-                            <md-chips>
-                                <md-chip>
-                                    {{item}}
-                                </md-chip>
-                            </md-chips>
-                        </div>
-
-                    </div>
-²
-                </ul>
-                -->
             </li>
         </ul>
     </div>
 
 
 
+
     <div class="main_container">
         <h2> Schema Fields </h2>
         <div schema-fields="json_source.properties"
-             parent-key="parent">
+             parent-key="parent"
+             display-type="ctrl.display">
         </div>
 
     </div>

@@ -22,6 +22,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                     })
                 }
 
+                // Beurk ! Make something for this piece of code !
                  else{
                     if(urlToFile!=='https://w3id.org/dats/schema/#/definitions/position'){
                         if (!specLoader.loaded_specs.hasOwnProperty(parent.schemaRef)){
