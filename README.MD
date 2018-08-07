@@ -8,4 +8,4 @@ To customize, create a JSON string with
 }
 
 You can pass it to the URL 'parameters' variable as such:
-https://fairsharing.github.io/json_documenter/index.html?parameters={"target":"https://w3id.org/dats/schema/study_schema.json", "display":"grid"}
+https://fairsharing.github.io/json_documenter/index.html?parameters={"target":"https://w3id.org/dats/schema/study_schema.json","display":"grid"}
