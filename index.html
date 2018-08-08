@@ -32,8 +32,17 @@
 
     <div class="main">
 
+        <div class="container mainPage error" ng-show="documenter.errors.length>0">
+            <h2> There is one or more errors with your request </h2>
+                <div ng-repeat="item in documenter.errors">
+                    <div ng-repeat="(key,val) in item">
+                        <label>{{key}}: </label> {{val}}
+                    </div>
+                </div>
+        </div>
+
         <!-- MENU -->
-        <div id="pageTop" class="container menuBar">
+        <div id="pageTop" class="container menuBar" ng-show="documenter.loaded && documenter.errors.length===0">
             <div class="row">
                 <md-toolbar class="md-menu-toolbar">
                     <div layout="row">
@@ -74,7 +83,7 @@
         </div>
 
         <!-- Loader -->
-        <div class="container" ng-show="!documenter.loaded">
+        <div class="container" ng-show="!documenter.loaded && documenter.errors.length===0">
             <div class="row">
                 <div class="col-12 loader">
                     <div class="main_container">Loading ... !</div>
@@ -83,7 +92,7 @@
         </div>
 
         <!-- specs -->
-        <div class="container mainPage" ng-show="documenter.loaded">
+        <div class="container mainPage" ng-show="documenter.loaded && documenter.errors.length===0">
 
 
 
@@ -105,6 +114,8 @@
             </div>
 
         </div>
+
+
 
         <a href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
         </a>

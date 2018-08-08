@@ -388,3 +388,9 @@ body.json_documenter .miniPadTop{
 body.json_documenter .link{
     color:#2980B9 !important;
 }
+
+body.json_documenter .error{
+    border:1px solid #ccc;
+    padding:20px;
+    margin-top:10px;
+}

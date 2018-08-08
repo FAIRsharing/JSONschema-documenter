@@ -14,9 +14,17 @@
 
             let json_schema = this;
             this.loaded = false;
+            this.errors = [];
 
             if (getParamsFromURL()["parameters"]){
-                var params = JSON.parse(getParamsFromURL()["parameters"]);
+                try{
+                    var params = JSON.parse(getParamsFromURL()["parameters"]);
+                }
+                catch(e){
+                    let error = {"jsonParseError": "Please verify the parameter JSON provided to the URL"};
+                    json_schema.errors.push(error);
+                    console.log(error);
+                }
             }
             this.target = "https://w3id.org/dats/schema/study_schema.json";
             this.display = "grid";
@@ -26,7 +34,6 @@
                 }
                 if(params.hasOwnProperty('display')){
                     json_schema.display = params.display
-
                 }
             }
 
