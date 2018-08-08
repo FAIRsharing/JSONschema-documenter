@@ -24,16 +24,20 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                 // Beurk ! Make something for this piece of code !
                  else{
-                    if(urlToFile!=='https://w3id.org/dats/schema/#/definitions/position'){
+                    if(urlToFile!=='https://w3id.org/dats/schema/#/definitions/position' ){
                         if (!specLoader.loaded_specs.hasOwnProperty(parent.schemaRef)){
                             specLoader.loaded_specs[parent.schemaRef] = {};
                             $http.get(urlToFile).then(function(response) {
                                 deferred.resolve(response);
+                                specLoader.loaded_specs[parent.schemaRef] = response.data;
+
                                 if (!specLoader.loaded_specs[parent.schemaRef].hasOwnProperty('referencedFrom')){
                                     specLoader.loaded_specs[parent.schemaRef]['referencedFrom'] = {};
                                     if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = []
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
+                                        if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                            specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                        }
                                     }
                                     else{
                                         specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
@@ -41,15 +45,16 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                                 else{
                                     if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = []
+                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
                                         specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
                                     }
                                     else{
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                        if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                            specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                        }
                                     }
                                 }
 
-                                specLoader.loaded_specs[parent.schemaRef] = response.data;
                                 seekSubSpecs(response, currentLvl);
                             })
                         }
@@ -57,20 +62,24 @@ angular.module('generatorApp').factory('SchemaLoader',
                             if (!specLoader.loaded_specs[parent.schemaRef].hasOwnProperty('referencedFrom')){
                                 specLoader.loaded_specs[parent.schemaRef]['referencedFrom'] = {};
                                 if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = []
+                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
                                     specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
                                 }
                                 else{
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                    if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                    }
                                 }
                             }
                             else{
                                 if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = []
+                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
                                     specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
                                 }
                                 else{
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                    if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                    }
                                 }
                             }
 
