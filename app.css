@@ -384,3 +384,7 @@ body.json_documenter .miniCard .card-body{
 body.json_documenter .miniPadTop{
     padding-top: 5px;
 }
+
+body.json_documenter .link{
+    color:#2980B9 !important;
+}

@@ -9,8 +9,12 @@
             </li>
 
             <li ng-repeat="(key, item) in json_source"
-                ng-if="key != 'properties' && key != 'referencedFrom' ">
-                <b>{{key}} : </b>{{item}}
+                ng-if="key != 'properties' && key != 'referencedFrom'">
+                <div ng-if="key != 'id' "><b>{{key}} : </b>{{item}}</div>
+                <div ng-if="key === 'id' ">
+                    <b>{{key}} : </b>
+                    <a class="link" ng-href="{{item}}" target="_blank">{{item}}</a>
+                </div>
             </li>
 
             <li ng-if="parent != ''">
