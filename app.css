@@ -393,4 +393,5 @@ body.json_documenter .error{
     border:1px solid #ccc;
     padding:20px;
     margin-top:10px;
+    box-shadow:4px 4px 3px #D6D6D6;
 }
