@@ -126,6 +126,24 @@
             }
         }
     });
+
+    my_app.directive('innerReference', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/innerRef.html',
+            scope: {
+                innerReference: '='
+            },
+            link: function($scope, element, attr){
+                $scope.$watch('innerReference',
+                    function(innerReference){
+                        if(innerReference)
+                            $scope.link = $scope.innerReference;
+                    }
+                );
+            }
+        }
+    });
     
     my_app.filter('removeExtraStr', function() {
 

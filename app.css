@@ -342,6 +342,11 @@ body.json_documenter .card{
     border-bottom-color: transparent;
 }
 
+body.json_documenter .subCard{
+    border: 3px solid transparent;
+}
+
+
 body.json_documenter .card:hover{
     border:3px solid #2980B9;
 }
@@ -356,6 +361,7 @@ body.json_documenter .card-header
     color:white;
     border-top-left-radius: 25px;
     border-top-right-radius: 0;
+    width:101%;
 }
 
 body.json_documenter .descriptionLabel{
@@ -373,4 +379,8 @@ body.json_documenter .miniCard{
 
 body.json_documenter .miniCard .card-body{
     padding-bottom: 5px;
+}
+
+body.json_documenter .miniPadTop{
+    padding-top: 5px;
 }
