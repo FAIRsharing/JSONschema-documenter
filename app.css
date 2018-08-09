@@ -439,3 +439,15 @@ body.json_documenter .jsonDump .jsonContainer{
     height: 49vh;
     width:100%;
 }
+
+body.json_documenter .jsonDump .jsonHeader .fas{
+    border: 1px solid #2980B9;
+    padding:5px 10px;
+    margin-right:10px;
+}
+
+body.json_documenter .jsonDump .jsonHeader .fas:hover{
+    color:white;
+    background:#2980B9;
+    border-color:#ccc;
+}
