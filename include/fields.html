@@ -160,9 +160,12 @@
                     <h6 class="card-subtitle mb-2 text-muted" ng-if="fields[fieldKey].hasOwnProperty('description')">
                         <label class="descriptionLabel">Description: </label> {{fields[fieldKey].description}}
                     </h6>
+
+                    <!-- Cardinality -->
                     <div ng-if="fieldKey!='@context' && fieldKey!='@id' && fieldKey!='@type'">
                         <label>Cardinality:</label>
-                        (<span ng-if="required.indexOf(fieldKey) != -1"> 0 </span> <span ng-if="required.indexOf(fieldKey) == -1"> 1 </span>
+                        (<span ng-if="fieldValue.hasOwnProperty('minItems')"> {{fieldValue['minItems']}}</span>
+                        <span ng-if="!fieldValue.hasOwnProperty('minItems')"> 0 </span>
                         ...
                         <span ng-if="fields[fieldKey].type != 'array'"> 1 </span>
                         <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
@@ -300,7 +303,7 @@
                         </ul>
                         -->
                     </div>
-                    
+
                 </div>
             </div>
         </div>
