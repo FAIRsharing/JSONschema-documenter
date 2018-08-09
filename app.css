@@ -425,4 +425,5 @@ body.json_documenter .jsonDump{
 
 body.json_documenter .jsonDump pre{
     color:white;
+    overflow:initial !important;
 }
