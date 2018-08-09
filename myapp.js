@@ -48,13 +48,18 @@
             }
 
             let schemaLoader = new SchemaLoader();
+
+
             schemaLoader.load(json_schema.target, 0, null).then(
                 function(){
                     json_schema.main_spec=schemaLoader.main_spec;
                     json_schema.loaded_specs=schemaLoader.loaded_specs;
                     json_schema.loaded = true;
                 }
-            );
+            ).catch(function(e){
+                json_schema.errors.push(e);
+            });
+
         }
     ]);
 
@@ -78,7 +83,6 @@
             }
         }
     });
-
     my_app.directive('schemaFields', function(){
         return{
             restrict: 'A',
@@ -99,7 +103,6 @@
             }
         }
     });
-
     my_app.directive('fieldType', function(){
         return{
             restrict: 'A',
@@ -115,7 +118,6 @@
             }
         }
     });
-
     my_app.directive('buttonLink', function(){
         return{
             restrict: 'A',
@@ -133,7 +135,6 @@
             }
         }
     });
-
     my_app.directive('innerReference', function(){
         return{
             restrict: 'A',
@@ -163,7 +164,6 @@
         }
 
     });
-
     my_app.filter('ellipsisFilter', function() {
         return function(input) {
             if (input.length>12) {

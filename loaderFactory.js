@@ -9,6 +9,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             this.loaded_specs = {};
             this.main_spec = {};
             this.references = {};
+            this.errors = [];
 
             // async load function
             this.load = function(urlToFile, currentLvl, parent) {
@@ -19,6 +20,11 @@ angular.module('generatorApp').factory('SchemaLoader',
                         deferred.resolve(response);
                         specLoader.main_spec = response.data;
                         seekSubSpecs(response, currentLvl);
+                    },
+                    function(error){
+                        let localError = {"schema404": "main schema couldn't be loaded, verify your URL"};
+                        specLoader.errors.push(localError);
+                        return deferred.reject(localError);
                     })
                 }
 
@@ -89,6 +95,7 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                 // Return the promise
                 return deferred.promise;
+
 
             };
 
