@@ -8,14 +8,21 @@
                 <span class="fas fa-file-alt" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"></span>
             </div>
             <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'json_'+parent && parent != ''" id="json_{{parent}}">
-                <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+                <div class="jsonHeader">  <i class="fas fa-times" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"> </i> </div>
+                <div class="jsonContainer">
+                    <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+                </div>
             </div>
 
             <div class="col-2" ng-if="parent === ''">
                 <span class="fas fa-file-alt" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"></span>
             </div>
+
             <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem' && parent === ''" id="mainItem">
-                <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+                <div class="jsonHeader">  <i class="fas fa-times" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"> </i> </div>
+                <div class="jsonContainer">
+                    <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+                </div>
             </div>
 
 

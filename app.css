@@ -41,7 +41,7 @@ body.json_documenter h1 .titleText{
     font-size:30px;
 }
 
-body.json_documenter h1 .fas
+body.json_documenter h1 .fa-file-alt
 {
     color:white !important;
     font-size: 30px;
@@ -413,17 +413,29 @@ body.json_documenter .error{
 
 body.json_documenter .jsonDump{
     position: absolute;
-    overflow: scroll;
     border: 1px solid #ccc;
-    background: #2980B9;
+    background: white;
     z-index: 15;
     right: 81px;
-    padding: 10px;
     width: 70%;
     max-height: 50vh;
 }
 
 body.json_documenter .jsonDump pre{
-    color:white;
+    color:initial;
     overflow:initial !important;
+    padding: 10px;
+}
+
+body.json_documenter .jsonDump .jsonHeader{
+    border-bottom:1px solid #ccc;
+    font-size: 18px;
+    color: #2980B9;
+    padding:5px 10px;
+}
+
+body.json_documenter .jsonDump .jsonContainer{
+    overflow:scroll;
+    height: 49vh;
+    width:100%;
 }
