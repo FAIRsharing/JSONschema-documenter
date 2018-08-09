@@ -22,7 +22,8 @@ angular.module('generatorApp').factory('SchemaLoader',
                         seekSubSpecs(response, currentLvl);
                     },
                     function(error){
-                        let localError = {"schema404": "main schema couldn't be loaded, verify your URL"};
+                        let localError = {"schema404": "main schema couldn't be loaded, " +
+                            "verify your URL (provided URL is "+urlToFile+")"};
                         specLoader.errors.push(localError);
                         return deferred.reject(localError);
                     })
@@ -233,6 +234,9 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                 if (pathArray[1]!==""){
 
+                    if (targetProperty.substr(targetProperty.length-1) === '/'){
+                        targetProperty = targetProperty.substring(0, targetProperty.length - 1);
+                    }
                     let targetPath = targetProperty.split("/");
                     targetPath.splice(0, 1);
 
@@ -249,7 +253,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                 if (schema.hasOwnProperty(path[0])){
                     props = schema[pathArray[0]];
                     path.splice(0,1);
-                    if (path.length>0){
+                    if (path.length>1){
                         props = buildProps(path, props);
                     }
                 }
