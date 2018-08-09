@@ -1,5 +1,27 @@
 <div class="main_container" id="{{parent | removeExtraStr}}">
-    <h1> {{json_source.title}} </h1>
+    <h1 class="container">
+        <div class="row">
+            <div class="col-10 titleText">{{json_source.title}} </div>
+
+
+            <div class="col-2" ng-if="!parent === ''">
+                <span class="fas fa-file-alt" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"></span>
+            </div>
+            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'json_'+parent" id="json_{{parent}}">
+                <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+            </div>
+
+            <div class="col-2" ng-if="parent === ''">
+                <span class="fas fa-file-alt" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"></span>
+            </div>
+            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem'" id="mainItem">
+                <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
+            </div>
+
+
+
+        </div>
+    </h1>
 
     <div class="metadata">
         <h2> Schema Metadata </h2>

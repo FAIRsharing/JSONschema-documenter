@@ -34,8 +34,23 @@ body.json_documenter h1{
     background-color:#2980B9;
     color:#fcfcfc !important;
     margin-bottom:0px;
-    font-size:30px;
     margin-top:10px !important;
+}
+
+body.json_documenter h1 .titleText{
+    font-size:30px;
+}
+
+body.json_documenter h1 .fas
+{
+    color:white !important;
+    font-size: 30px;
+    position: relative;
+    left: 80%;
+}
+
+body.json_documenter h1 .fas:hover{
+    cursor:pointer;
 }
 
 body.json_documenter h2{
@@ -394,4 +409,20 @@ body.json_documenter .error{
     padding:20px;
     margin-top:10px;
     box-shadow:4px 4px 3px #D6D6D6;
+}
+
+body.json_documenter .jsonDump{
+    position: absolute;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    background: #2980B9;
+    z-index: 15;
+    right: 81px;
+    padding: 10px;
+    width: 70%;
+    max-height: 50vh;
+}
+
+body.json_documenter .jsonDump pre{
+    color:white;
 }

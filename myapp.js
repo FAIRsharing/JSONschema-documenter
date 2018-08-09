@@ -15,6 +15,7 @@
             let json_schema = this;
             this.loaded = false;
             this.errors = [];
+            this.displayedSpec = null;
 
             if (getParamsFromURL()["parameters"]){
                 try{
@@ -59,6 +60,24 @@
             ).catch(function(e){
                 json_schema.errors.push(e);
             });
+
+            this.displayItem = function(itemName, itemValue){
+
+                let specToDisplay = angular.copy(itemValue);
+                delete specToDisplay['referencedFrom'];
+
+                if (json_schema.displayedSpec != null){
+                    if (itemName === json_schema.displayedSpec[0]){
+                        json_schema.displayedSpec = null;
+                    }
+                    else{
+                        json_schema.displayedSpec = [itemName, specToDisplay]
+                    }
+                }
+                else{
+                    json_schema.displayedSpec = [itemName, specToDisplay]
+                }
+            }
 
         }
     ]);
