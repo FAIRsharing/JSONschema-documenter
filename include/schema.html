@@ -4,7 +4,7 @@
             <div class="col-10 titleText">{{json_source.title}} </div>
 
 
-            <div class="col-2" ng-if="!parent === ''">
+            <div class="col-2" ng-if="parent != ''">
                 <span class="fas fa-file-alt" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"></span>
             </div>
             <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'json_'+parent" id="json_{{parent}}">
