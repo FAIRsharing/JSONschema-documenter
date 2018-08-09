@@ -19,7 +19,10 @@
             </div>
 
             <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem' && parent === ''" id="mainItem">
-                <div class="jsonHeader">  <i class="fas fa-times" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"> </i> </div>
+                <div class="jsonHeader">
+                    <i class="fas fa-times" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"> </i>
+                    <i class="fas fa-clipboard" ng-click-copy="{{ctrl.displayedSpec[1]}}"></i>
+                </div>
                 <div class="jsonContainer">
                     <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
                 </div>
