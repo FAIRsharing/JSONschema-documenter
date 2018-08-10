@@ -438,6 +438,7 @@ body.json_documenter .jsonDump .jsonContainer{
     overflow:scroll;
     height: 49vh;
     width:100%;
+    background:white;
 }
 
 body.json_documenter .jsonDump .jsonHeader .fas{

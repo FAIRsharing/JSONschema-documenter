@@ -24,7 +24,6 @@
                 catch(e){
                     let error = {"jsonParseError": "Please verify the parameter JSON provided to the URL"};
                     json_schema.errors.push(error);
-                    console.log(error);
                 }
             }
             this.target = "https://w3id.org/dats/schema/study_schema.json";
@@ -49,8 +48,6 @@
             }
 
             let schemaLoader = new SchemaLoader();
-
-
             schemaLoader.load(json_schema.target, 0, null).then(
                 function(){
                     json_schema.main_spec=schemaLoader.main_spec;
@@ -65,6 +62,46 @@
 
                 let specToDisplay = angular.copy(itemValue);
                 delete specToDisplay['referencedFrom'];
+
+                for (let item in specToDisplay.properties){
+                    if (specToDisplay.properties[item].hasOwnProperty('items')){
+                        if (specToDisplay.properties[item]['items'].hasOwnProperty('referencing')){
+                            delete specToDisplay.properties[item]['items']['referencing'];
+                        }
+                        if (specToDisplay.properties[item]['items'].hasOwnProperty('oneOf')){
+                            for (let subItem in specToDisplay.properties[item]['items']['oneOf']){
+                                if (specToDisplay.properties[item]['items']['oneOf'][subItem].hasOwnProperty('referencing')){
+                                    delete specToDisplay.properties[item]['items']['oneOf'][subItem]['referencing']
+                                }
+                            }
+
+                        }
+                        if (specToDisplay.properties[item]['items'].hasOwnProperty('anyOf')){
+                            for (let subItem in specToDisplay.properties[item]['items']['anyOf']){
+                                if (specToDisplay.properties[item]['items']['anyOf'][subItem].hasOwnProperty('referencing')){
+                                    delete specToDisplay.properties[item]['items']['anyOf'][subItem]['referencing']
+                                }
+                            }
+                        }
+                    }
+                    if (specToDisplay.properties[item].hasOwnProperty('referencing')){
+                        delete specToDisplay.properties[item].hasOwnProperty('referencing');
+                    }
+                    if (specToDisplay.properties[item].hasOwnProperty('anyOf')){
+                        for (let subItem in specToDisplay.properties[item]['anyOf']){
+                            if (specToDisplay.properties[item]['anyOf'][subItem].hasOwnProperty('referencing')){
+                                delete specToDisplay.properties[item]['anyOf'][subItem]['referencing']
+                            }
+                        }
+                    }
+                    if (specToDisplay.properties[item].hasOwnProperty('oneOf')){
+                        for (let subItem in specToDisplay.properties[item]['oneOf']){
+                            if (specToDisplay.properties[item]['oneOf'][subItem].hasOwnProperty('referencing')){
+                                delete specToDisplay.properties[item]['oneOf'][subItem]['referencing']
+                            }
+                        }
+                    }
+                }
 
                 if (json_schema.displayedSpec != null){
                     if (itemName === json_schema.displayedSpec[0]){
