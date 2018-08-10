@@ -248,6 +248,21 @@ body.json_documenter .menuBar{
     margin-top:10px;
 }
 
+body.json_documenter .menuItem{
+    margin-bottom: 10px;
+}
+
+body.json_documenter .menuItemLink:hover{
+    background:#2980B9;
+    color:white;
+}
+
+body.json_documenter .menuItemLink{
+    padding:10px;
+    width: 100%;
+    display: block;
+}
+
 
 body.json_documenter .menuBar h2{
     background-color:#2980B9;

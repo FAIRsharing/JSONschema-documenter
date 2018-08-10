@@ -68,12 +68,14 @@
 
                                         <div class="container">
                                             <div class="row">
-                                                <md-button ng-href="#{{specName|removeExtraStr}}"
-                                                           target="_self"
-                                                           ng-repeat="(specName, spec) in documenter.loaded_specs track by $index"
-                                                           class="col-5">
-                                                    {{spec.title}}
-                                                </md-button>
+                                                <div class="col-6 menuItem"
+                                                     ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
+                                                    <a ng-href="#{{specName|removeExtraStr}}"
+                                                               target="_self"
+                                                               class="menuItemLink">
+                                                        {{spec.title}}
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
 
