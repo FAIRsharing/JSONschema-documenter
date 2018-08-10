@@ -261,6 +261,7 @@ body.json_documenter .menuItemLink{
     padding:10px;
     width: 100%;
     display: block;
+    height:100%;
 }
 
 
@@ -466,4 +467,22 @@ body.json_documenter .jsonDump .jsonHeader .fas:hover{
     color:white;
     background:#2980B9;
     border-color:#ccc;
+}
+
+body.json_documenter  #footer img{
+    display:inline-block;
+    max-height:90px;
+    width:auto;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    transition: all 0.5s ease;
+}
+
+body.json_documenter  #footer img:hover{
+    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+}
+
+body.json_documenter  #footer p{
+    margin-bottom: 0;
 }
