@@ -119,7 +119,7 @@
         }
     ]);
 
-
+    /* TEMPLATES */
     my_app.directive('schemaLoader', function() {
         return {
             restrict: 'A',
@@ -208,7 +208,8 @@
             }
         }
     });
-    
+
+    /* FILTERS */
     my_app.filter('removeExtraStr', function() {
 
         // In the return function, we must pass in a single parameter which will be the data we will work on.
@@ -233,7 +234,7 @@
 
     });
 
-
+    /* COPY TO CLIPBOARD FUNCTIONS */
     my_app.service('ngCopy', ['$window', function ($window) {
         var body = angular.element($window.document.body);
         var textarea = angular.element('<textarea/>');
@@ -256,7 +257,7 @@
 
             textarea.remove();
         }
-    }])
+    }]);
     my_app.directive('ngClickCopy', ['ngCopy', function (ngCopy) {
             return {
                 restrict: 'A',
