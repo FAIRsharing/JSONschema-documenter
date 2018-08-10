@@ -298,6 +298,7 @@ body.json_documenter .backUp{
     padding:10px;
     color:#2980B9 !important;
     background-color: #fcfcfc;
+    z-index:150;
 }
 
 body.json_documenter .menuBar md-menu-bar{
