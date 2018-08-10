@@ -402,6 +402,10 @@ body.json_documenter h1 .fa-file-alt
     {
         left: 65%;
     }
+
+    body.json_documenter .container{
+        max-width: 100% !important;
+    }
 }
 
 @media only screen and (min-width:751px) {
