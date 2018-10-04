@@ -33,8 +33,8 @@ angular.module('generatorApp').factory('SchemaLoader',
                  else{
                     if(urlToFile!=='https://w3id.org/dats/schema/#/definitions/position' ){
                         if (!specLoader.loaded_specs.hasOwnProperty(parent.schemaRef)){
-                            specLoader.loaded_specs[parent.schemaRef] = {};
                             $http.get(urlToFile).then(function(response) {
+                                specLoader.loaded_specs[parent.schemaRef] = {};
                                 deferred.resolve(response);
                                 specLoader.loaded_specs[parent.schemaRef] = response.data;
 
@@ -63,6 +63,11 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
 
                                 seekSubSpecs(response, currentLvl);
+                            },
+                            function(error){
+                                let local_error = {"schema404": "a sub schema wasn't loaded, verify your URL (provided URL is "+ urlToFile +")"};
+                                specLoader.errors.push(local_error);
+                                return ;
                             })
                         }
                         else{

@@ -36,9 +36,17 @@
         <div class="container mainPage error" ng-show="documenter.errors.length>0">
             <h2> There is one or more errors with your request </h2>
                 <div ng-repeat="item in documenter.errors">
-                    <div ng-repeat="(key,val) in item">
+                    <div ng-repeat="(key,val) in item" ng-if="item.length == 1">
                         <label>{{key}}: </label> {{val}}
                     </div>
+
+                    <div ng-repeat="array in item" ng-if="item.length > 1">
+                        <div ng-repeat="(key, val) in array">
+                            <label>{{key}}: </label> {{val}}
+                        </div>
+                    </div>
+
+
                 </div>
         </div>
 
@@ -135,14 +143,14 @@
                             <md-menu-bar>
                                 <div class="container">
                                     <div class="row">
-                                        <a href="https://fairsharing.org/" target="_blank" class="col-lg-3 col-md-4 col-sm-12">
-                                            <img id="fairSharing" src="https://fairsharing.org/static/img/home/svg/FAIRsharing-sdp.svg" />
+                                        <a href="https://fairsharing.org/" target="_blank" class="col-lg-4 col-md-4 col-sm-12">
+                                            <img id="fairSharing" src="assets/FAIRsharing.svg" />
                                         </a>
-                                        <a href="https://www.oerc.ox.ac.uk/" target="_blank" class="col-lg-1 col-md-2 col-sm-5">
-                                            <img id="oerc" src="http://www.oerc.ox.ac.uk/sites/default/files/uploads/newoerc_logo.jpg" style="margin-left:10px;"/>
+                                        <a href="https://www.oerc.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
+                                            <img id="oerc" src="assets/oerc.jpg" />
                                         </a>
-                                        <a href="https://www.ox.ac.uk/" target="_blank" class="col-lg-1 col-md-2 col-sm-5">
-                                            <img id="uni" src="http://www.oerc.ox.ac.uk/sites/default/files/uploads/logos/university_of_oxford.png" style="margin-left:10px;"/>
+                                        <a href="https://www.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
+                                            <img id="uni" src="assets/university_of_oxford.png"/>
                                         </a>
                                     </div>
                                 </div>

@@ -50,6 +50,10 @@
             let schemaLoader = new SchemaLoader();
             schemaLoader.load(json_schema.target, 0, null).then(
                 function(){
+                    json_schema.errors.push(schemaLoader.errors)
+                    for (let local_error in schemaLoader.errors[0]){
+                        json_schema.errors.push(schemaLoader.errors[local_error])
+                    }
                     json_schema.main_spec=schemaLoader.main_spec;
                     json_schema.loaded_specs=schemaLoader.loaded_specs;
                     json_schema.loaded = true;
@@ -232,6 +236,11 @@
             }
         }
 
+    });
+    my_app.filter('typeOf', function() {
+        return function (obj) {
+            return typeof obj;
+        };
     });
 
     /* COPY TO CLIPBOARD FUNCTIONS */
