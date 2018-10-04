@@ -60,7 +60,46 @@
                 <md-toolbar class="md-menu-toolbar">
                     <div layout="row">
                         <md-toolbar-filler layout="" layout-align="center center">
+                            <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
                         </md-toolbar-filler>
+
+                        <div class="settings" id="settings">
+                            <div class="menuCard">
+                                <div class="cardheader">Set your settings</div>
+                                <div class="cardbody">
+                                    <md-content>
+                                        <form name="setSettings">
+
+                                            <md-input-container class="md-block">
+                                                <label>Target URL</label>
+                                                <input required=""
+                                                       name="next_target"
+                                                       ng-model="documenter.next_target"
+                                                       maxlength="100"
+                                                       ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
+
+                                                <div ng-messages="setSettings.next_target.$error" role="alert">
+                                                    <div ng-message-exp="['required', 'maxlength', 'pattern']">
+                                                        You must enter a valid URL containing less than 100 characters
+                                                    </div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="inputList">
+                                                <label>Display type</label>
+                                                <md-select name="type" ng-model="documenter.next_display" required="">
+                                                    <md-option value="grid">Grid (default)</md-option>
+                                                    <md-option value="table">Table</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </form>
+
+                                        <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
+                                    </md-content>
+                                </div>
+                            </div>
+                        </div>
+
                         <div style="display:block;width:100%">
 
                             <h2 class="md-toolbar-tools">JSON-Schema documenter </h2>

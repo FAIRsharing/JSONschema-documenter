@@ -41,7 +41,7 @@ body.json_documenter h1 .titleText{
     font-size:30px;
 }
 
-body.json_documenter h1 .fas:hover{
+body.json_documenter .fas:hover{
     cursor:pointer;
 }
 
@@ -527,4 +527,49 @@ body.json_documenter  #footer img:hover{
 
 body.json_documenter  #footer p{
     margin-bottom: 0;
+}
+
+
+body.json_documenter i.fa-cog{
+    font-size: 1.6rem;
+    position: relative;
+    top:-35px;
+}
+
+body.json_documenter .settings{
+    position: absolute;
+    min-width:600px;
+    min-height:80px;
+    top:13px;
+    left:55px;
+    z-index: 42;
+    display:none;
+}
+
+body.json_documenter .menuCard{
+    background-color: white;
+    border:1px solid #ccc;
+}
+
+body.json_documenter .cardheader{
+    border-bottom:1px solid #ccc;
+    font-size: 1.2rem;
+    padding:10px 15px;
+}
+
+body.json_documenter .cardbody{
+    padding:20px;
+}
+
+body.json_documenter .menuCard md-content{
+    background-color:transparent;
+}
+
+body.json_documenter md-input-container.inputList{
+    width: 100%;
+}
+
+body.json_documenter  .reloadButton {
+    padding:5px 20px;
+    margin-top:20px;
 }

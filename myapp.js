@@ -16,6 +16,9 @@
             this.loaded = false;
             this.errors = [];
             this.displayedSpec = null;
+            this.next_target = null;
+            this.next_display = null;
+            this.menu_on = false;
 
             if (getParamsFromURL()["parameters"]){
                 try{
@@ -117,6 +120,30 @@
                 }
                 else{
                     json_schema.displayedSpec = [itemName, specToDisplay]
+                }
+            }
+
+            this.display_menu = function(){
+                console.log("hi");
+                if (json_schema.menu_on === true){
+                    json_schema.menu_on = false;
+                    document.getElementById("settings").style.display = "none";
+                    return;
+                }
+                else{
+                    json_schema.menu_on = true;
+                    document.getElementById("settings").style.display = "block";
+                    return;
+                }
+
+            };
+
+            this.reload = function(){
+                if (json_schema.next_target != null && json_schema.next_display != null){
+                    let url = window.location.origin+window.location.pathname + '?parameters={' +
+                        '"target":"' + json_schema.next_target + '",'+
+                        '"display":"' + json_schema.next_display + '"' + '}'
+                    window.location.href = url;
                 }
             }
 
