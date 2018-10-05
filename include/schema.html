@@ -45,11 +45,83 @@
 
             <li ng-repeat="(key, item) in json_source"
                 ng-if="key != 'properties' && key != 'referencedFrom'">
-                <div ng-if="key != 'id' "><b>{{key}} : </b>{{item}}</div>
+
+                <!-- key is not 'id' and is not 'required' -->
+                <div ng-if="key != 'id' && key != 'required' ">
+                    <b>{{key}}: </b>
+
+                    <!-- value is a string -->
+                    <span ng-if="(item | typeOf) === 'string' || (item | typeOf) === 'number'">{{item}}</span>
+
+                    <!-- value is an object -->
+                    <div ng-if="(item | typeOf) === 'object'">
+                        <div class="container" style="margin-bottom: 15px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card"
+                                         ng-repeat="(objectName, objectVal) in item"
+                                         id="{{json_source['id'] + '_definitions_' + objectName}}">
+                                        <div class="card-header">
+                                            {{objectName}}
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="" ng-repeat="(defKey, defVal) in objectVal">
+                                                <b>{{defKey}}:</b>
+
+                                                <span ng-if="(defVal | typeOf) === 'string' || (defVal | typeOf) === 'number'">
+                                                    {{defVal}}
+                                                </span>
+
+                                                <div ng-if="(defVal | typeOf) === 'object'">
+
+                                                    <div class="container">
+                                                        <div class="row">
+
+                                                            <div class="miniCard col-12" ng-repeat="(fieldName, fieldVal) in defVal">
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <h6>
+                                                                            <label class="descriptionLabel">
+                                                                            {{fieldName}}
+                                                                            </label>
+                                                                        </h6>
+                                                                        <h6 class="card-subtitle">
+                                                                            {{fieldVal}}
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- value is false -->
+                    <span ng-if="item === false">
+                        false
+                    </span>
+                </div>
+
+                <!-- key is 'id' -->
                 <div ng-if="key === 'id' ">
                     <b>{{key}} : </b>
                     <a class="link" ng-href="{{item}}" target="_blank">{{item}}</a>
                 </div>
+
+                <!-- key is 'required' -->
+                <div ng-if="key === 'required' ">
+                    <b>{{key}} : </b>
+                    <span ng-repeat="field in item"> {{field}} <i ng-if="!$last">,</i> </span>
+                </div>
+
+
             </li>
 
             <li ng-if="parent != ''">
@@ -90,6 +162,7 @@
         <h2> Schema Fields </h2>
         <div schema-fields="json_source.properties"
              parent-key="parent"
+             inner-link="json_source.id"
              display-type="ctrl.display">
         </div>
 

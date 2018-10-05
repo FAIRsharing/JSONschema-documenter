@@ -1,12 +1,8 @@
-<div class="card miniCard subCard" ng-repeat="(fieldName, fieldVal) in link['referencing']">
-    <div class="card-header">
+<div style='margin-top:10px' ng-repeat="(fieldName, fieldVal) in link['referencing']">
+    <label>
         {{fieldName}}
-    </div>
-    <div class="card-body">
-        <div ng-repeat="(subFieldName, subFieldVal) in link['referencing'][fieldName]">
-            <h6 class="card-subtitle mb-2 text-muted">
-                <label class="descriptionLabel">{{subFieldName}}: </label> {{subFieldVal}}
-            </h6>
-        </div>
-    </div>
+    </label>
+    <div button-inner-link="backLink + '_definitions_' + fieldName" button-label="'see #/definitions/'+fieldName"> </div>
 </div>
+
+

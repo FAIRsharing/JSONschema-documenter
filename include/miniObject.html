@@ -1,0 +1,16 @@
+<div class="card miniCard subCard">
+    <div class="card-header"> # </div>
+
+    <div class="card-body">
+        <div ng-repeat="(key, val) in link">
+            <h6 class="card-subtitle mb-2 text-muted" >
+                <label class="descriptionLabel">{{key}}:</label>
+                <span ng-if="(val | typeOf) === 'string'">{{val}}</span>
+
+                <div ng-if="(val | typeOf) === 'object'"> {{val}}</div>
+
+            </h6>
+
+        </div>
+    </div>
+</div>

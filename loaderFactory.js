@@ -165,6 +165,24 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
                         }
+                        if (field['items'].hasOwnProperty('allOf')){
+                            for (let item in field['items']['allOf']){
+                                if (field['items']['allOf'][item].hasOwnProperty('$ref')){
+                                    let path = loadSubSpec(field['items']['allOf'][item]['$ref'], baseURL);
+                                    if (path.load === true){
+                                        let parentDict = {
+                                            'parentName':response.data.title,
+                                            'parentField': fieldName,
+                                            'schemaRef':path.pathName
+                                        };
+                                        specLoader.load(path.fullPath, currentLvl+1, parentDict);
+                                    }
+                                    else{
+                                        field['items']['allOf'][item]['referencing'] = buildProps(path.lookFor, response.data);
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (field.hasOwnProperty('$ref')){
@@ -209,6 +227,26 @@ angular.module('generatorApp').factory('SchemaLoader',
                                         'schemaRef':path.pathName
                                     };
                                     specLoader.load(path.fullPath, currentLvl+1, parentDict);
+                                }
+                            }
+                        }
+                    }
+
+                    if (field.hasOwnProperty('allOf')){
+                        for (let item in field['allOf']){
+                            if (field['allOf'][item].hasOwnProperty('$ref')){
+                                let path = loadSubSpec(field['allOf'][item]['$ref'], baseURL);
+                                console.log(path);
+                                if (path.load === true){
+                                    let parentDict = {
+                                        'parentName':response.data.title,
+                                        'parentField': fieldName,
+                                        'schemaRef':path.pathName
+                                    };
+                                    specLoader.load(path.fullPath, currentLvl+1, parentDict);
+                                }
+                                else{
+                                    field['allOf'][item]['referencing'] = buildProps(path.lookFor, response.data);
                                 }
                             }
                         }

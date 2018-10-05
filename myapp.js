@@ -90,6 +90,13 @@
                                 }
                             }
                         }
+                        if (specToDisplay.properties[item]['items'].hasOwnProperty('allOf')){
+                            for (let subItem in specToDisplay.properties[item]['items'][allOf]){
+                                if (specToDisplay.properties[item]['items']['allOf'][subItem].hasOwnProperty('referencing')){
+                                    delete specToDisplay.properties[item]['items']['allOf'][subItem]['referencing']
+                                }
+                            }
+                        }
                     }
                     if (specToDisplay.properties[item].hasOwnProperty('referencing')){
                         delete specToDisplay.properties[item].hasOwnProperty('referencing');
@@ -108,6 +115,13 @@
                             }
                         }
                     }
+                    if (specToDisplay.properties[item].hasOwnProperty('allOf')){
+                        for (let subItem in specToDisplay.properties[item]['allOf']){
+                            if (specToDisplay.properties[item]['allOf'][subItem].hasOwnProperty('referencing')){
+                                delete specToDisplay.properties[item]['allOf'][subItem]['referencing']
+                            }
+                        }
+                    }
                 }
 
                 if (json_schema.displayedSpec != null){
@@ -121,7 +135,7 @@
                 else{
                     json_schema.displayedSpec = [itemName, specToDisplay]
                 }
-            }
+            };
 
             this.display_menu = function(){
                 console.log("hi");
@@ -177,14 +191,16 @@
             scope: {
                 schemaFields: '=',
                 parentKey: '=',
-                displayType: '='
+                displayType: '=',
+                innerLink: '='
             },
-            link: function($scope, element, attr){
+            link: function($scope){
                 $scope.$watch('schemaFields', function(schemaFields){
                     if(schemaFields)
                         $scope.fields = $scope.schemaFields;
-                    $scope.parent = $scope.parentKey;
-                    $scope.display = $scope.displayType;
+                        $scope.parent = $scope.parentKey;
+                        $scope.display = $scope.displayType;
+                        $scope.backLink = $scope.innerLink
 
                 });
             }
@@ -227,9 +243,10 @@
             restrict: 'A',
             templateUrl: 'include/innerRef.html',
             scope: {
-                innerReference: '='
+                innerReference: '=',
+                backLink: "="
             },
-            link: function($scope, element, attr){
+            link: function($scope){
                 $scope.$watch('innerReference',
                     function(innerReference){
                         if(innerReference)
@@ -239,6 +256,59 @@
             }
         }
     });
+    my_app.directive('miniObject', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/miniObject.html',
+            scope: {
+                miniObject: '='
+            },
+            link: function($scope){
+                $scope.$watch('miniObject',
+                    function(miniObject){
+                        if(miniObject)
+                            $scope.link = $scope.miniObject;
+                    }
+                );
+            }
+        }
+    });
+    my_app.directive('fieldName', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/subCard.html',
+            scope: {
+                fieldName: '='
+            },
+            link: function($scope){
+                $scope.$watch('fieldName',
+                    function(fieldName){
+                        if(fieldName)
+                            $scope.field_name = $scope.fieldName;
+                    }
+                );
+            }
+        }
+    });
+    my_app.directive('buttonInnerLink', function(){
+        return{
+            restrict: 'A',
+            templateUrl: 'include/innerLink.html',
+            scope: {
+                buttonInnerLink: '=',
+                buttonLabel: '='
+            },
+            link: function($scope){
+                $scope.$watch('buttonInnerLink',
+                    function(buttonInnerLink){
+                        if(buttonInnerLink)
+                            $scope.button_link = $scope.buttonInnerLink;
+                    }
+                );
+            }
+        }
+    });
+
 
     /* FILTERS */
     my_app.filter('removeExtraStr', function() {

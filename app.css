@@ -337,6 +337,11 @@ body.json_documenter .linkToNextSpec{
     display: inline-block;
 }
 
+body.json_documenter .subSection{
+    width:100%;
+}
+
+
 body.json_documenter .md-button{
     text-transform: lowercase !important;
     margin-left:0;
@@ -368,6 +373,7 @@ body.json_documenter .card{
 
 body.json_documenter .subCard{
     border: 3px solid transparent;
+    width:100%;
 }
 
 

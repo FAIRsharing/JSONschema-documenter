@@ -109,15 +109,6 @@
                             <div button-link="item['$ref']"></div>
                         </div>
                     </div>
-
-                    <!--
-                    Expected types: (oneOf)
-                    <ul>
-                        <li ng-repeat="item in fields[fieldKey].oneOf">
-                            <span field-type="item.type"> </span>
-                        </li>
-                    </ul>
-                    -->
                 </div>
 
 
@@ -155,13 +146,16 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">{{fieldKey}}</h5>
+
                 </div>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted" ng-if="fields[fieldKey].hasOwnProperty('description')">
                         <label class="descriptionLabel">Description: </label> {{fields[fieldKey].description}}
                     </h6>
 
-                    <!-- Cardinality -->
+                <!-- ---------------------------------------------
+                                  Cardinality
+                ---------------------------------------------  -->
                     <div ng-if="fieldKey!='@context' && fieldKey!='@id' && fieldKey!='@type'">
                         <label>Cardinality:</label>
                         (<span ng-if="fieldValue.hasOwnProperty('minItems')"> {{fieldValue['minItems']}}</span>
@@ -171,7 +165,9 @@
                         <span ng-if="fields[fieldKey].type == 'array'"> n </span>)
                     </div>
 
-                    <!-- field pre-determined values-->
+                <!-- ---------------------------------------------
+                                  If required values
+                ---------------------------------------------  -->
                     <div ng-if="fields[fieldKey].enum">
                         <label>Expected value(s) :</label>
                         <ul>
@@ -192,9 +188,9 @@
                     </div>
 
 
-                    <!-- ---------------------------------------------
-                                      REFERENCES
-                    ---------------------------------------------  -->
+                <!-- ---------------------------------------------
+                                  REFERENCES
+                ---------------------------------------------  -->
 
                     <!-- field types for structure field['items']-->
                     <div ng-if="fields[fieldKey].hasOwnProperty('items')">
@@ -210,7 +206,7 @@
 
                             <div ng-if="fields[fieldKey]['items'].hasOwnProperty('referencing')">
                                 <label>Expected type:</label> <span field-type="'object'"> </span>
-                                <div inner-reference="fields[fieldKey]['items']"> </div>
+                                <div inner-reference="fields[fieldKey]['items']" back-link="backLink"> </div>
                             </div>
 
                         </div>
@@ -227,7 +223,7 @@
                                 </ul>
                                 <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['items']['oneOf']" ng-if="item.hasOwnProperty('$ref')">
                                     <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
-                                    <div inner-reference="item" ng-if="item.hasOwnProperty('referencing')"> </div>
+                                    <div inner-reference="item" back-link="backLink" ng-if="item.hasOwnProperty('referencing')"> </div>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +240,24 @@
                                 </ul>
                                 <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['items']['anyOf']" ng-if="item.hasOwnProperty('$ref')">
                                     <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
-                                    <div inner-reference="item" ng-if="item.hasOwnProperty('referencing')"> </div>
+                                    <div inner-reference="item" back-link="backLink" ng-if="item.hasOwnProperty('referencing')"> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- structure field['items']['oneOf'] -->
+                        <div ng-if="fields[fieldKey]['items'].hasOwnProperty('allOf')">
+
+                            <div><label>Expected types</label> (all types from below):</div>
+                            <div>
+                                <ul>
+                                    <li ng-repeat="item in fields[fieldKey]['items']['allOf']" ng-if="!item.hasOwnProperty('$ref')">
+                                        <span field-type="item.type" > </span>
+                                    </li>
+                                </ul>
+                                <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['items']['allOf']" ng-if="item.hasOwnProperty('$ref')">
+                                    <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
+                                    <div inner-reference="item" back-link="backLink" ng-if="item.hasOwnProperty('referencing')"> </div>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +272,8 @@
                         </div>
                         <div ng-if="fields[fieldKey].hasOwnProperty('referencing')">
                             <label>Expected type:</label> <span field-type="'object'"> </span> {{type}}
-                            <div inner-reference="fields[fieldKey]"> </div>
+                            <div inner-reference="fields[fieldKey]"
+                                 back-link="backLink"> </div>
                         </div>
                     </div>
 
@@ -268,13 +282,22 @@
                         <div><label>Expected types</label> (any number of types from below):</div>
                         <div>
                             <ul>
-                                <li ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="!item.hasOwnProperty('$ref')">
+                                <li ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="!item.hasOwnProperty('$ref') && item.type">
                                     <span field-type="item.type" > </span>
                                 </li>
                             </ul>
-                            <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="item.hasOwnProperty('$ref')">
+
+                            <div class="subSection" ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="!item.hasOwnProperty('$ref') && !item.type">
+                                <div mini-object="item"> </div>
+                            </div>
+
+
+                            <div class="linkToNextSpec subSection" ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="item.hasOwnProperty('$ref')">
                                 <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
-                                <div inner-reference="item" ng-if="item.hasOwnProperty('referencing')"> </div>
+                                <div inner-reference="item"
+                                     back-link="backLink"
+                                     ng-if="item.hasOwnProperty('referencing')">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -284,24 +307,50 @@
                         <div><label>Expected types</label> (only one type from below):</div>
                         <div>
                             <ul>
-                                <li ng-repeat="item in fields[fieldKey].oneOf" ng-if="!item.hasOwnProperty('$ref')">
-                                    <span field-type="item.type"> </span>
+                                <li ng-repeat="item in fields[fieldKey]['oneOf']" ng-if="!item.hasOwnProperty('$ref') && item.type">
+                                    <span field-type="item.type" > </span>
                                 </li>
                             </ul>
-                            <div class="linkToNextSpec" ng-repeat="item in fields[fieldKey].oneOf" ng-if="item.hasOwnProperty('$ref')">
+
+                            <div class="subSection" ng-repeat="item in fields[fieldKey]['oneOf']" ng-if="!item.hasOwnProperty('$ref') && !item.type">
+                                <div mini-object="item"> </div>
+                            </div>
+
+
+                            <div class="linkToNextSpec subSection" ng-repeat="item in fields[fieldKey]['oneOf']" ng-if="item.hasOwnProperty('$ref')">
                                 <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
-                                <div inner-reference="item" ng-if="item.hasOwnProperty('referencing')"> </div>
+                                <div inner-reference="item"
+                                     back-link="backLink"
+                                     ng-if="item.hasOwnProperty('referencing')">
+                                </div>
                             </div>
                         </div>
 
-                        <!--
-                        Expected types: (oneOf)
-                        <ul>
-                            <li ng-repeat="item in fields[fieldKey].oneOf">
-                                <span field-type="item.type"> </span>
-                            </li>
-                        </ul>
-                        -->
+                    </div>
+
+                    <!-- field types for structure field['allOf']-->
+                    <div ng-if="fields[fieldKey].hasOwnProperty('allOf')">
+                        <div><label>Expected types</label> (all types below):</div>
+                        <div>
+                            <ul>
+                                <li ng-repeat="item in fields[fieldKey]['allOf']" ng-if="!item.hasOwnProperty('$ref') && item.type">
+                                    <span field-type="item.type" > </span>
+                                </li>
+                            </ul>
+
+                            <div class="subSection" ng-repeat="item in fields[fieldKey]['allOf']" ng-if="!item.hasOwnProperty('$ref') && !item.type">
+                                <div mini-object="item"> </div>
+                            </div>
+
+
+                            <div class="linkToNextSpec subSection" ng-repeat="item in fields[fieldKey]['allOf']" ng-if="item.hasOwnProperty('$ref')">
+                                <div button-link="item['$ref']" ng-if="!item.hasOwnProperty('referencing')"></div>
+                                <div inner-reference="item"
+                                     back-link="backLink"
+                                     ng-if="item.hasOwnProperty('referencing')">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
