@@ -1,8 +1,14 @@
-<div style='margin-top:10px' ng-repeat="(fieldName, fieldVal) in link['referencing']">
-    <label>
+<div style='margin-top:10px' ng-repeat="(fieldName, fieldVal) in link['referencing']" class="card miniCard subCard">
+
+    <div class="card-header">
         {{fieldName}}
-    </label>
-    <div button-inner-link="backLink + '_definitions_' + fieldName" button-label="'see #/definitions/'+fieldName"> </div>
+    </div>
+    <div class="card-body">
+        Reference to definition:
+        <div button-inner-link="backLink + '_definitions_' + fieldName" button-label="'see #/definitions/'+fieldName"> </div>
+    </div>
+
 </div>
+
 
 

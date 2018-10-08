@@ -579,3 +579,7 @@ body.json_documenter  .reloadButton {
     padding:5px 20px;
     margin-top:20px;
 }
+
+body.json_documenter .col-6{
+    padding: 5px;
+}

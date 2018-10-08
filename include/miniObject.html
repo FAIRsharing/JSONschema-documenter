@@ -1,4 +1,4 @@
-<div class="card miniCard subCard">
+<div class="card miniCard subCard text-muted">
     <div class="card-header"> # </div>
 
     <div class="card-body">
@@ -7,7 +7,9 @@
                 <label class="descriptionLabel">{{key}}:</label>
                 <span ng-if="(val | typeOf) === 'string'">{{val}}</span>
 
-                <div ng-if="(val | typeOf) === 'object'"> {{val}}</div>
+                <div ng-if="(val | typeOf) === 'object'">
+                    {{val}}
+                </div>
 
             </h6>
 
