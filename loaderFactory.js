@@ -15,6 +15,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             this.load = function(urlToFile, currentLvl, parent) {
                 let deferred = $q.defer();
 
+                // PARENT ITEM
                 if (currentLvl === 0){
                     $http.get(urlToFile).then(function(response) {
                         deferred.resolve(response);
@@ -29,58 +30,25 @@ angular.module('generatorApp').factory('SchemaLoader',
                     })
                 }
 
+                // SUB ITEMS
                 // Beurk ! Make something for this piece of code !
                  else{
-                    if(urlToFile!=='https://w3id.org/dats/schema/#/definitions/position' ){
-                        if (!specLoader.loaded_specs.hasOwnProperty(parent.schemaRef)){
-                            $http.get(urlToFile).then(function(response) {
-                                specLoader.loaded_specs[parent.schemaRef] = {};
-                                deferred.resolve(response);
-                                specLoader.loaded_specs[parent.schemaRef] = response.data;
+                    if (!specLoader.loaded_specs.hasOwnProperty(parent.schemaRef)){
+                        $http.get(urlToFile).then(function(response) {
+                            specLoader.loaded_specs[parent.schemaRef] = {};
+                            deferred.resolve(response);
+                            specLoader.loaded_specs[parent.schemaRef] = response.data;
 
-                                if (!specLoader.loaded_specs[parent.schemaRef].hasOwnProperty('referencedFrom')){
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'] = {};
-                                    if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
-                                        if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
-                                            specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
-                                        }
-                                    }
-                                    else{
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
-                                    }
-                                }
-                                else{
-                                    if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
-                                        specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
-                                    }
-                                    else{
-                                        if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
-                                            specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
-                                        }
-                                    }
-                                }
-
-                                seekSubSpecs(response, currentLvl);
-                            },
-                            function(error){
-                                let local_error = {"schema404": "a sub schema wasn't loaded, verify your URL (provided URL is "+ urlToFile +")"};
-                                specLoader.errors.push(local_error);
-                                return ;
-                            })
-                        }
-                        else{
                             if (!specLoader.loaded_specs[parent.schemaRef].hasOwnProperty('referencedFrom')){
                                 specLoader.loaded_specs[parent.schemaRef]['referencedFrom'] = {};
                                 if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
                                     specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
-                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
-                                }
-                                else{
                                     if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
                                         specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
                                     }
+                                }
+                                else{
+                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
                                 }
                             }
                             else{
@@ -95,7 +63,39 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
 
+                            seekSubSpecs(response, currentLvl);
+                        },
+                        function(error){
+                            let local_error = {"schema404": "a sub schema wasn't loaded, verify your URL (provided URL is "+ urlToFile +")"};
+                            specLoader.errors.push(local_error);
+                            return ;
+                        })
+                    }
+                    else{
+                        if (!specLoader.loaded_specs[parent.schemaRef].hasOwnProperty('referencedFrom')){
+                            specLoader.loaded_specs[parent.schemaRef]['referencedFrom'] = {};
+                            if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
+                                specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
+                                specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                            }
+                            else{
+                                if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                }
+                            }
                         }
+                        else{
+                            if (!specLoader.loaded_specs[parent.schemaRef]['referencedFrom'].hasOwnProperty(parent.parentName)){
+                                specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName] = [];
+                                specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                            }
+                            else{
+                                if(specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].indexOf(parent.parentField) === -1){
+                                    specLoader.loaded_specs[parent.schemaRef]['referencedFrom'][parent.parentName].push(parent.parentField);
+                                }
+                            }
+                        }
+
                     }
                 }
 
@@ -106,6 +106,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             let seekSubSpecs = function(response, currentLvl){
+                console.log(response.data);
                 let properties = response.data.properties;
                 for (let fieldName in properties){
 
@@ -129,7 +130,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
 
                         }
-                        if (field['items'].hasOwnProperty('oneOf')){
+                        else if (field['items'].hasOwnProperty('oneOf')){
                             for (let item in field['items']['oneOf']){
                                 if (field['items']['oneOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['oneOf'][item]['$ref'], baseURL);
@@ -147,7 +148,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
                         }
-                        if (field['items'].hasOwnProperty('anyOf')){
+                        else if  (field['items'].hasOwnProperty('anyOf')){
                             for (let item in field['items']['anyOf']){
                                 if (field['items']['anyOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['anyOf'][item]['$ref'], baseURL);
@@ -165,7 +166,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
                         }
-                        if (field['items'].hasOwnProperty('allOf')){
+                        else if  (field['items'].hasOwnProperty('allOf')){
                             for (let item in field['items']['allOf']){
                                 if (field['items']['allOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['allOf'][item]['$ref'], baseURL);
@@ -182,6 +183,10 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     }
                                 }
                             }
+                        }
+                        else {
+                            console.log(currentLvl);
+                            console.log(field['items']);
                         }
                     }
 
@@ -236,7 +241,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                         for (let item in field['allOf']){
                             if (field['allOf'][item].hasOwnProperty('$ref')){
                                 let path = loadSubSpec(field['allOf'][item]['$ref'], baseURL);
-                                console.log(path);
                                 if (path.load === true){
                                     let parentDict = {
                                         'parentName':response.data.title,
@@ -251,6 +255,34 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
                         }
                     }
+
+                    if (field.hasOwnProperty('type')){
+                        if (field['type'] === 'object'){
+                            let newSchemaName = fieldName + "_schema";
+
+                            if (!specLoader.hasOwnProperty(newSchemaName)){
+                                console.log('attempt to add ' + newSchemaName);
+                                specLoader.loaded_specs[newSchemaName] = field;
+                                specLoader.loaded_specs[newSchemaName]['title'] = fieldName;
+                                if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
+                                }
+                                if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
+                                }
+
+                                if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
+                                }
+
+                            }
+                            else{
+                                console.log(newSchemaName + ' already loaded')
+                            }
+
+                        }
+                    }
+
 
                 }
             };
