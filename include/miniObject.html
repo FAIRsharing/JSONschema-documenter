@@ -10,10 +10,10 @@
                 <div ng-if="(val | typeOf) === 'object'">
                     <div style='padding-left:10px;' ng-repeat="(subItem, subValue) in val">
                         <label class="descriptionLabel">{{subItem}}</label>
-                            <div ng-if="(subValue | typeOf) == 'string' || (subValue | typeOf) == 'object'">{{subValue}}</div>
+                            <span ng-if="(subValue | typeOf) == 'string' || (subValue | typeOf) == 'object'">{{subValue}}</span>
                             <div ng-if="(subValue | typeOf) == 'array'">
                                 <ul>
-                                    <li ng-repeat="item in subValue">{{item}}<li>
+                                    <li ng-repeat="item in subValue">{{item}}</li>
                                 </ul>
                             </div>
                     </div>
