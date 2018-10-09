@@ -76,6 +76,7 @@
                                                        name="next_target"
                                                        ng-model="documenter.next_target"
                                                        maxlength="100"
+                                                       ng-value="documenter.target"
                                                        ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
 
                                                 <div ng-messages="setSettings.next_target.$error" role="alert">
@@ -88,7 +89,7 @@
                                             <md-input-container class="inputList">
                                                 <label>Display type</label>
                                                 <md-select name="type" ng-model="documenter.next_display" required="">
-                                                    <md-option value="grid">Grid (default)</md-option>
+                                                    <md-option value="grid" ng-selected="true">Grid (default)</md-option>
                                                     <md-option value="table">Table</md-option>
                                                 </md-select>
                                             </md-input-container>
