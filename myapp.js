@@ -336,7 +336,18 @@
     });
     my_app.filter('typeOf', function() {
         return function (obj) {
-            return typeof obj;
+            if (typeof obj === 'object'){
+                if (Array.isArray(obj)){
+                    return 'array'
+                }
+                else {
+                    return typeof obj;
+                }
+            }
+            else{
+                return typeof obj;
+            }
+
         };
     });
 

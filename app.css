@@ -440,6 +440,13 @@ body.json_documenter h1 .fa-file-alt
 }
 
 
+body.json_documenter .definitionCard .card-header{
+    width:100.3%;
+}
+body.json_documenter .definitionSubCard .card-header{
+    width:100.5%;
+}
+
 
 
 

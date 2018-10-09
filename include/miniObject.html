@@ -8,7 +8,21 @@
                 <span ng-if="(val | typeOf) === 'string'">{{val}}</span>
 
                 <div ng-if="(val | typeOf) === 'object'">
-                    {{val}}
+                    <div style='padding-left:10px;' ng-repeat="(subItem, subValue) in val">
+                        <label class="descriptionLabel">{{subItem}}</label>
+                            <div ng-if="(subValue | typeOf) == 'string' || (subValue | typeOf) == 'object'">{{subValue}}</div>
+                            <div ng-if="(subValue | typeOf) == 'array'">
+                                <ul>
+                                    <li ng-repeat="item in subValue">{{item}}<li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+
+                <div ng-if="(val | typeOf) === 'array'">
+                    <ul>
+                        <li ng-repeat="subVal in val"> {{subVal}}</li>
+                    </ul>
                 </div>
 
             </h6>

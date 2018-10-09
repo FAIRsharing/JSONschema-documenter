@@ -57,8 +57,8 @@
                     <div ng-if="(item | typeOf) === 'object'">
                         <div class="container" style="margin-bottom: 15px;">
                             <div class="row">
-                                <div class="col-6">
-                                    <div class="card"
+                                <div class="col-12">
+                                    <div class="card definitionCard"
                                          ng-repeat="(objectName, objectVal) in item"
                                          id="{{json_source['id'] + '_definitions_' + objectName}}">
                                         <div class="card-header">
@@ -76,7 +76,7 @@
 
                                                     <div class="container">
                                                         <div class="row">
-                                                            <div class="col-6" ng-repeat="(fieldName, fieldVal) in defVal" ng-if="(fieldVal |typeOf) ==='object'">
+                                                            <div class="col-6 definitionSubCard" ng-repeat="(fieldName, fieldVal) in defVal" ng-if="(fieldVal |typeOf) ==='object'">
                                                                 <div class="text-muted card miniCard subCard">
                                                                     <div class="">
                                                                         <div class="card-header">
@@ -86,7 +86,11 @@
                                                                         <div class="card-body">
                                                                             <h6 class="card-subtitle">
                                                                                 <div ng-repeat="(subKey, subVal) in fieldVal">
-                                                                                    <label class="descriptionLabel"> {{subKey}}: </label> {{subVal}}
+                                                                                    <label class="descriptionLabel"> {{subKey}}: </label>
+                                                                                    <span ng-if="(subVal | typeOf) == 'string'">{{subVal}}</span>
+                                                                                    <ul ng-if="(subVal | typeOf) == 'array'">
+                                                                                        <li ng-repeat="subItem in subVal">{{subItem}}</li>
+                                                                                    </ul>
                                                                                 </div>
                                                                             </h6>
                                                                         </div>
