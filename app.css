@@ -451,6 +451,7 @@ body.json_documenter .definitionCard{
     height:auto;
     min-height:0px;
     margin-top:10px;
+    margin-bottom: 10px;
 }
 
 

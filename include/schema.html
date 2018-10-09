@@ -58,9 +58,16 @@
                         <div class="container" style="margin-bottom: 15px;">
                             <div class="row">
                                 <div class="col-12">
+                                    <ul>
+                                        <li ng-repeat="(objectName, objectVal) in item"
+                                            ng-if="(objectVal | typeOf) === 'string'">
+                                            <label class="descriptionLabel">{{objectName}}</label> {{objectVal}}
+                                        </li>
+                                    </ul>
                                     <div class="card definitionCard"
                                          ng-repeat="(objectName, objectVal) in item"
-                                         id="{{json_source['id'] + '_definitions_' + objectName}}">
+                                         id="{{json_source['id'] + '_definitions_' + objectName}}"
+                                         ng-if="(objectVal | typeOf) === 'object'">
                                         <div class="card-header">
                                             {{objectName}}
                                         </div>
