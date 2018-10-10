@@ -114,6 +114,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div ng-if="(defVal | typeOf) === 'array'">
+                                                    <ul>
+                                                        <li ng-repeat="val in defVal">
+                                                            {{val}}
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

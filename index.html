@@ -33,25 +33,25 @@
 
     <div class="main">
 
-        <div class="container mainPage error" ng-show="documenter.errors.length>0 && documenter.errors[0].length>0">
+        <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
+
             <h2> There is one or more errors with your request </h2>
-                <div ng-repeat="item in documenter.errors">
 
-                    <div ng-repeat="(key,val) in item" ng-if="item.length === 1">
-                        <span ng-if="(val | typeOf) === 'string'"><label>{{key}}: </label> {{val}}</span>
-                        <span ng-if="(val | typeOf) === 'object'" ng-repeat="(k,v) in val">
-                            <label>{{k}}: </label> {{v}}
-                        </span>
+            <div ng-repeat="items in documenter.errors">
+                <div ng-if="(items | typeOf) === 'object'">
+                    <div ng-repeat="(itemKey, itemVal) in items">
+                        <label class="descriptionLabel">{{itemKey}}: </label> {{itemVal}}
                     </div>
-
-                    <div ng-repeat="array in item" ng-if="item.length > 1">
-                        <div ng-repeat="(key, val) in array">
-                            <label>{{key}}: </label> {{val}}
+                </div>
+                <div ng-if="(item | typeOf) === 'array'">
+                    {{item}}
+                    <div ng-repeat="item in items">
+                        <div ng-repeat="(itemKey, itemVal) in item">
+                            <label class="descriptionLabel">{{itemKey}}: </label> {{itemVal}}
                         </div>
                     </div>
-
-
                 </div>
+            </div>
         </div>
 
         <!-- MENU -->
@@ -173,7 +173,6 @@
             </div>
 
         </div>
-
 
         <!-- footer -->
         <div id="footer" class="container menuBar" ng-show="documenter.loaded">
