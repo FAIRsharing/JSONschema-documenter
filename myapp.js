@@ -53,9 +53,8 @@
             let schemaLoader = new SchemaLoader();
             schemaLoader.load(json_schema.target, 0, null).then(
                 function(){
-                    json_schema.errors.push(schemaLoader.errors)
-                    for (let local_error in schemaLoader.errors[0]){
-                        json_schema.errors.push(schemaLoader.errors[local_error])
+                    if (schemaLoader.errors.length>0){
+                        json_schema.errors.push(schemaLoader.errors);
                     }
                     json_schema.main_spec=schemaLoader.main_spec;
                     json_schema.loaded_specs=schemaLoader.loaded_specs;
@@ -138,16 +137,13 @@
             };
 
             this.display_menu = function(){
-                console.log("hi");
                 if (json_schema.menu_on === true){
                     json_schema.menu_on = false;
                     document.getElementById("settings").style.display = "none";
-                    return;
                 }
                 else{
                     json_schema.menu_on = true;
                     document.getElementById("settings").style.display = "block";
-                    return;
                 }
 
             };
