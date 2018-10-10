@@ -106,7 +106,6 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             let seekSubSpecs = function(response, currentLvl){
-                console.log(response.data);
                 let properties = response.data.properties;
                 for (let fieldName in properties){
 
@@ -114,8 +113,11 @@ angular.module('generatorApp').factory('SchemaLoader',
                     let baseURL = response.data.hasOwnProperty('id') ? response.data['id'] : '';
                     baseURL = baseURL.substr(0, baseURL.lastIndexOf('/'));
 
+                    let object_found = false;
+
                     if (field.hasOwnProperty('items')){
                         if (field['items'].hasOwnProperty('$ref')){
+                            object_found = true;
                             let path = loadSubSpec(field['items']['$ref'], baseURL);
                             if (path.load === true){
                                 let parentDict = {
@@ -131,6 +133,7 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                         }
                         else if (field['items'].hasOwnProperty('oneOf')){
+                            object_found = true;
                             for (let item in field['items']['oneOf']){
                                 if (field['items']['oneOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['oneOf'][item]['$ref'], baseURL);
@@ -149,6 +152,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
                         }
                         else if  (field['items'].hasOwnProperty('anyOf')){
+                            object_found = true;
                             for (let item in field['items']['anyOf']){
                                 if (field['items']['anyOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['anyOf'][item]['$ref'], baseURL);
@@ -167,6 +171,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
                         }
                         else if  (field['items'].hasOwnProperty('allOf')){
+                            object_found = true;
                             for (let item in field['items']['allOf']){
                                 if (field['items']['allOf'][item].hasOwnProperty('$ref')){
                                     let path = loadSubSpec(field['items']['allOf'][item]['$ref'], baseURL);
@@ -184,13 +189,45 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                             }
                         }
-                        else {
-                            console.log(currentLvl);
-                            console.log(field['items']);
+
+                        //
+                        else if (field['items'].hasOwnProperty('type') && object_found === false && field["items"]["type"] !== 'string') {
+                            object_found = true;
+                            let newSchemaName = fieldName + "_schema";
+                            if (!specLoader.hasOwnProperty(newSchemaName)){
+                                specLoader.loaded_specs[newSchemaName] = field['items'];
+                                specLoader.loaded_specs[newSchemaName]['title'] = fieldName;
+                                if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
+                                }
+                                if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
+                                }
+
+                                if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
+                                }
+
+                            }
+
+                            else{
+                                if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
+                                }
+                                if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
+                                }
+
+                                if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
+                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
+                                }
+                            }
+
                         }
                     }
 
-                    if (field.hasOwnProperty('$ref')){
+                    else if (field.hasOwnProperty('$ref')){
+                        object_found = true;
                         let path = loadSubSpec(field['$ref'], baseURL);
                         if (path.load === true){
                             let parentDict = {
@@ -205,7 +242,8 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
                     }
 
-                    if (field.hasOwnProperty('oneOf')){
+                    else if (field.hasOwnProperty('oneOf')){
+                        object_found = true;
                         for (let item in field['oneOf']){
                             if (field['oneOf'][item].hasOwnProperty('$ref')){
                                 let path = loadSubSpec(field['oneOf'][item]['$ref'], baseURL);
@@ -217,11 +255,16 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     };
                                     specLoader.load(path.fullPath, currentLvl+1, parentDict);
                                 }
+                                else{
+                                    field['oneOf'][item]['referencing'] = {};
+                                    field['oneOf'][item]['referencing'][path.lookFor[1]] = buildProps(path.lookFor, response.data)[item];
+                                }
                             }
                         }
                     }
 
-                    if (field.hasOwnProperty('anyOf')){
+                    else if (field.hasOwnProperty('anyOf')){
+                        object_found = true;
                         for (let item in field['anyOf']){
                             if (field['anyOf'][item].hasOwnProperty('$ref')){
                                 let path = loadSubSpec(field['anyOf'][item]['$ref'], baseURL);
@@ -233,11 +276,16 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     };
                                     specLoader.load(path.fullPath, currentLvl+1, parentDict);
                                 }
+                                else{
+                                    field['anyOf'][item]['referencing'] = {};
+                                    field['anyOf'][item]['referencing'][path.lookFor[1]] = buildProps(path.lookFor, response.data)[item];
+                                }
                             }
                         }
                     }
 
-                    if (field.hasOwnProperty('allOf')){
+                    else if (field.hasOwnProperty('allOf')){
+                        object_found = true;
                         for (let item in field['allOf']){
                             if (field['allOf'][item].hasOwnProperty('$ref')){
                                 let path = loadSubSpec(field['allOf'][item]['$ref'], baseURL);
@@ -250,20 +298,33 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     specLoader.load(path.fullPath, currentLvl+1, parentDict);
                                 }
                                 else{
-                                    field['allOf'][item]['referencing'] = buildProps(path.lookFor, response.data);
+                                    field['allOf'][item]['referencing'] = {};
+                                    field['allOf'][item]['referencing'][path.lookFor[1]] = buildProps(path.lookFor, response.data)[item];
                                 }
                             }
                         }
                     }
 
-                    if (field.hasOwnProperty('type')){
-                        if (field['type'] === 'object'){
-                            let newSchemaName = fieldName + "_schema";
+                    else if (object_found === false && field.hasOwnProperty('type') && field["type"] !== 'string'){
+                        let newSchemaName = fieldName + "_schema";
 
-                            if (!specLoader.hasOwnProperty(newSchemaName)){
-                                console.log('attempt to add ' + newSchemaName);
-                                specLoader.loaded_specs[newSchemaName] = field;
-                                specLoader.loaded_specs[newSchemaName]['title'] = fieldName;
+                        if (!specLoader.hasOwnProperty(newSchemaName)){
+                            specLoader.loaded_specs[newSchemaName] = field;
+                            specLoader.loaded_specs[newSchemaName]['title'] = fieldName;
+                            if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
+                            }
+                            if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
+                            }
+
+                            if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
+                            }
+
+                        }
+
+                        else{
                                 if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
                                     specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
                                 }
@@ -274,13 +335,8 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
                                     specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
                                 }
-
-                            }
-                            else{
-                                console.log(newSchemaName + ' already loaded')
                             }
 
-                        }
                     }
 
 
