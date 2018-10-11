@@ -105,7 +105,7 @@ angular.module('generatorApp').factory('SchemaLoader',
 
             };
 
-            let seekSubSpecs = function(response, currentLvl){
+            var seekSubSpecs = function(response, currentLvl){
                 let properties = response.data.properties;
                 for (let fieldName in properties){
 
@@ -191,7 +191,12 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
 
                         //
-                        else if (field['items'].hasOwnProperty('type') && object_found === false && field["items"]["type"] !== 'string') {
+                        else if (field['items'].hasOwnProperty('type')
+                            && object_found === false
+                            && field["items"]["type"] !== 'string'
+                            && field["items"]["type"] !== 'integer'
+                            && field["items"]["type"] !== 'boolean'
+                            && field["items"]["type"] !== 'number') {
                             object_found = true;
                             let newSchemaName = fieldName + "_schema";
                             if (!specLoader.hasOwnProperty(newSchemaName)){
@@ -209,7 +214,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
 
                             }
-
                             else{
                                 if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
                                     specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
@@ -222,6 +226,15 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
                                 }
                             }
+
+                            let data = {
+                                "data":{
+                                    "properties": field["items"]["properties"],
+                                    "id": baseURL+'/...'
+                                }
+                            };
+                            seekSubSpecs(data, currentLvl+1);
+
 
                         }
                     }
@@ -305,7 +318,9 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
                     }
 
-                    else if (object_found === false && field.hasOwnProperty('type') && field["type"] !== 'string'){
+                    else if (object_found === false
+                             && field.hasOwnProperty('type')
+                             && field["type"] === 'object'){
                         let newSchemaName = fieldName + "_schema";
 
                         if (!specLoader.hasOwnProperty(newSchemaName)){
@@ -323,20 +338,27 @@ angular.module('generatorApp').factory('SchemaLoader',
                             }
 
                         }
-
-                        else{
-                                if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
-                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
-                                }
-                                if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
-                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
-                                }
-
-                                if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
-                                    specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
-                                }
+                        else {
+                            if (!specLoader.loaded_specs[newSchemaName].hasOwnProperty('referencedFrom')){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'] = {};
+                            }
+                            if (!specLoader.loaded_specs[newSchemaName]['referencedFrom'].hasOwnProperty(response.data.title)){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title] = []
                             }
 
+                            if (specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].indexOf(fieldName) === -1){
+                                specLoader.loaded_specs[newSchemaName]['referencedFrom'][response.data.title].push(fieldName);
+                            }
+                        }
+
+                        let data = {
+                            "properties": {
+                                "properties": field["properties"],
+                                "id": baseURL + '/...'
+                            }
+                        };
+                        console.log(field);
+                        seekSubSpecs(data, currentLvl+1);
                     }
 
 
