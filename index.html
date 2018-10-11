@@ -30,187 +30,187 @@
 
     <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
 
+        <div class="main">
 
-    <div class="main">
+            <!-- ERRORS -->
+            <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
 
-        <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
+                <h2> There is one or more errors with your request </h2>
 
-            <h2> There is one or more errors with your request </h2>
-
-            <div ng-repeat="items in documenter.errors">
-                <div ng-if="(items | typeOf) === 'object'">
-                    <div ng-repeat="(itemKey, itemVal) in items">
-                        <label class="descriptionLabel">{{itemKey}}: </label> {{itemVal}}
-                    </div>
-                </div>
-                <div ng-if="(item | typeOf) === 'array'">
-                    {{item}}
-                    <div ng-repeat="item in items">
-                        <div ng-repeat="(itemKey, itemVal) in item">
+                <div ng-repeat="items in documenter.errors">
+                    <div ng-if="(items | typeOf) === 'object'">
+                        <div ng-repeat="(itemKey, itemVal) in items">
                             <label class="descriptionLabel">{{itemKey}}: </label> {{itemVal}}
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MENU -->
-        <div id="pageTop" class="container menuBar" ng-show="documenter.loaded">
-            <div class="row">
-                <md-toolbar class="md-menu-toolbar">
-                    <div layout="row">
-                        <md-toolbar-filler layout="" layout-align="center center">
-                            <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
-                        </md-toolbar-filler>
-
-                        <div class="settings" id="settings">
-                            <div class="menuCard">
-                                <div class="cardheader">Set your settings</div>
-                                <div class="cardbody">
-                                    <md-content>
-                                        <form name="setSettings">
-
-                                            <md-input-container class="md-block">
-                                                <label>Target URL</label>
-                                                <input required=""
-                                                       name="next_target"
-                                                       ng-model="documenter.next_target"
-                                                       maxlength="100"
-                                                       ng-value="documenter.target"
-                                                       ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
-
-                                                <div ng-messages="setSettings.next_target.$error" role="alert">
-                                                    <div ng-message-exp="['required', 'maxlength', 'pattern']">
-                                                        You must enter a valid URL containing less than 100 characters
-                                                    </div>
-                                                </div>
-                                            </md-input-container>
-
-                                            <md-input-container class="inputList">
-                                                <label>Display type</label>
-                                                <md-select name="type" ng-model="documenter.next_display" required="">
-                                                    <md-option value="grid" ng-selected="true">Grid (default)</md-option>
-                                                    <md-option value="table">Table</md-option>
-                                                </md-select>
-                                            </md-input-container>
-                                        </form>
-
-                                        <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
-                                    </md-content>
-                                </div>
+                    <div ng-if="(item | typeOf) === 'array'">
+                        {{item}}
+                        <div ng-repeat="item in items">
+                            <div ng-repeat="(itemKey, itemVal) in item">
+                                <label class="descriptionLabel">{{itemKey}}: </label> {{itemVal}}
                             </div>
                         </div>
-
-                        <div style="display:block;width:100%">
-
-                            <h2 class="md-toolbar-tools">JSON-Schema documenter </h2>
-
-                            <md-menu-bar>
-                                <md-menu>
-                                    <button aria-label="Open menu"
-                                            ng-click="$mdMenu.open($event)">
-                                        <span class="fas fa-chevron-down" style="margin-right:10px"></span>
-                                        {{documenter.main_spec.title}}
-                                        <md-tooltip style="padding:10px">
-                                            Click to display dependency schemas
-                                        </md-tooltip>
-                                    </button>
-
-                                    <md-menu-content width="4">
-
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-6 menuItem"
-                                                     ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
-                                                    <a ng-href="#{{specName|removeExtraStr}}"
-                                                               target="_self"
-                                                               class="menuItemLink">
-                                                        {{spec.title}}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </md-menu-content>
-
-                                </md-menu>
-                            </md-menu-bar>
-                        </div>
                     </div>
-                </md-toolbar>
-            </div>
-        </div>
-
-        <!-- Loader -->
-        <div class="container" ng-show="!documenter.loaded">
-            <div class="row">
-                <div class="col-12 loader">
-                    <div class="main_container">Loading ... !</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- specs -->
-        <div class="container mainPage" ng-show="documenter.loaded">
-
-
-
-            <div class="row mainPage">
-                <!-- main spec -->
-                <div class="col-lg-12 col-sm-12 col-md-12 schema"
-                     schema-loader="documenter.main_spec"
-                     parent-key="''"
-                     container-ctrl ="documenter">
-                </div>
-
-                <!-- Sub specs -->
-                <div ng-repeat="(key, item) in documenter.loaded_specs"
-                     class="col-lg-12 col-sm-12 col-md-12 schema"
-                     schema-loader="documenter.loaded_specs[key]"
-                     parent-key="key"
-                     container-ctrl="documenter">
                 </div>
             </div>
 
-        </div>
+            <!-- MENU -->
+            <div id="pageTop" class="container menuBar" ng-show="documenter.loaded">
+                <div class="row">
+                    <md-toolbar class="md-menu-toolbar">
+                        <div layout="row">
+                            <md-toolbar-filler layout="" layout-align="center center">
+                                <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
+                            </md-toolbar-filler>
 
-        <!-- footer -->
-        <div id="footer" class="container menuBar" ng-show="documenter.loaded">
-            <div class="row">
-                <md-toolbar class="md-menu-toolbar">
-                    <div layout="row">
-                        <md-toolbar-filler layout="" layout-align="center center"> </md-toolbar-filler>
-                        <div style="display:block;width:100%">
-                            <h2 class="md-toolbar-tools"> <p>This application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> <BR>
-                                Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> for the University of Oxford and Oxford e-research centre.</p></h2>
-                            <md-menu-bar>
-                                <div class="container">
-                                    <div class="row">
-                                        <a href="https://fairsharing.org/" target="_blank" class="col-lg-4 col-md-4 col-sm-12">
-                                            <img id="fairSharing" src="assets/FAIRsharing.svg" />
-                                        </a>
-                                        <a href="https://www.oerc.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
-                                            <img id="oerc" src="assets/oerc.jpg" />
-                                        </a>
-                                        <a href="https://www.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
-                                            <img id="uni" src="assets/university_of_oxford.png"/>
-                                        </a>
+                            <div class="settings" id="settings">
+                                <div class="menuCard">
+                                    <div class="cardheader">Set your settings</div>
+                                    <div class="cardbody">
+                                        <md-content>
+                                            <form name="setSettings">
+
+                                                <md-input-container class="md-block">
+                                                    <label>Target URL</label>
+                                                    <input required=""
+                                                           name="next_target"
+                                                           ng-model="documenter.next_target"
+                                                           maxlength="100"
+                                                           ng-value="documenter.target"
+                                                           ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
+
+                                                    <div ng-messages="setSettings.next_target.$error" role="alert">
+                                                        <div ng-message-exp="['required', 'maxlength', 'pattern']">
+                                                            You must enter a valid URL containing less than 100 characters
+                                                        </div>
+                                                    </div>
+                                                </md-input-container>
+
+                                                <md-input-container class="inputList">
+                                                    <label>Display type</label>
+                                                    <md-select name="type" ng-model="documenter.next_display" required="">
+                                                        <md-option value="grid" ng-selected="true">Grid (default)</md-option>
+                                                        <md-option value="table">Table</md-option>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </form>
+
+                                            <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
+                                        </md-content>
                                     </div>
                                 </div>
-                            </md-menu-bar>
+                            </div>
+
+                            <div style="display:block;width:100%">
+
+                                <h2 class="md-toolbar-tools">JSON-Schema documenter </h2>
+
+                                <md-menu-bar>
+                                    <md-menu>
+                                        <button aria-label="Open menu"
+                                                ng-click="$mdMenu.open($event)">
+                                            <span class="fas fa-chevron-down" style="margin-right:10px"></span>
+                                            {{documenter.main_spec.title}}
+                                            <md-tooltip style="padding:10px">
+                                                Click to display dependency schemas
+                                            </md-tooltip>
+                                        </button>
+
+                                        <md-menu-content width="4">
+
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-6 menuItem"
+                                                         ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
+                                                        <a ng-href="#{{specName|removeExtraStr}}"
+                                                                   target="_self"
+                                                                   class="menuItemLink">
+                                                            {{spec.title}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </md-menu-content>
+
+                                    </md-menu>
+                                </md-menu-bar>
+                            </div>
                         </div>
-                    </div>
-                </md-toolbar>
+                    </md-toolbar>
+                </div>
             </div>
 
+            <!-- Loader -->
+            <div class="container" ng-show="!documenter.loaded">
+                <div class="row">
+                    <div class="col-12 loader">
+                        <div class="main_container">Loading ... !</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- specs -->
+            <div class="container mainPage" ng-show="documenter.loaded">
+
+
+
+                <div class="row mainPage">
+                    <!-- main spec -->
+                    <div class="col-lg-12 col-sm-12 col-md-12 schema"
+                         schema-loader="documenter.main_spec"
+                         parent-key="''"
+                         container-ctrl ="documenter">
+                    </div>
+
+                    <!-- Sub specs -->
+                    <div ng-repeat="(key, item) in documenter.loaded_specs"
+                         class="col-lg-12 col-sm-12 col-md-12 schema"
+                         schema-loader="documenter.loaded_specs[key]"
+                         parent-key="key"
+                         container-ctrl="documenter">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- footer -->
+            <div id="footer" class="container menuBar" ng-show="documenter.loaded">
+                <div class="row">
+                    <md-toolbar class="md-menu-toolbar">
+                        <div layout="row">
+                            <md-toolbar-filler layout="" layout-align="center center"> </md-toolbar-filler>
+                            <div style="display:block;width:100%">
+                                <h2 class="md-toolbar-tools"> <p>This application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> <BR>
+                                    Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> for the University of Oxford and Oxford e-research centre.</p></h2>
+                                <md-menu-bar>
+                                    <div class="container">
+                                        <div class="row">
+                                            <a href="https://fairsharing.org/" target="_blank" class="col-lg-4 col-md-4 col-sm-12">
+                                                <img id="fairSharing" src="assets/FAIRsharing.svg" />
+                                            </a>
+                                            <a href="https://www.oerc.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
+                                                <img id="oerc" src="assets/oerc.jpg" />
+                                            </a>
+                                            <a href="https://www.ox.ac.uk/" target="_blank" class="col-lg-2 col-md-2 col-sm-5">
+                                                <img id="uni" src="assets/university_of_oxford.png"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </md-menu-bar>
+                            </div>
+                        </div>
+                    </md-toolbar>
+                </div>
+
+            </div>
+
+
+
+            <a ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
+            </a>
+
         </div>
-
-
-
-        <a ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
-        </a>
-
-    </div>
 
     </body>
 

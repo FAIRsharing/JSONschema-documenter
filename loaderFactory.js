@@ -25,6 +25,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                     function(error){
                         let localError = {"schema404": "main schema couldn't be loaded, " +
                             "verify your URL (provided URL is "+urlToFile+")"};
+                        console.log(localError);
                         specLoader.errors.push(localError);
                         return deferred.reject(localError);
                     })
@@ -68,6 +69,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                         function(error){
                             let local_error = {"schema404": "a sub schema wasn't loaded, verify your URL (provided URL is "+ urlToFile +")"};
                             specLoader.errors.push(local_error);
+                            console.log(local_error);
                             return ;
                         })
                     }
@@ -352,12 +354,12 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
 
                         let data = {
-                            "properties": {
+                            "data": {
                                 "properties": field["properties"],
-                                "id": baseURL + '/...'
+                                "id": baseURL + '/...',
+                                "title": fieldName
                             }
                         };
-                        console.log(field);
                         seekSubSpecs(data, currentLvl+1);
                     }
 

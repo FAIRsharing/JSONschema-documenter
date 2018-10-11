@@ -1,4 +1,6 @@
 <div class="main_container" id="{{parent | removeExtraStr}}">
+
+
     <h1 class="container">
         <div class="row">
             <div class="col-10 titleText">{{json_source.title}} </div>
@@ -41,6 +43,10 @@
         <ul>
             <li ng-if="json_source['$schema']">
                 <b>$schema : </b> {{json_source['$schema']}}
+            </li>
+
+            <li ng-if="!json_source['id']">
+                <b>Note: </b> This schema is a subset of <span ng-repeat="(refKey, refVal) in json_source['referencedFrom']">{{refKey}}<i ng-if="!$last">, </i></span>
             </li>
 
             <li ng-repeat="(key, item) in json_source"
