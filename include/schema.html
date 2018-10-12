@@ -23,7 +23,7 @@
                 <span class="fas fa-file-alt" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"></span>
             </div>
 
-            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem' && parent === ''" id="mainItem">
+            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem' && parent === ''">
                 <div class="jsonHeader">
                     <i class="fas fa-times" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"> </i>
                     <i class="fas fa-clipboard" ng-click-copy="{{ctrl.displayedSpec[1]}}"></i>
