@@ -50,18 +50,24 @@
                 return result;
             }
 
-            let schemaLoader = new SchemaLoader();
+           let schemaLoader = new SchemaLoader();
             schemaLoader.load(json_schema.target, 0, null).then(
                 function(){
-                    console.log(schemaLoader.errors.length);
                     if (schemaLoader.errors.length>0){
                         json_schema.errors.push(schemaLoader.errors);
                     }
-                    console.log(json_schema.errors);
                     json_schema.main_spec=schemaLoader.main_spec;
                     json_schema.loaded_specs=schemaLoader.loaded_specs;
                     json_schema.loaded = true;
                 }
+            ).catch(function(e){
+                json_schema.errors.push(e);
+            });
+
+            let test = new SchemaLoader();
+            test.load_schema(json_schema.target, 0, null).then(
+              function(){
+              }
             ).catch(function(e){
                 json_schema.errors.push(e);
             });

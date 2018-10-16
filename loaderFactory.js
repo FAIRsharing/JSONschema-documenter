@@ -69,7 +69,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                         function(error){
                             let local_error = {"schema404": "a sub schema wasn't loaded, verify your URL (provided URL is "+ urlToFile +")"};
                             specLoader.errors.push(local_error);
-                            console.log(local_error);
                             return ;
                         })
                     }
@@ -415,8 +414,134 @@ angular.module('generatorApp').factory('SchemaLoader',
                 return props;
             }
 
-        }
 
+
+
+
+
+            /** ************ *************************************************************************** *********** **/
+            /** ************                        REFACTORING HERE                                     *********** **/
+            /** ************ *************************************************************************** *********** **/
+            specLoader.raw_schemas = {}; // the raw schemas as loaded from given URL
+            specLoader.main_schema = {}; // the main schema
+            specLoader.sub_schemas = {}; // sub schemas once processed (with added variables)
+            specLoader.schema_errors = []; // loading errors
+            specLoader.ignored_keys = ["@type", "@id", "@context"];
+            specLoader.ignored_types = ["string", "number", "null", "integer", "boolean"];
+
+            let possible_references = ["allOf", "oneOf", "anyOf"];
+
+
+            // The method to load a schema from given URL (recursive)
+            specLoader.load_schema = function(fileURL, nesting_level, referencingParent){
+                let deferred = $q.defer();
+
+                // The http request as a deferred promise
+                $http.get(fileURL).then(function(response) {
+
+                    // Resolve the response once triggered
+                    deferred.resolve(response);
+
+                    // search for sub schemas that need to be loaded
+                    searchSubSpecs(response.data, nesting_level);
+                },
+                // Error handling
+                function(error){
+                    console.log(error);
+                    return deferred.reject(error);
+                });
+                return deferred.promise;
+            };
+
+            // Method to look for sub schemas (located into nested $ref)
+            let searchSubSpecs = function(schema, nested_level){
+
+                // if schema has ID then ID is the base URL, else it's empty
+                let baseURL = schema.hasOwnProperty('id') ? schema['id'] : '';
+                let properties = schema.properties;
+
+                // For each property
+                for (let propertyName in properties){
+
+                    // Verify that it exists and that it's not ignored
+                    if (properties.hasOwnProperty(propertyName) && specLoader.ignored_keys.indexOf(propertyName) === -1){
+                        let propertyValues = properties[propertyName];
+
+                        // If there is no type or type is array or object
+                        if (!propertyValues.hasOwnProperty('type') ||
+                            (propertyValues.hasOwnProperty('type') && (propertyValues['type'] ==='object' || propertyValues['type'] ==='array')) ){
+
+
+                            // First, is there an available $ref at this level
+                            if (propertyValues.hasOwnProperty('$ref')){
+                                console.log(propertyName)
+                            }
+
+                            // There's no available $ref at this level, we will look for them in other structures
+                            else{
+
+                                // type is not an array
+                                let object_found = false;
+                                if (propertyValues['type'] !== 'array'){
+                                    for (let index in possible_references){
+                                        let reference = possible_references[index];
+
+                                        if (propertyValues.hasOwnProperty(reference)){
+                                            object_found = true;
+                                            console.log(propertyName);
+                                        }
+
+                                        if (!object_found){
+                                            console.log("Direct object for "+propertyName)
+                                        }
+                                    }
+                                }
+
+                                // type is an array and things will be located into ['items']
+                                else if (propertyValues['type'] === 'array'){
+
+                                    // There is an available $ref at this level
+                                    if (propertyValues['items'].hasOwnProperty('$ref')){
+                                        console.log(propertyName)
+                                    }
+
+                                    // There is no $ref at this level, look into other structures
+                                    else{
+                                        for (let index in possible_references){
+                                            let reference = possible_references[index];
+
+                                            if (propertyValues['items'].hasOwnProperty(reference)){
+                                                console.log(propertyName);
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                        }
+
+                        /*
+                        if (propertyValues.hasOwnProperty('$ref')){
+                            console.log("REFERENCE HERE "+propertyName)
+                        }
+
+                        else{
+                            for (let index in possible_references){
+                                let reference = possible_references[index];
+                                if (propertyValues.hasOwnProperty(reference)) {
+                                    console.log(propertyName + " may have ref with "+reference)
+                                }
+                                else if (propertyValues.hasOwnProperty('items') && propertyValues['items'].hasOwnProperty(reference)){
+                                    console.log(propertyName + " may have ref with "+reference + " through items")
+                                }
+                            }
+                        }*/
+                    }
+                }
+            }
+        }
         return SchemaLoader;
     }
 );
