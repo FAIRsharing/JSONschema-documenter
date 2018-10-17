@@ -411,8 +411,9 @@ angular.module('generatorApp').factory('SchemaLoader',
                         props = buildProps(path, props);
                     }
                 }
+                console.log(props);
                 return props;
-            }
+            };
 
 
 
@@ -427,10 +428,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             specLoader.sub_schemas = {}; // sub schemas once processed (with added variables)
             specLoader.schema_errors = []; // loading errors
             specLoader.ignored_keys = ["@type", "@id", "@context"];
-            specLoader.ignored_types = ["string", "number", "null", "integer", "boolean"];
-
             let possible_references = ["allOf", "oneOf", "anyOf"];
-
 
             // Method to load a schema from given URL (recursive)
             specLoader.load_schema = function(fileURL, nesting_level, referencingParent){
@@ -441,20 +439,31 @@ angular.module('generatorApp').factory('SchemaLoader',
                     // The http request as a deferred promise
                     $http.get(fileURL).then(function(response) {
                         deferred.resolve(response); // Resolve the response once triggered
+                        specLoader.raw_schemas[specName] = response.data; // add the raw response before processing
+                        if (nesting_level === 0){ specLoader.main_schema = response.data; } // Lvl 0 = main schema
 
-                        specLoader.raw_schemas[specName] = response.data;
-
-                        // Lvl 0 = main schema
-                        if (nesting_level === 0){
-                            specLoader.main_schema = response.data;
-                        }
                         // sub schemas
                         else{
                             specLoader.sub_schemas[specName] = response.data;
+                            if (referencingParent !== null){
+                                let referenceNames = referencingParent.replace(':', "@$£").split('@$£');
+                                let parentName = referenceNames[0].replace(/_/g, " ")
+                                if (!specLoader.sub_schemas[specName].hasOwnProperty('referencedFrom')){
+                                    specLoader.sub_schemas[specName]['referencedFrom'] = {};
+                                }
+                                if (!specLoader.sub_schemas[specName]['referencedFrom'].hasOwnProperty(parentName)){
+                                    specLoader.sub_schemas[specName]['referencedFrom'][parentName] = [];
+                                }
+                                specLoader.sub_schemas[specName]['referencedFrom'][parentName].push(referenceNames[1])
+                            }
                         }
 
                         // search for sub schemas that need to be loaded
                         searchSubSpecs(response.data, response.data.properties, specName, nesting_level);
+
+                        if (response.data.hasOwnProperty('definitions')){
+                            searchSubSpecs(response.data, response.data['definitions'], specName, nesting_level);
+                        }
                     },
                     // Error handling
                     function(error){
@@ -466,7 +475,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             // Method to look for sub schemas (located into nested $ref)
-            let searchSubSpecs = function(schema, properties, parentName, nested_level){
+            var searchSubSpecs = function(schema, properties, parentName, nested_level){
 
                 // set base URL based on id attribute
                 let baseURL = schema.hasOwnProperty('id') ? schema['id'] : '';
@@ -478,7 +487,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                     // Verify that it exists and that it's not ignored
                     if (properties.hasOwnProperty(propertyName) && specLoader.ignored_keys.indexOf(propertyName) === -1){
                         let propertyValues = properties[propertyName];
-                        let referenceFullName = parentName + '_' + propertyName;
+                        let referenceFullName = parentName + ':' + propertyName;
 
                         // If there is no type or type is array or object
                         if (!propertyValues.hasOwnProperty('type') ||
@@ -495,7 +504,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             // type is an array so things will be located into ['items']
                             else if (propertyValues['type'] === 'array' && propertyValues.hasOwnProperty('items')){
                                 // There is an available $ref at this level
-                                specLoader.process_reference(propertyValues['items'], referenceFullName, baseURL, nested_level)
+                                specLoader.process_reference(propertyValues['items'], referenceFullName, baseURL, nested_level);
                                 specLoader.searchDeeper(propertyValues['items'], referenceFullName, baseURL, nested_level);
                             }
                         }
@@ -503,6 +512,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                 }
             };
 
+            // Will search for anyOf, oneOf, allOf
             specLoader.searchDeeper = function(item, parentReference, baseURL, current_level){
                 for (let index in possible_references){let reference = possible_references[index];
 
@@ -522,21 +532,26 @@ angular.module('generatorApp').factory('SchemaLoader',
                 }
             };
 
+            // Will search for $ref and properties
             specLoader.process_reference = function(reference, parentReference, baseURL, current_level){
-                console.log(parentReference);
+
                 if (reference.hasOwnProperty('$ref')){
                     if (reference['$ref'][0] !== '#'){
                         specLoader.load_schema(baseURL+'/'+reference['$ref'], current_level+1, parentReference);
                     }
-                    else{
-                        console.log('reference to meta "'+reference['$ref'].replace('#/', '')+'"')
-                    }
-
                 }
 
                 if (reference.hasOwnProperty('properties')){
-                    console.log('sub schema found from reference '+parentReference);
-                    console.log(reference['properties']);
+                    specLoader.sub_schemas[parentReference] = {};
+                    specLoader.raw_schemas[parentReference] = reference['properties'];
+                    specLoader.sub_schemas[parentReference]['properties'] = reference['properties'];
+                    let referenceNames = parentReference.replace(/_/g, " ").split(':');
+                    specLoader.sub_schemas[parentReference]['title'] = parentReference.replace(/_/g, " ").replace(':', '') + ' field sub-schema';
+                    specLoader.sub_schemas[parentReference]['id'] = baseURL+'/.';
+                    specLoader.sub_schemas[parentReference]['referencedFrom'] = {};
+                    specLoader.sub_schemas[parentReference]['referencedFrom'][referenceNames[0]] = [referenceNames[1]];
+                    searchSubSpecs(specLoader.sub_schemas[parentReference], specLoader.sub_schemas[parentReference]['properties'], parentReference, current_level+1);
+
                 }
             }
         }

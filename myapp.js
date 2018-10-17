@@ -57,7 +57,7 @@
                         json_schema.errors.push(schemaLoader.errors);
                     }
                     json_schema.main_spec=schemaLoader.main_spec;
-                    json_schema.loaded_specs=schemaLoader.loaded_specs;
+                    //json_schema.loaded_specs=schemaLoader.loaded_specs;
                     json_schema.loaded = true;
                 }
             ).catch(function(e){
