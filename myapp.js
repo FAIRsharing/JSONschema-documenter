@@ -67,6 +67,7 @@
             let test = new SchemaLoader();
             test.load_schema(json_schema.target, 0, null).then(
               function(){
+                  json_schema.loaded_specs=test.sub_schemas;
               }
             ).catch(function(e){
                 json_schema.errors.push(e);
