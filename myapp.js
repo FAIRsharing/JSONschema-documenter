@@ -56,7 +56,7 @@
                     if (schemaLoader.errors.length>0){
                         json_schema.errors.push(schemaLoader.errors);
                     }
-                    json_schema.main_spec=schemaLoader.main_spec;
+                    //json_schema.main_spec=null;
                     //json_schema.loaded_specs=schemaLoader.loaded_specs;
                     json_schema.loaded = true;
                 }
@@ -322,7 +322,8 @@
         // We have the ability to support multiple other parameters that can be passed into the filter optionally
         return function(input) {
             if (input) {
-                return input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
+                let returned_value = input.split('/').slice(-1)[0];
+                return returned_value.replace('#', '').replace('.json', '').replace(':', '_');
             }
         }
 

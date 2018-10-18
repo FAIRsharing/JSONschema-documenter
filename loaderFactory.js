@@ -25,7 +25,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                     function(error){
                         let localError = {"schema404": "main schema couldn't be loaded, " +
                             "verify your URL (provided URL is "+urlToFile+")"};
-                        console.log(localError);
                         specLoader.errors.push(localError);
                         return deferred.reject(localError);
                     })
@@ -411,7 +410,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                         props = buildProps(path, props);
                     }
                 }
-                console.log(props);
                 return props;
             };
 
@@ -436,18 +434,18 @@ angular.module('generatorApp').factory('SchemaLoader',
                 let specName = fileURL.split('/').slice(-1)[0].replace('.json#', '').replace('.json', '');
 
                 if (!specLoader.sub_schemas.hasOwnProperty(specName)){
+
                     // The http request as a deferred promise
                     $http.get(fileURL).then(function(response) {
                         deferred.resolve(response); // Resolve the response once triggered
                         specLoader.raw_schemas[specName] = response.data; // add the raw response before processing
-                        if (nesting_level === 0){ specLoader.main_schema = response.data; } // Lvl 0 = main schema
+                        specLoader.sub_schemas[specName] = response.data;
 
                         // sub schemas
-                        else{
-                            specLoader.sub_schemas[specName] = response.data;
+                        if (nesting_level > 0){
                             if (referencingParent !== null){
                                 let referenceNames = referencingParent.replace(':', "@$£").split('@$£');
-                                let parentName = referenceNames[0].replace(/_/g, " ")
+                                let parentName = referenceNames[0].replace(/_/g, " ");
                                 if (!specLoader.sub_schemas[specName].hasOwnProperty('referencedFrom')){
                                     specLoader.sub_schemas[specName]['referencedFrom'] = {};
                                 }
@@ -459,14 +457,15 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
 
                         // search for sub schemas that need to be loaded
-                        searchSubSpecs(response.data, response.data.properties, specName, nesting_level);
+                        searchSubSpecs(response.data, response.data.properties, specName, nesting_level, 'properties');
 
                         if (response.data.hasOwnProperty('definitions')){
-                            searchSubSpecs(response.data, response.data['definitions'], specName, nesting_level);
+                            searchSubSpecs(response.data, response.data['definitions'], specName, nesting_level, 'definitions');
                         }
                     },
                     // Error handling
                     function(error){
+                        console.log(error);
                         console.log(fileURL);
                         return deferred.reject(error);
                     });
@@ -475,7 +474,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             // Method to look for sub schemas (located into nested $ref)
-            var searchSubSpecs = function(schema, properties, parentName, nested_level){
+            var searchSubSpecs = function(schema, properties, parentName, nested_level, processingType){
 
                 // set base URL based on id attribute
                 let baseURL = schema.hasOwnProperty('id') ? schema['id'] : '';
@@ -494,18 +493,18 @@ angular.module('generatorApp').factory('SchemaLoader',
                             (propertyValues.hasOwnProperty('type')
                                 && (propertyValues['type'] ==='object' || propertyValues['type'] ==='array')) ){
 
-                            specLoader.process_reference(propertyValues, referenceFullName, baseURL, nested_level);
+                            specLoader.process_reference(propertyValues, referenceFullName, baseURL, nested_level, processingType, '');
 
                             // type is not an array
                             if (propertyValues['type'] !== 'array'){
-                                specLoader.searchDeeper(propertyValues, referenceFullName, baseURL, nested_level);
+                                specLoader.searchDeeper(propertyValues, referenceFullName, baseURL, nested_level, processingType, '');
                             }
 
                             // type is an array so things will be located into ['items']
                             else if (propertyValues['type'] === 'array' && propertyValues.hasOwnProperty('items')){
                                 // There is an available $ref at this level
-                                specLoader.process_reference(propertyValues['items'], referenceFullName, baseURL, nested_level);
-                                specLoader.searchDeeper(propertyValues['items'], referenceFullName, baseURL, nested_level);
+                                specLoader.process_reference(propertyValues['items'], referenceFullName, baseURL, nested_level, processingType, 'items');
+                                specLoader.searchDeeper(propertyValues['items'], referenceFullName, baseURL, nested_level, processingType, 'items');
                             }
                         }
                     }
@@ -513,9 +512,10 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             // Will search for anyOf, oneOf, allOf
-            specLoader.searchDeeper = function(item, parentReference, baseURL, current_level){
-                for (let index in possible_references){let reference = possible_references[index];
-
+            specLoader.searchDeeper = function(item, parentReference, baseURL, current_level, processingType, targetLocation){
+                for (let index in possible_references){
+                    let reference = possible_references[index];
+                    let target = targetLocation !== '' ? targetLocation+'_'+reference : reference;
                     if (item.hasOwnProperty(reference)){
                         for (let sub_index in item[reference]){
                             if (item[reference].hasOwnProperty(sub_index)){
@@ -523,7 +523,9 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     item[reference][sub_index],
                                     parentReference,
                                     baseURL,
-                                    current_level
+                                    current_level,
+                                    processingType,
+                                    target
                                 )
                             }
 
@@ -533,7 +535,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             // Will search for $ref and properties
-            specLoader.process_reference = function(reference, parentReference, baseURL, current_level){
+            specLoader.process_reference = function(reference, parentReference, baseURL, current_level, processingType, targetLocation){
 
                 if (reference.hasOwnProperty('$ref')){
                     if (reference['$ref'][0] !== '#'){
@@ -546,11 +548,28 @@ angular.module('generatorApp').factory('SchemaLoader',
                     specLoader.raw_schemas[parentReference] = reference['properties'];
                     specLoader.sub_schemas[parentReference]['properties'] = reference['properties'];
                     let referenceNames = parentReference.replace(/_/g, " ").split(':');
-                    specLoader.sub_schemas[parentReference]['title'] = parentReference.replace(/_/g, " ").replace(':', '') + ' field sub-schema';
-                    specLoader.sub_schemas[parentReference]['id'] = baseURL+'/.';
+                    specLoader.sub_schemas[parentReference]['title'] = parentReference.replace(/_/g, " ").replace(':', ', ') + ' field sub-schema';
+                    specLoader.sub_schemas[parentReference]['id'] = baseURL + '/';
                     specLoader.sub_schemas[parentReference]['referencedFrom'] = {};
                     specLoader.sub_schemas[parentReference]['referencedFrom'][referenceNames[0]] = [referenceNames[1]];
-                    searchSubSpecs(specLoader.sub_schemas[parentReference], specLoader.sub_schemas[parentReference]['properties'], parentReference, current_level+1);
+
+
+                    let targetPosition = targetLocation !== '' ? targetLocation.split('/') : null;
+
+                    if (targetPosition !== null){
+                        specLoader.sub_schemas[parentReference.split(':')[0]][processingType][parentReference.split(':')[1]]['referenceTo'] = parentReference.replace(':', '_');
+                    }
+                    else if (targetPosition === null){
+                        specLoader.sub_schemas[parentReference.split(':')[0]][processingType][parentReference.split(':')[1]]['referenceTo'] = parentReference.replace(':', '_');;
+                    }
+
+                    searchSubSpecs(
+                        specLoader.sub_schemas[parentReference],
+                        specLoader.sub_schemas[parentReference]['properties'],
+                        parentReference,
+                        current_level+1,
+                        processingType
+                    );
 
                 }
             }

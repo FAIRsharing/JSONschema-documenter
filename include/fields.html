@@ -192,6 +192,10 @@
                                   REFERENCES
                 ---------------------------------------------  -->
 
+                    <div ng-if="fields[fieldKey].hasOwnProperty('referenceTo')">
+                        <div button-link="fields[fieldKey]['referenceTo']"> </div>
+                    </div>
+
                     <!-- field types for structure field['items']-->
                     <div ng-if="fields[fieldKey].hasOwnProperty('items')">
 
