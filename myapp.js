@@ -19,6 +19,7 @@
             this.next_target = null;
             this.next_display = null;
             this.menu_on = false;
+            this.subset = ['oneOf', 'anyOf', 'allOf'];
 
             if (getParamsFromURL()["parameters"]){
                 try{
@@ -50,98 +51,29 @@
                 return result;
             }
 
-           let schemaLoader = new SchemaLoader();
-            schemaLoader.load(json_schema.target, 0, null).then(
-                function(){
-                    if (schemaLoader.errors.length>0){
-                        json_schema.errors.push(schemaLoader.errors);
-                    }
-                    //json_schema.main_spec=null;
-                    //json_schema.loaded_specs=schemaLoader.loaded_specs;
-                    json_schema.loaded = true;
-                }
-            ).catch(function(e){
-                json_schema.errors.push(e);
-            });
-
-            let test = new SchemaLoader();
-            test.load_schema(json_schema.target, 0, null).then(
+            let schema_loader = new SchemaLoader();
+            schema_loader.load_schema(json_schema.target, 0, null).then(
               function(){
-                  json_schema.loaded_specs=test.sub_schemas;
+                  json_schema.raw_schemas = schema_loader.raw_schemas;
+                  json_schema.loaded_specs=schema_loader.sub_schemas;
+                  json_schema.loaded = true;
               }
             ).catch(function(e){
                 json_schema.errors.push(e);
             });
 
-            this.displayItem = function(itemName, itemValue){
-
-                let specToDisplay = angular.copy(itemValue);
-                delete specToDisplay['referencedFrom'];
-
-                for (let item in specToDisplay.properties){
-                    if (specToDisplay.properties[item].hasOwnProperty('items')){
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('referencing')){
-                            delete specToDisplay.properties[item]['items']['referencing'];
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('oneOf')){
-                            for (let subItem in specToDisplay.properties[item]['items']['oneOf']){
-                                if (specToDisplay.properties[item]['items']['oneOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['oneOf'][subItem]['referencing']
-                                }
-                            }
-
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('anyOf')){
-                            for (let subItem in specToDisplay.properties[item]['items']['anyOf']){
-                                if (specToDisplay.properties[item]['items']['anyOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['anyOf'][subItem]['referencing']
-                                }
-                            }
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('allOf')){
-                            for (let subItem in specToDisplay.properties[item]['items'][allOf]){
-                                if (specToDisplay.properties[item]['items']['allOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['allOf'][subItem]['referencing']
-                                }
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('referencing')){
-                        delete specToDisplay.properties[item].hasOwnProperty('referencing');
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('anyOf')){
-                        for (let subItem in specToDisplay.properties[item]['anyOf']){
-                            if (specToDisplay.properties[item]['anyOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['anyOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('oneOf')){
-                        for (let subItem in specToDisplay.properties[item]['oneOf']){
-                            if (specToDisplay.properties[item]['oneOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['oneOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('allOf')){
-                        for (let subItem in specToDisplay.properties[item]['allOf']){
-                            if (specToDisplay.properties[item]['allOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['allOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                }
-
+            this.displayItem = function(itemName){
+                // TODO switch loaded_specs for raw_schemas
                 if (json_schema.displayedSpec != null){
                     if (itemName === json_schema.displayedSpec[0]){
                         json_schema.displayedSpec = null;
                     }
                     else{
-                        json_schema.displayedSpec = [itemName, specToDisplay]
+                        json_schema.displayedSpec = [itemName, json_schema.loaded_specs[itemName]]
                     }
                 }
                 else{
-                    json_schema.displayedSpec = [itemName, specToDisplay]
+                    json_schema.displayedSpec = [itemName, json_schema.loaded_specs[itemName]]
                 }
             };
 
@@ -176,15 +108,14 @@
             templateUrl: 'include/schema.html',
             scope: {
                 schemaLoader: '=',
-                parentKey: '=',
-                containerCtrl: "="
+                schemaName: '=',
+                container: "="
             },
-            link: function($scope, element, attr) {
+            link: function($scope) {
                 $scope.$watch('schemaLoader', function(schemaLoader){
                     if(schemaLoader)
                         $scope.json_source = $scope.schemaLoader;
-                        $scope.parent = $scope.parentKey;
-                        $scope.ctrl = $scope.containerCtrl;
+                        $scope.ctrl = $scope.container;
                 });
             }
         }

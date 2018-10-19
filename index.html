@@ -152,26 +152,14 @@
 
             <!-- specs -->
             <div class="container mainPage" ng-show="documenter.loaded">
-
-
-
                 <div class="row mainPage">
-                    <!-- main spec -->
-                    <div class="col-lg-12 col-sm-12 col-md-12 schema"
-                         schema-loader="documenter.main_spec"
-                         parent-key="''"
-                         container-ctrl ="documenter">
-                    </div>
-
-                    <!-- Sub specs -->
                     <div ng-repeat="(key, item) in documenter.loaded_specs"
                          class="col-lg-12 col-sm-12 col-md-12 schema"
                          schema-loader="documenter.loaded_specs[key]"
-                         parent-key="key"
-                         container-ctrl="documenter">
+                         schema-name="key"
+                         container="documenter">
                     </div>
                 </div>
-
             </div>
 
             <!-- footer -->
