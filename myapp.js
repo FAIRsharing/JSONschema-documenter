@@ -69,11 +69,11 @@
                         json_schema.displayedSpec = null;
                     }
                     else{
-                        json_schema.displayedSpec = [itemName, json_schema.loaded_specs[itemName]]
+                        json_schema.displayedSpec = [itemName, json_schema.raw_schemas[itemName]]
                     }
                 }
                 else{
-                    json_schema.displayedSpec = [itemName, json_schema.loaded_specs[itemName]]
+                    json_schema.displayedSpec = [itemName, json_schema.raw_schemas[itemName]]
                 }
             };
 

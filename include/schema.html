@@ -54,20 +54,28 @@
                                             <label class="descriptionLabel">{{objectName}}</label> {{objectVal}}
                                         </li>
                                     </ul>
+
                                     <div class="card definitionCard"
                                          id="{{schemaName + '_definitions_' + objectName}}"
                                          ng-if="(objectVal | typeOf) === 'object'">
                                         <div class="card-header">
                                             {{objectName}}
                                         </div>
+
                                         <div class="card-body">
+
+
                                             <div class="" ng-repeat="(defKey, defVal) in objectVal">
-                                                <b>{{defKey}}:</b>
-
-                                                <span ng-if="(defVal | typeOf) === 'string' || (defVal | typeOf) === 'number'">
-                                                    {{defVal}}
+                                                <span ng-if="((defVal | typeOf) === 'string' || (defVal | typeOf) === 'number') && defKey != 'referenceTo'">
+                                                    <b>{{defKey}}:</b> {{defVal}}
                                                 </span>
+                                            </div>
 
+                                            <div ng-if="objectVal.hasOwnProperty('referenceTo')">
+                                                <label>Expected types: </label>
+                                                <div button-link="objectVal['referenceTo']"> </div>
+                                            </div>
+                                                <!--
                                                 <div ng-if="(defVal | typeOf) === 'object'">
 
                                                     <div class="container">
@@ -112,7 +120,7 @@
                                                     </ul>
 
                                                 </div>
-                                            </div>
+                                                -->
                                         </div>
                                     </div>
                                 </div>
