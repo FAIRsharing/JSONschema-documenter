@@ -25,7 +25,6 @@
             try{
                 let query = location.search.substr(1);
                 if (query!==""){
-                    console.log(query);
                     let result = {};
                     query.split("&").forEach(function(part) {
                         let item = part.split("=");
@@ -45,7 +44,6 @@
 
             }
             catch(e){
-                console.log(e);
                 let error = {"URL parameters error": "Please verify the parameters you provided to the URL"};
                 json_schema.errors.push(error);
             }

@@ -79,7 +79,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             (propertyValues.hasOwnProperty('type')
                                 && (propertyValues['type'] ==='object' || propertyValues['type'] ==='array')) ){
 
-                            specLoader.process_reference(propertyValues, referenceFullName, baseURL, nested_level, processingType, '');
+                            specLoader.process_reference(propertyValues, referenceFullName, baseURL, nested_level, processingType);
 
                             // type is not an array
                             if (propertyValues['type'] !== 'array'){
@@ -90,7 +90,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                             else if (propertyValues['type'] === 'array' && propertyValues.hasOwnProperty('items')){
                                 // There is an available $ref at this level
                                 specLoader.process_reference(propertyValues['items'], referenceFullName, baseURL, nested_level, processingType, 'items');
-                                specLoader.searchDeeper(propertyValues['items'], referenceFullName, baseURL, nested_level, processingType, 'items');
+                                specLoader.searchDeeper(propertyValues['items'], referenceFullName, baseURL, nested_level, processingType);
                             }
                         }
                     }
@@ -111,7 +111,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                                     baseURL,
                                     current_level,
                                     processingType,
-                                    target
                                 )
                             }
 
@@ -121,7 +120,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             };
 
             // Will search for $ref and properties
-            specLoader.process_reference = function(reference, parentReference, baseURL, current_level, processingType, targetLocation){
+            specLoader.process_reference = function(reference, parentReference, baseURL, current_level, processingType){
 
                 if (reference.hasOwnProperty('$ref')){
                     if (reference['$ref'][0] !== '#'){
