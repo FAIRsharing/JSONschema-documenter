@@ -21,34 +21,17 @@
             this.menu_on = false;
             this.subset = ['oneOf', 'anyOf', 'allOf'];
 
-            if (getParamsFromURL()["parameters"]){
-                try{
-                    var params = JSON.parse(getParamsFromURL()["parameters"]);
-                }
-                catch(e){
-                    let error = {"jsonParseError": "Please verify the parameter JSON provided to the URL"};
-                    json_schema.errors.push(error);
-                }
+            try{
+                var params = getParamsFromURL();
             }
-            this.target = "https://w3id.org/dats/schema/study_schema.json";
-            this.display = "grid";
-            if (params){
-                if(params.hasOwnProperty('target')){
-                    json_schema.target = params.target
-                }
-                if(params.hasOwnProperty('display')){
-                    json_schema.display = params.display
-                }
+            catch(e){
+                let error = {"URL parameters error": "Please verify the parameters you provided to the URL"};
+                json_schema.errors.push(error);
             }
 
-            function getParamsFromURL() {
-                let query = location.search.substr(1);
-                let result = {};
-                query.split("&").forEach(function(part) {
-                    let item = part.split("=");
-                    result[item[0]] = decodeURIComponent(item[1]);
-                });
-                return result;
+            this.target = "https://w3id.org/dats/schema/study_schema.json#";
+            if (params){
+                json_schema.target = params['source_url'];
             }
 
             let schema_loader = new SchemaLoader();
@@ -62,6 +45,20 @@
                 json_schema.errors.push(e);
             });
 
+            function getParamsFromURL() {
+                let query = location.search.substr(1);
+                let result = {};
+                query.split("&").forEach(function(part) {
+                    let item = part.split("=");
+                    result[item[0]] = decodeURIComponent(item[1]);
+                });
+                if (result.hasOwnProperty('source_URL')){
+                    return result['source_url'];
+                }
+                else {
+                    return false
+                }
+            }
             this.displayItem = function(itemName){
                 // TODO switch loaded_specs for raw_schemas
                 if (json_schema.displayedSpec != null){
