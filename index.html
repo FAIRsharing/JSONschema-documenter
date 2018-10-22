@@ -85,14 +85,6 @@
                                                         </div>
                                                     </div>
                                                 </md-input-container>
-
-                                                <md-input-container class="inputList">
-                                                    <label>Display type</label>
-                                                    <md-select name="type" ng-model="documenter.next_display" required="">
-                                                        <md-option value="grid" ng-selected="true">Grid (default)</md-option>
-                                                        <md-option value="table">Table</md-option>
-                                                    </md-select>
-                                                </md-input-container>
                                             </form>
 
                                             <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
@@ -193,8 +185,7 @@
 
             </div>
 
-
-
+            <!-- back to top arrow -->
             <a ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
             </a>
 

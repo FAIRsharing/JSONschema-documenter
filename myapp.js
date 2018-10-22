@@ -53,11 +53,11 @@
 
             let schema_loader = new SchemaLoader();
             schema_loader.load_schema(json_schema.target, 0, null).then(
-              function(){
-                  json_schema.raw_schemas = schema_loader.raw_schemas;
-                  json_schema.loaded_specs=schema_loader.sub_schemas;
-                  json_schema.loaded = true;
-              }
+                function(){
+                    json_schema.raw_schemas = schema_loader.raw_schemas;
+                    json_schema.loaded_specs=schema_loader.sub_schemas;
+                    json_schema.loaded = true;
+                }
             ).catch(function(e){
                 json_schema.errors.push(e);
             });
@@ -115,7 +115,7 @@
                 $scope.$watch('schemaLoader', function(schemaLoader){
                     if(schemaLoader)
                         $scope.json_source = $scope.schemaLoader;
-                        $scope.ctrl = $scope.container;
+                    $scope.ctrl = $scope.container;
                 });
             }
         }
@@ -134,9 +134,9 @@
                 $scope.$watch('schemaFields', function(schemaFields){
                     if(schemaFields)
                         $scope.fields = $scope.schemaFields;
-                        $scope.parent = $scope.parentKey;
-                        $scope.display = $scope.displayType;
-                        $scope.backLink = $scope.innerLink
+                    $scope.parent = $scope.parentKey;
+                    $scope.display = $scope.displayType;
+                    $scope.backLink = $scope.innerLink
 
                 });
             }
@@ -145,7 +145,7 @@
     my_app.directive('fieldType', function(){
         return{
             restrict: 'A',
-            templateUrl: 'include/field.html',
+            templateUrl: 'include/field_type.html',
             scope: {
                 fieldType: '=',
             },
@@ -160,91 +160,20 @@
     my_app.directive('buttonLink', function(){
         return{
             restrict: 'A',
-            templateUrl: 'include/objectLink.html',
+            templateUrl: 'include/link_button.html',
             scope: {
                 buttonLink: '='
             },
             link: function($scope, element, attr){
                 $scope.$watch('buttonLink',
                     function(buttonLink){
-                    if(buttonLink)
-                        $scope.link = $scope.buttonLink;
+                        if(buttonLink)
+                            $scope.link = $scope.buttonLink;
                     }
                 );
             }
         }
     });
-    my_app.directive('innerReference', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/innerRef.html',
-            scope: {
-                innerReference: '=',
-                backLink: "="
-            },
-            link: function($scope){
-                $scope.$watch('innerReference',
-                    function(innerReference){
-                        if(innerReference)
-                            $scope.link = $scope.innerReference;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('miniObject', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/miniObject.html',
-            scope: {
-                miniObject: '='
-            },
-            link: function($scope){
-                $scope.$watch('miniObject',
-                    function(miniObject){
-                        if(miniObject)
-                            $scope.link = $scope.miniObject;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('fieldName', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/subCard.html',
-            scope: {
-                fieldName: '='
-            },
-            link: function($scope){
-                $scope.$watch('fieldName',
-                    function(fieldName){
-                        if(fieldName)
-                            $scope.field_name = $scope.fieldName;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('buttonInnerLink', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/innerLink.html',
-            scope: {
-                buttonInnerLink: '=',
-                buttonLabel: '='
-            },
-            link: function($scope){
-                $scope.$watch('buttonInnerLink',
-                    function(buttonInnerLink){
-                        if(buttonInnerLink)
-                            $scope.button_link = $scope.buttonInnerLink;
-                    }
-                );
-            }
-        }
-    });
-
 
     /* FILTERS */
     my_app.filter('removeExtraStr', function() {
@@ -313,15 +242,15 @@
         }
     }]);
     my_app.directive('ngClickCopy', ['ngCopy', function (ngCopy) {
-            return {
-                restrict: 'A',
-                link: function (scope, element, attrs) {
-                    element.bind('click', function (e) {
-                        ngCopy(attrs.ngClickCopy);
-                    });
-                }
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.bind('click', function (e) {
+                    ngCopy(attrs.ngClickCopy);
+                });
             }
-        }])
+        }
+    }])
 
 
 
