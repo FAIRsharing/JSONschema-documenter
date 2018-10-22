@@ -5,7 +5,7 @@ angular.module('generatorApp').factory('SchemaLoader',
 
             let specLoader = this;
             specLoader.raw_schemas = {}; // the raw schemas as loaded from given URL
-            specLoader.main_schema = {}; // the main schema
+            specLoader.main_schema = ""; // the main schema
             specLoader.sub_schemas = {}; // sub schemas once processed (with added variables)
             specLoader.schema_errors = []; // loading errors
             specLoader.ignored_keys = ["@type", "@id", "@context"];
@@ -37,6 +37,10 @@ angular.module('generatorApp').factory('SchemaLoader',
                                 }
                                 specLoader.sub_schemas[specName]['referencedFrom'][parentName].push(referenceNames[1])
                             }
+                        }
+
+                        else {
+                            specLoader.main_schema = specName;
                         }
 
                         // search for sub schemas that need to be loaded
@@ -131,7 +135,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                 }
 
                 if (reference.hasOwnProperty('properties')){
-                    console.log(reference);
                     specLoader.sub_schemas[parentReference] = {};
                     specLoader.raw_schemas[parentReference] = angular.copy(reference);
                     specLoader.sub_schemas[parentReference]['properties'] = reference;
