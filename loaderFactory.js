@@ -137,7 +137,7 @@ angular.module('generatorApp').factory('SchemaLoader',
                 if (reference.hasOwnProperty('properties')){
                     specLoader.sub_schemas[parentReference] = {};
                     specLoader.raw_schemas[parentReference] = angular.copy(reference);
-                    specLoader.sub_schemas[parentReference]['properties'] = reference;
+                    specLoader.sub_schemas[parentReference] = reference;
                     let referenceNames = parentReference.replace(/_/g, " ").split(':');
                     specLoader.sub_schemas[parentReference]['title'] = parentReference.replace(/_/g, " ").replace(':', ', ') + ' field subschema';
                     specLoader.sub_schemas[parentReference]['id'] = baseURL + '/';
