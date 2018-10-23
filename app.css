@@ -352,10 +352,12 @@ body.json_documenter .md-panel{
     opacity: 1;
 }
 
+/*
 body.json_documenter .tooltip{
     padding:10px;
     border:1px solid #ccc;
 }
+*/
 
 body.json_documenter .card{
     margin-top:0;
@@ -596,4 +598,19 @@ body.json_documenter  .reloadButton {
 
 body.json_documenter .col-6{
     padding: 5px;
+}
+
+
+div.tooltip{
+    opacity: 1 !important;
+}
+
+div.tooltip .tooltip-inner{
+    padding:10px;
+    background-color: #2980B9 !important;
+    border:1px solid #ccc;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    width: 400px !important;
 }

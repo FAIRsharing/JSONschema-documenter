@@ -2,11 +2,30 @@
     <div class="row">
         <div class="colMaginTop col-lg-4 col-sm-12 col-md-12" ng-repeat="(fieldKey, fieldValue) in fields" ng-if="fieldKey !== 'referenceTo'">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">{{fieldKey}}</h5>
+
+                <!-- card header: name + semantic value -->
+                <div class="card-header container" style="padding-left:0 !important; padding-right:-0 !important; margin:0 !important">
+                    <div class="container">
+                        <h5 class="card-title">
+                            <div class="row">
+                                <div class="col-10">{{fieldKey}}</div>
+                                <div class="col-2" ng-if="context[parent]['@context'].hasOwnProperty(fieldKey)">
+                                    <i class="fas fa-comment"
+                                       data-toggle="tooltip"
+                                       data-placement="bottom"
+                                       data-html="true"
+                                       title="<label> Semantic Value: </label> '{{context[parent]['@context'][fieldKey]}}'"
+                                       tooltip>
+                                    </i>
+                                </div>
+                            </div>
+                        </h5>
+                    </div>
+
 
                 </div>
                 <div class="card-body">
+
                     <h6 class="card-subtitle mb-2 text-muted" ng-if="fields[fieldKey].hasOwnProperty('description')">
                         <label class="descriptionLabel">Description: </label> {{fields[fieldKey].description}}
                     </h6>

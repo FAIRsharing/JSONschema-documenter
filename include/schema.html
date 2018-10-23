@@ -1,6 +1,6 @@
 <div class="main_container" id="{{schemaName | removeExtraStr}}">
 
-    <!-- Contains the JSON variable to display -->
+    <!-- Header containing the JSON variable to display -->
     <h1 class="container">
         <div class="row">
             <div class="col-10 titleText">{{json_source.title}} </div>
@@ -105,7 +105,7 @@
             </li>
 
             <!-- referenced from -->
-            <li ng-if="schemaName !== ''">
+            <li ng-if="json_source.hasOwnProperty('referencedFrom')">
                 <b>Referenced from: </b>
                 <div class="container">
                     <div class="row">
@@ -116,7 +116,6 @@
                                         <label class="descriptionLabel">{{childKey}}: </label>
                                     </h6>
                                     <h6 class="card-subtitle mb-2 text-muted">
-                                        <!--<label class="descriptionLabel">Referencing fields: </label>-->
                                         <span ng-repeat="item in childVal">
                                             {{item}}<span ng-if="!$last">, </span>
                                         </span>
@@ -136,7 +135,8 @@
         <h2> Schema Fields </h2>
         <div schema-fields="json_source.properties"
              parent-key="schemaName"
-             inner-link="json_source.id">
+             inner-link="json_source.id"
+             context-values="ctrl['contexts']">
         </div>
     </div>
 

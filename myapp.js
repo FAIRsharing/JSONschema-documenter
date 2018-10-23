@@ -55,6 +55,24 @@
                     json_schema.loaded_specs=schema_loader.sub_schemas;
                     json_schema.loaded = true;
                     json_schema.main_schema = schema_loader.main_schema;
+
+                    /* IMPLEMENTING CONTEXT VALUES */
+                    let mapping_file = 'schemas/dats_mapping.json';
+                    $http.get(mapping_file).then(
+                        function(res){
+                            json_schema.contexts = {};
+                            let contexts = res.data['contexts'];
+                            for (let context in contexts) {
+                                if (contexts.hasOwnProperty(context)){
+                                    $http.get(contexts[context]).then(
+                                        function(response){
+                                            json_schema.contexts[context] = response.data;
+                                        }
+                                    );
+                                }
+                            }
+                        }
+                    )
                 }
             ).catch(function(e){
                 json_schema.errors.push(e);
@@ -126,7 +144,7 @@
             scope: {
                 schemaFields: '=',
                 parentKey: '=',
-                displayType: '=',
+                contextValues: '=',
                 innerLink: '='
             },
             link: function($scope){
@@ -134,7 +152,7 @@
                     if(schemaFields)
                         $scope.fields = $scope.schemaFields;
                     $scope.parent = $scope.parentKey;
-                    $scope.display = $scope.displayType;
+                    $scope.context = $scope.contextValues;
                     $scope.backLink = $scope.innerLink
 
                 });
@@ -248,6 +266,27 @@
         }
     }])
 
+    /* bootstrap tooltip */
+    my_app.directive('tooltip', function(){
+        return {
+            restrict: 'A',
+            link: function($scope, element){
+                $scope.$watch(element,
+                    function(){
+                        if(element)
+                            element.hover(function(){
+                                // on mouseenter
+                                element.tooltip('show');
+                            }, function(){
+                                // on mouseleave
+                                element.tooltip('hide');
+                            });
+                    }
+                );
 
+
+            }
+        };
+    })
 
 })();
