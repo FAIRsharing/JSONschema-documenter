@@ -71,15 +71,19 @@
                                             function(response){
                                                 json_schema.contexts[context] = response.data;
                                             }
-                                        );
+                                        ).catch(function(e){
+                                            json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
+                                        })
                                     }
                                 }
                             }
-                        )
+                        ).catch(function(e){
+                            json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
+                        })
                     }
                 }
             ).catch(function(e){
-                json_schema.errors.push(e);
+                json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
             });
 
 
