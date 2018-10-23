@@ -23,6 +23,8 @@
             this.main_schema = "";
 
             try{
+                json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
+                json_schema.mapping_target = null;
                 let query = location.search.substr(1);
                 if (query!==""){
                     let result = {};
@@ -30,13 +32,13 @@
                         let item = part.split("=");
                         result[item[0]] = decodeURIComponent(item[1]);
                     });
+                    console.log(result);
                     if (result.hasOwnProperty('source_url')){
                         json_schema.target = result['source_url'];
                     }
-                    else {
-                        json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
+                    if (result.hasOwnProperty('context_mapping_url')) {
+                        json_schema.mapping_target = result['context_mapping_url']
                     }
-
                 }
                 else{
                     json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
@@ -44,6 +46,7 @@
 
             }
             catch(e){
+                console.log(e);
                 let error = {"URL parameters error": "Please verify the parameters you provided to the URL"};
                 json_schema.errors.push(error);
             }
@@ -57,22 +60,23 @@
                     json_schema.main_schema = schema_loader.main_schema;
 
                     /* IMPLEMENTING CONTEXT VALUES */
-                    let mapping_file = 'schemas/dats_mapping.json';
-                    $http.get(mapping_file).then(
-                        function(res){
-                            json_schema.contexts = {};
-                            let contexts = res.data['contexts'];
-                            for (let context in contexts) {
-                                if (contexts.hasOwnProperty(context)){
-                                    $http.get(contexts[context]).then(
-                                        function(response){
-                                            json_schema.contexts[context] = response.data;
-                                        }
-                                    );
+                    if (json_schema.mapping_target !== null){
+                        $http.get(json_schema.mapping_target).then(
+                            function(res){
+                                json_schema.contexts = {};
+                                let contexts = res.data['contexts'];
+                                for (let context in contexts) {
+                                    if (contexts.hasOwnProperty(context)){
+                                        $http.get(contexts[context]).then(
+                                            function(response){
+                                                json_schema.contexts[context] = response.data;
+                                            }
+                                        );
+                                    }
                                 }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
             ).catch(function(e){
                 json_schema.errors.push(e);
