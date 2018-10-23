@@ -32,7 +32,6 @@
                         let item = part.split("=");
                         result[item[0]] = decodeURIComponent(item[1]);
                     });
-                    console.log(result);
                     if (result.hasOwnProperty('source_url')){
                         json_schema.target = result['source_url'];
                     }

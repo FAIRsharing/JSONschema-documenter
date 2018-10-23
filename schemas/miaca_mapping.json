@@ -1,5 +1,5 @@
 {
-  "networkName": "DATS",
+  "networkName": "MIACA",
   "contexts":{
     "miaca_schema": "https://fairsharing.github.io/mircat/miaca/context/miaca_context.jsonld",
     "project_schema": "https://fairsharing.github.io/mircat/miaca/context/project_context.jsonld",
