@@ -18,13 +18,14 @@
             this.errors = [];
             this.displayedSpec = null;
             this.next_target = null;
-            this.next_display = null;
+            this.next_mapping = null;
             this.menu_on = false;
             this.subset = ['oneOf', 'anyOf', 'allOf'];
             this.main_schema = "";
 
             try{
                 json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
+
                 json_schema.mapping_target = null;
                 let query = location.search.substr(1);
                 if (query!==""){
@@ -43,6 +44,8 @@
                 else{
                     json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
                 }
+                json_schema.next_target = json_schema.target;
+                json_schema.next_mapping = json_schema.mapping_target;
 
             }
             catch(e){
@@ -115,11 +118,12 @@
             };
 
             this.reload = function(){
-                if (json_schema.next_target != null && json_schema.next_display != null){
-                    let url = window.location.origin + window.location.pathname + '?parameters={' +
-                        '"target":"' + json_schema.next_target + '",'+
-                        '"display":"' + json_schema.next_display + '"' + '}'
-                    window.location.href = url;
+                if (json_schema.next_target != null && json_schema.next_mapping != null){
+                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' +
+                        json_schema.next_target + '&context_mapping_url=' + json_schema.next_mapping;
+                }
+                else if (json_schema.next_target != null && json_schema.next_mapping === null) {
+                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' + json_schema.next_target;
                 }
             }
 
@@ -295,27 +299,20 @@
             link: function($scope, element){
                 $scope.$watch(element,
                     function(){
-                        if(element && $scope.fieldName){
-                            let context_data = JSON.parse(element[0]['title']);
-                            let title = context_data[$scope.fieldName];
-                            if (title.hasOwnProperty('@id')){
-                                title = title['@id'];
+                        if(element){
+                            if ($scope.fieldName){
+                                let context_data = JSON.parse(element[0]['title']);
+                                let title = context_data[$scope.fieldName];
+                                if (title.hasOwnProperty('@id')){
+                                    title = title['@id'];
+                                }
+                                // TODO: only split if not already an URL
+                                // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
+                                let title_base = title.split(':');
+                                let title_base_url = context_data[title_base[0]];
+                                title = title_base_url + title_base[1];
+                                element[0]['title'] = "<label>Semantic Value:</label> " +title;
                             }
-                            // TODO: only split if not already an URL
-                            // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
-                            let title_base = title.split(':');
-                            let title_base_url = context_data[title_base[0]];
-                            title = title_base_url + title_base[1];
-                            element[0]['title'] = "<label>Semantic Value:</label> " +title;
-                            element.hover(function(){
-                                // on mouseenter
-                                element.tooltip('show');
-                            }, function(){
-                                // on mouseleave
-                                element.tooltip('hide');
-                            });
-                        }
-                        else if (element && !$scope.fieldName){
                             element.hover(function(){
                                 // on mouseenter
                                 element.tooltip('show');

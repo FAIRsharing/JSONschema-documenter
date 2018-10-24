@@ -272,7 +272,7 @@ body.json_documenter .menuBar i.fa-comment {
     vertical-align: middle;
     position: relative;
     top: 30%;
-    left: 50%;
+    left: 80%;
     font-size: 1.4rem;
 }
 
@@ -674,5 +674,5 @@ div.legend .blueLeg{
 }
 
 div.legend .legend_item span{
-    margin-left:10px;
+    margin-left:5px;
 }

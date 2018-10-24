@@ -73,16 +73,23 @@
                                                     <input required=""
                                                            name="next_target"
                                                            ng-model="documenter.next_target"
-                                                           maxlength="100"
-                                                           ng-value="documenter.target"
-                                                           ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
+                                                           ng-value="documenter.target">
 
                                                     <div ng-messages="setSettings.next_target.$error" role="alert">
-                                                        <div ng-message-exp="['required', 'maxlength', 'pattern']">
-                                                            You must enter a valid URL containing less than 100 characters
+                                                        <div ng-message-exp="['required']">
+                                                            You must enter a file URI (URL or local path)
                                                         </div>
                                                     </div>
                                                 </md-input-container>
+
+                                                <md-input-container class="md-block">
+                                                    <label>Mapping URL for context files</label>
+                                                    <input name="mapping_target"
+                                                           ng-model="documenter.next_mapping"
+                                                           ng-value="documenter.mapping_target">
+                                                </md-input-container>
+
+
                                             </form>
 
                                             <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
