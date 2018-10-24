@@ -616,8 +616,7 @@ div.tooltip .tooltip-inner{
     width: 400px !important;
 }
 
-div.requiredField .card-header{
-    background-color: #45A93A;
+div.requiredField .card-header{    background-color: #45A93A;
 }
 
 div.card.requiredField:hover{

@@ -299,9 +299,8 @@
                             if (title.hasOwnProperty('@id')){
                                 title = title['@id'];
                             }
-                            if (title.hasOwnProperty('id')){
-                                title = title['id'];
-                            }
+                            // TODO: only split if not already an URL
+                            // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
                             let title_base = title.split(':');
                             let title_base_url = context_data[title_base[0]];
                             title = title_base_url + title_base[1];
