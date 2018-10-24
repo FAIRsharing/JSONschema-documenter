@@ -295,7 +295,7 @@
             link: function($scope, element){
                 $scope.$watch(element,
                     function(){
-                        if(element){
+                        if(element && $scope.fieldName){
                             let context_data = JSON.parse(element[0]['title']);
                             let title = context_data[$scope.fieldName];
                             if (title.hasOwnProperty('@id')){
@@ -307,6 +307,15 @@
                             let title_base_url = context_data[title_base[0]];
                             title = title_base_url + title_base[1];
                             element[0]['title'] = "<label>Semantic Value:</label> " +title;
+                            element.hover(function(){
+                                // on mouseenter
+                                element.tooltip('show');
+                            }, function(){
+                                // on mouseleave
+                                element.tooltip('hide');
+                            });
+                        }
+                        else if (element && !$scope.fieldName){
                             element.hover(function(){
                                 // on mouseenter
                                 element.tooltip('show');
