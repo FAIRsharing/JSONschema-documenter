@@ -156,11 +156,21 @@
             },
             link: function($scope){
                 $scope.$watch('schemaFields', function(schemaFields){
-                    if(schemaFields)
-                        $scope.fields = $scope.schemaFields;
-                    $scope.parent = $scope.parentKey;
-                    $scope.context = $scope.contextValues;
-                    $scope.backLink = $scope.innerLink
+                    if(schemaFields){
+                        if ($scope.schemaFields.hasOwnProperty('properties')){
+                            $scope.fields = $scope.schemaFields['properties'];
+                            if ($scope.schemaFields.hasOwnProperty('required')){
+                                $scope.requiredFields = $scope.schemaFields['required'];
+                            }
+                            else{
+                                $scope.requiredFields = null;
+                            }
+                        }
+                        $scope.parent = $scope.parentKey;
+                        $scope.context = $scope.contextValues;
+                        $scope.backLink = $scope.innerLink
+                    }
+
 
                 });
             }
@@ -271,16 +281,31 @@
                 });
             }
         }
-    }])
+    }]);
 
     /* bootstrap tooltip */
     my_app.directive('tooltip', function(){
         return {
             restrict: 'A',
+            scope: {
+              fieldName: '='
+            },
             link: function($scope, element){
                 $scope.$watch(element,
                     function(){
-                        if(element)
+                        if(element){
+                            let context_data = JSON.parse(element[0]['title']);
+                            let title = context_data[$scope.fieldName];
+                            if (title.hasOwnProperty('@id')){
+                                title = title['@id'];
+                            }
+                            if (title.hasOwnProperty('id')){
+                                title = title['id'];
+                            }
+                            let title_base = title.split(':');
+                            let title_base_url = context_data[title_base[0]];
+                            title = title_base_url + title_base[1];
+                            element[0]['title'] = "<label>Semantic Value:</label> " +title;
                             element.hover(function(){
                                 // on mouseenter
                                 element.tooltip('show');
@@ -288,6 +313,7 @@
                                 // on mouseleave
                                 element.tooltip('hide');
                             });
+                        }
                     }
                 );
 

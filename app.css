@@ -607,10 +607,24 @@ div.tooltip{
 
 div.tooltip .tooltip-inner{
     padding:10px;
-    background-color: #2980B9 !important;
-    border:1px solid #ccc;
+    color: #2980B9 !important;
+    background-color:white;
+    border:1px solid #2980B9;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
     width: 400px !important;
+}
+
+div.requiredField .card-header{
+    background-color: #45A93A;
+}
+
+div.card.requiredField:hover{
+    border-color: #45A93A;
+}
+
+div.card.requiredField div.tooltip .tooltip-inner{
+    color: #45A93A !important;
+    border-color: #45A93A;
 }

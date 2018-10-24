@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="colMaginTop col-lg-4 col-sm-12 col-md-12" ng-repeat="(fieldKey, fieldValue) in fields" ng-if="fieldKey !== 'referenceTo'">
-            <div class="card">
+
+
+            <div class="card" ng-class="{requiredField: requiredFields!== null && requiredFields.indexOf(fieldKey) !== -1}">
 
                 <!-- card header: name + semantic value -->
                 <div class="card-header container" style="padding-left:0 !important; padding-right:-0 !important; margin:0 !important">
@@ -14,7 +16,8 @@
                                        data-toggle="tooltip"
                                        data-placement="bottom"
                                        data-html="true"
-                                       title="<label> Semantic Value: </label> '{{context[parent]['@context'][fieldKey]}}'"
+                                       title="{{context[parent]['@context']}}"
+                                       field-name="fieldKey"
                                        tooltip>
                                     </i>
                                 </div>
@@ -25,6 +28,9 @@
 
                 </div>
                 <div class="card-body">
+
+                    <div class="requiredField" ng-if="requiredFields!== null && requiredFields.indexOf(fieldKey) !== -1">
+                    </div>
 
                     <h6 class="card-subtitle mb-2 text-muted" ng-if="fields[fieldKey].hasOwnProperty('description')">
                         <label class="descriptionLabel">Description: </label> {{fields[fieldKey].description}}
