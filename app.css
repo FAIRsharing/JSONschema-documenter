@@ -676,3 +676,7 @@ div.legend .blueLeg{
 div.legend .legend_item span{
     margin-left:5px;
 }
+
+body.json_documenter i.fas{
+    color:white;
+}

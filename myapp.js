@@ -125,6 +125,32 @@
                 else if (json_schema.next_target != null && json_schema.next_mapping === null) {
                     window.location.href = window.location.origin + window.location.pathname + '?source_url=' + json_schema.next_target;
                 }
+            };
+
+            this.create_href = function(context, fieldName) {
+
+                function isURL(str) {
+                    return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str);
+                }
+
+                let url = "";
+                if (context != null){
+                    if (context.hasOwnProperty(fieldName) && context[fieldName].hasOwnProperty("@id")){
+                        url = context[fieldName]["@id"];
+                    }
+                    else {
+                        url = context[fieldName];
+                    }
+                    if (!isURL(url) && url !== ""){
+                        let URLArray = url.split(':');
+                        let urlBase = context[URLArray[0]]
+                        url = urlBase + URLArray[1];
+                    }
+
+                    return url;
+
+                }
+
             }
 
         }
@@ -157,7 +183,8 @@
                 schemaFields: '=',
                 parentKey: '=',
                 contextValues: '=',
-                innerLink: '='
+                innerLink: '=',
+                functionController: '='
             },
             link: function($scope){
                 $scope.$watch('schemaFields', function(schemaFields){
@@ -171,6 +198,7 @@
                                 $scope.requiredFields = null;
                             }
                         }
+                        $scope.ctrl = $scope.functionController;
                         $scope.parent = $scope.parentKey;
                         $scope.context = $scope.contextValues;
                         $scope.backLink = $scope.innerLink
