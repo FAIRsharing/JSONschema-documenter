@@ -81,14 +81,14 @@
                         <!-- referenceTo at that level -->
                         <div ng-if="fields[fieldKey]['items'].hasOwnProperty('referenceTo')">
                             <label>Expected type:</label>
-                            <div button-link="fields[fieldKey]['items']['referenceTo']"> </div>
+                            <div button-link="fields[fieldKey]['items']['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                         </div>
 
                         <!-- structure field['items']['oneOf'] -->
                         <div ng-if="fields[fieldKey]['items'].hasOwnProperty('oneOf')">
                             <div><label>Expected types</label> (only one type from below):</div>
                             <div ng-repeat="item in fields[fieldKey]['items']['oneOf']">
-                                <div button-link="item['referenceTo']"> </div>
+                                <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
                         <div ng-if="fields[fieldKey]['items'].hasOwnProperty('anyOf')">
                             <div><label>Expected types</label> (any number of types from below):</div>
                             <div ng-repeat="item in fields[fieldKey]['items']['anyOf']">
-                                <div button-link="item['referenceTo']"> </div>
+                                <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                             </div>
                         </div>
 
@@ -104,7 +104,7 @@
                         <div ng-if="fields[fieldKey]['items'].hasOwnProperty('allOf')">
                             <div><label>Expected types</label> (all types from below):</div>
                             <div ng-repeat="item in fields[fieldKey]['items']['allOf']">
-                                <div button-link="item['referenceTo']"> </div>
+                                <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                             </div>
                         </div>
 
@@ -113,14 +113,14 @@
                     <!-- field types for structure field['$ref']-->
                     <div ng-if="fields[fieldKey].hasOwnProperty('referenceTo')">
                         <label>Expected type:</label>
-                        <div button-link="fields[fieldKey]['referenceTo']"> </div>
+                        <div button-link="fields[fieldKey]['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                     </div>
 
                     <!-- field types for structure field['anyOf']-->
                     <div ng-if="fields[fieldKey].hasOwnProperty('anyOf')">
                         <div><label>Expected types</label> (any number of types from below):</div>
                         <div ng-repeat="item in fields[fieldKey]['anyOf']" ng-if="item.hasOwnProperty('referenceTo')">
-                            <div button-link="item['referenceTo']"> </div>
+                            <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
                     <div ng-if="fields[fieldKey].hasOwnProperty('oneOf')">
                         <div><label>Expected types</label> (Only one type from below):</div>
                         <div ng-repeat="item in fields[fieldKey]['oneOf']" ng-if="item.hasOwnProperty('referenceTo')">
-                            <div button-link="item['referenceTo']"> </div>
+                            <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                         </div>
                     </div>
 
@@ -136,7 +136,7 @@
                     <div ng-if="fields[fieldKey].hasOwnProperty('allOf')">
                         <div><label>Expected types</label> (All types from below):</div>
                         <div ng-repeat="item in fields[fieldKey]['allOf']" ng-if="item.hasOwnProperty('referenceTo')">
-                            <div button-link="item['referenceTo']"> </div>
+                            <div button-link="item['referenceTo']" is-required="requiredFields.indexOf(fieldKey)"> </div>
                         </div>
                     </div>
 

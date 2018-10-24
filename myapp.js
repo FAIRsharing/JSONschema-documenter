@@ -5,7 +5,8 @@
         .config(function($mdThemingProvider) {
             $mdThemingProvider.theme('altTheme')
                 .primaryPalette('blue');
-
+            $mdThemingProvider.theme('greenTheme')
+                .primaryPalette('green');
         });
 
     my_app.controller('documenterController', ['$scope','$location','$http','$templateCache','SchemaLoader',
@@ -196,7 +197,8 @@
             restrict: 'A',
             templateUrl: 'include/link_button.html',
             scope: {
-                buttonLink: '='
+                buttonLink: '=',
+                isRequired: "="
             },
             link: function($scope, element, attr){
                 $scope.$watch('buttonLink',
