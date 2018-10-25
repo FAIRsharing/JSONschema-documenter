@@ -143,7 +143,7 @@
                     }
                     if (!isURL(url) && url !== ""){
                         let URLArray = url.split(':');
-                        let urlBase = context[URLArray[0]]
+                        let urlBase = context[URLArray[0]];
                         url = urlBase + URLArray[1];
                     }
 
@@ -162,11 +162,23 @@
                 disableInteraction: true, //disables interaction with focused element
                 animationDuration: 300,
             }, // see config
-            steps: [{
-                target: '#pageTop', //specify the element
-                placementPriority: 'right', //placement for the popover
-                content: '<label>Welcome to JSON Schema documenter, a FAIRSharing website</label>' // content to display
-            }]
+            steps: [
+                {
+                    target: '#pageTop', //specify the element
+                    placementPriority: 'top', //placement for the popover
+                    content: '<label>Welcome to JSON Schema documenter, a FAIRSharing website</label> <p> This app will help you document and navigate through complex set of JSON schemas linked one to another</p>' // content to display
+                },
+                {
+                    target: '#settingButton', //specify the element
+                    placementPriority: 'bottom', //placement for the popover
+                    content: '<label>This is the setting button</label> <p> From here you can load the main schema of the network and the mapping file to the corresponding contexts</p>' // content to display
+                },
+                {
+                    target: '#schemaMenu', //specify the element
+                    placementPriority: 'bottom', //placement for the popover
+                    content: '<label>This is the main menu button</label> <p> Click on it to display internal links to all the loaded schemas</p>' // content to display
+                }
+            ]
         };
 
         this.startTour = function(){

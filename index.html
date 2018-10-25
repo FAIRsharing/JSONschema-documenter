@@ -46,7 +46,7 @@
                     <md-toolbar class="md-menu-toolbar">
                         <div layout="row" id="settingMenu">
                             <md-toolbar-filler layout="" layout-align="center center">
-                                <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
+                                <i class="fas fa-cog" ng-click="documenter.display_menu()" id="settingButton"></i>
                             </md-toolbar-filler>
 
                             <div class="settings" id="settings">
@@ -120,7 +120,7 @@
                                 <md-menu-bar>
                                     <md-menu>
                                         <button aria-label="Open menu"
-                                                ng-click="$mdMenu.open($event)">
+                                                ng-click="$mdMenu.open($event)" id="schemaMenu">
                                             <span class="fas fa-chevron-down" style="margin-right:10px"></span>
                                             {{documenter.raw_schemas[documenter.main_schema].title}}
                                             <md-tooltip style="padding:10px">
