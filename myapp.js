@@ -161,6 +161,14 @@
             config: {
                 disableInteraction: true, //disables interaction with focused element
                 animationDuration: 300,
+                mask: {
+                    visible: true, // Shows the element mask
+                    clickThrough: false, // Allows the user to interact with elements beneath the mask
+                    clickExit: false, // Exit the tour when the user clicks on the mask
+                    scrollThrough: true, // Allows the user to scroll while hovered over the mask
+                    color: 'rgba(0,0,0,.7)' // The mask color
+                },
+                dark: false
             }, // see config
             steps: [
                 {
@@ -177,6 +185,31 @@
                     target: '#schemaMenu', //specify the element
                     placementPriority: 'bottom', //placement for the popover
                     content: '<label>This is the main menu button</label> <p> Click on it to display internal links to all the loaded schemas</p>' // content to display
+                },
+                {
+                    target: '#study_schema', //specify the element
+                    placementPriority: 'right', //placement for the popover
+                    content: '<label>This is the main schema</label> <p> From here you can access the main schema metadata, properties and references</p>' // content to display
+                },
+                {
+                    target: "#study_schema .titleText",
+                    placementPriority: 'bottom', //placement for the popover
+                    content: '<label>This is the main schema title</label>' // content to display
+                },
+                {
+                    target: '#study_schema .fa-file-alt', //specify the element
+                    placementPriority: 'right', //placement for the popover
+                    content: '<label>Display code icon</label> <p> By clicking this icon you can display the JSON variable and copy it to the clipboard</p>' // content to display
+                },
+                {
+                    target: "#study_schema .metadata",
+                    placementPriority: 'top', //placement for the popover
+                    content: "<label>This is the main schema metadata</label> <p> Here you can find all metadata attached to a schema (its name, description, version, identifier ...)</p>" // content to display
+                },
+                {
+                    target: "#study_schema .schemaProperties",
+                    placementPriority: 'top', //placement for the popover
+                    content: "<label>This is the main schema properties</label> <p> This is where you will find the schema fields and their characteristics</p>" // content to display
                 }
             ]
         };
