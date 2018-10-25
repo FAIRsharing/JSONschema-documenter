@@ -7,20 +7,8 @@
         <link rel="stylesheet" href="lib/bootstrap.css">
         <link rel="stylesheet" href="lib/angular-material.min.css">
         <link rel="stylesheet" href="lib/font-awesome/css/all.css">
-
-        <script src="lib/jquery.min.js"></script>
-        <script src="lib/bootstrap.min.js"></script>
-        <script type="text/javascript" src="lib/angular.js"></script>
-        <script type="text/javascript" src="lib/angular-material.js"></script>
-        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
-        <script type="text/javascript" src="lib/angular-animate.min.js"></script>
-        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
-
-
-        <script src="myapp.js"></script>
-        <script type="text/javascript" src="loaderFactory.js"></script>
-
+        <link rel="stylesheet" href="lib/nz-tour/dist/nz-tour.min.css">
+        
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="https://fairsharing.org/static/img/fairsharing-favicon.ico">
@@ -28,7 +16,7 @@
 
     <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
 
-        <div class="main">
+        <div class="main" id ="mainContainer" ng-controller="tourCtrl as ac">
 
             <!-- ERRORS -->
             <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
@@ -56,7 +44,7 @@
             <div id="pageTop" class="container menuBar" ng-show="documenter.loaded">
                 <div class="row">
                     <md-toolbar class="md-menu-toolbar">
-                        <div layout="row">
+                        <div layout="row" id="settingMenu">
                             <md-toolbar-filler layout="" layout-align="center center">
                                 <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
                             </md-toolbar-filler>
@@ -122,7 +110,8 @@
                                                </div>
                                                "
                                                field-name=null
-                                               tooltip></i>
+                                               tooltip
+                                               ng-click="ac.startTour()"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +163,7 @@
             </div>
 
             <!-- SCHEMAS -->
-            <div class="container mainPage" ng-show="documenter.loaded">
+            <div class="container mainPage" ng-show="documenter.loaded" id="schemas">
                 <div class="row mainPage">
                     <div ng-repeat="(key, item) in documenter.loaded_specs"
                          class="col-lg-12 col-sm-12 col-md-12 schema"
@@ -221,6 +210,21 @@
             </a>
 
         </div>
+
+
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/angular.js"></script>
+        <script type="text/javascript" src="lib/nz-tour/dist/nz-tour.min.js"></script>
+
+        <script type="text/javascript" src="lib/angular-material.js"></script>
+        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
+        <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+
+        <script src="myapp.js"></script>
+        <script type="text/javascript" src="loaderFactory.js"></script>
 
     </body>
 

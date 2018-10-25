@@ -1,0 +1,57 @@
+{
+  "_from": "nz-tour",
+  "_id": "nz-tour@1.2.1",
+  "_inBundle": false,
+  "_integrity": "sha1-HmomakZy3ncHxqzmOR3A13RCzeE=",
+  "_location": "/nz-tour",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "nz-tour",
+    "name": "nz-tour",
+    "escapedName": "nz-tour",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/nz-tour/-/nz-tour-1.2.1.tgz",
+  "_shasum": "1e6a266a4672de7707c6ace6391dc0d77442cde1",
+  "_spec": "nz-tour",
+  "_where": "C:\\Users\\Dominique Batista\\Desktop\\Work in Progress\\json_documenter",
+  "author": {
+    "name": "Tanner Linsley",
+    "email": "tannerlinsley@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/nozzle/nzTour/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-stylus": "^2.0.1",
+    "gulp-uglifyjs": "^0.6.0",
+    "nib": "^1.1.0"
+  },
+  "deprecated": false,
+  "description": "Touring and on-boarding made simple for AngularJS",
+  "homepage": "https://github.com/nozzle/nzTour",
+  "license": "MIT",
+  "main": "dist/nz-tour.js",
+  "name": "nz-tour",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nozzle/nzTour.git"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.1"
+}

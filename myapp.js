@@ -1,7 +1,7 @@
 (function(){
 
     var my_app = angular.module('generatorApp',
-        ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages'])
+        ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages', 'nzTour'])
         .config(function($mdThemingProvider) {
             $mdThemingProvider.theme('altTheme')
                 .primaryPalette('blue');
@@ -155,6 +155,29 @@
 
         }
     ]);
+
+    my_app.controller('tourCtrl', ['nzTour', function(nzTour){
+        var tourConfig = {
+            config: {
+                disableInteraction: true, //disables interaction with focused element
+                animationDuration: 300,
+            }, // see config
+            steps: [{
+                target: '#pageTop', //specify the element
+                placementPriority: 'right', //placement for the popover
+                content: '<label>Welcome to JSON Schema documenter, a FAIRSharing website</label>' // content to display
+            }]
+        };
+
+        this.startTour = function(){
+            nzTour.start(tourConfig).then(function() { //start tour
+                console.log('Tour Finished!');
+            })
+            .catch(function() {
+                console.log('Tour Aborted!')
+            });
+        };
+    }]);
 
     /* TEMPLATES */
     my_app.directive('schemaLoader', function() {

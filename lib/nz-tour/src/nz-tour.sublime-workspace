@@ -1,0 +1,1000 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"col",
+				"columns"
+			],
+			[
+				"cal",
+				"callFake"
+			],
+			[
+				"return",
+				"returnValue"
+			],
+			[
+				"Gene",
+				"GeneValidator"
+			],
+			[
+				"try",
+				"try	Try/Except"
+			],
+			[
+				"dyna",
+				"dynamicCols"
+			],
+			[
+				"trigg",
+				"triggeredFilter"
+			],
+			[
+				"_grid",
+				"_gridIndex"
+			],
+			[
+				"select",
+				"selectOptions"
+			],
+			[
+				"annota",
+				"annotated_count	statement"
+			],
+			[
+				"Splice",
+				"SplicePatternClass"
+			],
+			[
+				"un",
+				"Unfiltered_count	statement"
+			],
+			[
+				"fusion",
+				"fusion_annots	statement"
+			],
+			[
+				"grid",
+				"gridSrvcMock"
+			],
+			[
+				"high",
+				"highlyDeleted"
+			],
+			[
+				"retrn",
+				"returnValue"
+			],
+			[
+				"siden",
+				"sidenavItems"
+			],
+			[
+				"sideNav",
+				"sidenavItems"
+			],
+			[
+				"scroll",
+				"scrollY"
+			],
+			[
+				"side",
+				"sidenavItems"
+			],
+			[
+				"enable",
+				"enableFiltering"
+			],
+			[
+				"tip",
+				"TipConstantsSrvc"
+			],
+			[
+				"$http",
+				"$httpBackend	AngularJS"
+			],
+			[
+				"toHave",
+				"toHaveBeenCalledWith"
+			],
+			[
+				"mock",
+				"mockGridApi"
+			],
+			[
+				"clear",
+				"clearAllFilters"
+			],
+			[
+				"expo",
+				"exporterCsvColumnSeparator"
+			],
+			[
+				"get",
+				"getThresholdFunction"
+			],
+			[
+				"ng-repeat",
+				"ng-repeat-end	AngularJS"
+			],
+			[
+				"gene",
+				"geneCount"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"text",
+				"text-indent"
+			],
+			[
+				"cn",
+				"cnThreshold"
+			],
+			[
+				"hist",
+				"histology_subtype"
+			],
+			[
+				"gRID",
+				"GridSrvc"
+			],
+			[
+				"sig",
+				"sigGeneParams"
+			],
+			[
+				"entity",
+				"entityTypes"
+			],
+			[
+				"init",
+				"initialized"
+			],
+			[
+				"EntitySr",
+				"EntitySrvcMock"
+			],
+			[
+				"EntityS",
+				"EntitySrvcMock"
+			],
+			[
+				"karm",
+				"karmaExitStatus"
+			],
+			[
+				"report",
+				"reporters"
+			],
+			[
+				"TCGA",
+				"TCGA_OMICSOFT_DIR"
+			],
+			[
+				"if",
+				"ifmain	if __name__ == '__main__'"
+			],
+			[
+				"Omic",
+				"OMICSOFT_VERSION	statement"
+			],
+			[
+				"ui",
+				"angular-ui"
+			],
+			[
+				"show",
+				"showErrorDialog"
+			],
+			[
+				"en",
+				"entityInput"
+			],
+			[
+				"parse",
+				"parseURL"
+			],
+			[
+				"r",
+				"ReportAppCtrl"
+			],
+			[
+				"tip_rem",
+				"TIP_REMOVED"
+			],
+			[
+				"re",
+				"readline	function"
+			],
+			[
+				"patient",
+				"patient_id_from_sample	statement"
+			],
+			[
+				"tr",
+				"try	Try/Except"
+			],
+			[
+				"cohorts",
+				"cohorts_without_data	statement"
+			],
+			[
+				"cohor",
+				"cohorts_without_data	statement"
+			],
+			[
+				"tomcat",
+				"tomcatVersion"
+			],
+			[
+				"SOLR",
+				"SOLR_URL_TEMPLATE〔variable〕"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "nz-tour.js",
+			"settings":
+			{
+				"buffer_size": 42982,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/hbi91877/Desktop/nztour_repo/nzTour/package.json",
+			"settings":
+			{
+				"buffer_size": 728,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/hbi91877/Desktop/nztour_repo/nzTour/bower.json",
+			"settings":
+			{
+				"buffer_size": 611,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Lorem ipsum"
+			]
+		],
+		"width": 472.0
+	},
+	"console":
+	{
+		"height": 609.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/dist",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/src"
+	],
+	"file_history":
+	[
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/dist/nz-tour.css",
+		"/C/Users/hbi91877/Desktop/notes.txt",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/bower.json",
+		"/C/TIP/repos/tip/tip/report_app/spec/directives/tipCopynumberHelp_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/directives/tipSidenav_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/directives/tipLoadingOverlay_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/PharmacologyCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/ExpressionCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/CopynumberCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/MutationCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/SampleAnnotationCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/GeneticSummaryCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/SectionDataCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/SidenavCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/controllers/MainCtrl_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/GeneticSummarySrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/TipConstantsSrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/GridSrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/EntitySrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/ModalSrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/helper_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/config_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/filters/index_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/main_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/html/help/copynumber.html",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/tipCopynumberHelp.js",
+		"/C/TIP/repos/tip/tip/report_app/html/loading_overlay.html",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/tipLoadingOverlay.js",
+		"/C/TIP/repos/tip/tip/report_app/html/sidenav.html",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/tipSidenav.js",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/index.js",
+		"/C/TIP/repos/tip/tip/report_app/html/default_modal.html",
+		"/C/TIP/repos/tip/tip/report_app/html/sample_gene_count.html",
+		"/C/TIP/repos/tip/tip/report_app/html/sample_report.html",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/PharmacologyCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/ExpressionCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/CopynumberCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/MutationCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/SampleAnnotationCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/GeneticSummaryCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/SectionDataCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/SidenavCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/MainCtrl.js",
+		"/C/TIP/repos/tip/tip/report_app/js/controllers/index.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/GeneticSummarySrvc.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/TipConstantsSrvc.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/GridSrvc.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/EntitySrvc.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/ModalSrvc.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/index.js",
+		"/C/TIP/repos/tip/tip/report_app/css/main.css",
+		"/C/TIP/repos/tip/tip/report_app/js/filters/index.js",
+		"/C/TIP/repos/tip/tip/report_app/js/main.js",
+		"/C/TIP/repos/tip/tip/report_app/js/helper.js",
+		"/C/TIP/repos/tip/tip/report_app/js/config.js",
+		"/C/TIP/repos/tip/tip/report_app/gulpfile.js",
+		"/C/TIP/repos/tip/tip/report_app/karma.conf.js",
+		"/C/TIP/repos/tip/tip/report_app/package.json",
+		"/C/TIP/repos/tip/tip/report_app/.jshintrc",
+		"/C/TIP/repos/tip/tip/report_app/README.md",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/package.json",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/gulpfile.js",
+		"/C/Users/hbi91877/Desktop/nztour_repo/nzTour/.gitignore",
+		"/C/Users/hbi91877/Desktop/omicsoft_dnaseq.py",
+		"/U/quick_analysis_projects/omicsoft_tcga_sample_count/count_samples.py",
+		"/U/quick_analysis_projects/omicsoft_rnaseq_mutations/rnaseq_mutations.py",
+		"/C/TIP/repos/tip/solr/protocols/conf/data-config.xml",
+		"/C/TIP/repos/tip/solr/protocols/conf/schema.xml",
+		"/C/TIP/repos/tip/solr/models/conf/schema.xml",
+		"/C/TIP/repos/tip/tip/WebContent/resources/js/report_app/report_app_bundle.js",
+		"/U/quick_analysis_projects/merge_and_summarize_fusions/filter_fusions.py",
+		"/C/TIP/repos/nzTour/package.json",
+		"/C/Users/hbi91877/Desktop/tip_tcga_lihc_copynumber.txt",
+		"/C/Users/hbi91877/Desktop/export.dsv",
+		"/U/quick_analysis_projects/tip_network_access_logs/count_unique_users.py",
+		"/U/quick_analysis_projects/omicsoft_rnaseq_samples_per_cohort/count_samples.py",
+		"/U/temp_shiny_app_debug/tcga-junction-db/app/foo.R",
+		"/U/quick_analysis_projects/merge_and_summarize_fusions/annotate_fusion.py",
+		"/U/quick_analysis_projects/merge_and_summarize_fusions/summarize_fusions.py",
+		"/U/quick_analysis_projects/merge_and_summarize_fusions/filter_fusion.py",
+		"/U/quick_analysis_projects/fusion_unique_values/get_unique_values.py",
+		"/C/Users/hbi91877/Desktop/timesheet.py",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_SplicePatternClass.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_FrameShiftClass_FrameShift.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_SplicePatternClass_SplicePattern.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_SplicePattern.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_FrameShiftClass.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_FrameShift.txt",
+		"/U/quick_analysis_projects/fusion_unique_values/unique_Filter.txt",
+		"/C/Users/hbi91877/Desktop/tip_sample_copynumber_DU4475.txt",
+		"/C/Users/hbi91877/Desktop/tip_sample_expression_DU4475.txt",
+		"/C/Users/hbi91877/Desktop/tip_sample_pharmacology_DU4475.txt",
+		"/C/Users/hbi91877/Desktop/tip_sample_pharmacologyDU4475.txt",
+		"/C/TIP/repos/tip/TIPdb/scripts/create_tables.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/tcga_mutation_dataset_models_loader.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/simple_data_loader.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/savingProductionSessions.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/mutation_dataset_models_loader.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/model_mutation_loader.sql",
+		"/C/TIP/repos/tip/TIPdb/scripts/create_loading_tables.sql",
+		"/C/TIP/repos/tip/tip-datasources/conf/internal.xml",
+		"/C/TIP/repos/tip/tip/report_app/html/help/cgc.html",
+		"/C/TIP/repos/tip/tip/report_app/html/help/gistic_mutsig.html",
+		"/C/TIP/repos/tip/tip/report_app/html/help/fusion.html",
+		"/C/Users/hbi91877/Desktop/quote_bot/package.json",
+		"/C/TIP/repos/tip/tip-datasources/conf/ccle.xml",
+		"/U/quick_analysis_projects/add_sample_cohort_to_fusion/annotation_fusion.py",
+		"/C/Users/hbi91877/Desktop/New folder/ui-grid/src/js/core/directives/ui-grid-menu-button.js",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/gridStatus.js",
+		"/U/quick_analysis_projects/omicsoft_rnaseq_mutations/rxra_omicsoft_tcga_rnaseq_mutations.txt",
+		"/C/Users/hbi91877/Desktop/tip_genetic_summary_BFTC905.txt",
+		"/C/TIP/repos/tip/tip/report_app/html/grid_status.html",
+		"/C/TIP/repos/tip/tip/report_app/html/sample_report2.html",
+		"/C/Users/hbi91877/Desktop/tipHeatmapMatrix_20160412_152021.txt",
+		"/C/Users/hbi91877/Desktop/tip_genetic_summary_TCGA-CG-4475-01.txt",
+		"/C/Users/hbi91877/Desktop/download.csv",
+		"/C/Users/hbi91877/Desktop/download (1).csv",
+		"/C/TIP/repos/tip/tip/report_app/coverage/PhantomJS 2.1.1 (Windows 7 0.0.0)/js/main.js.html",
+		"/C/TIP/repos/tip/tip/report_app/spec/directives/EntitySrvc_spec.js",
+		"/C/Users/hbi91877/Desktop/nvd3.txt",
+		"/C/TIP/repos/tip/tip/report_app/html/number_line.html",
+		"/C/TIP/repos/tip/tip/report_app/spec/directives/tipNumberLine_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/js/directives/tipNumberLine.js",
+		"/C/TIP/repos/tip/tip/report_app/spec/services/NumberLineSrvc_spec.js",
+		"/C/TIP/repos/tip/tip/report_app/js/services/NumberLineSrvc.js",
+		"/C/Users/hbi91877/AppData/Local/Temp/53b586736f637671ce85a5bc02aff63a.browserify",
+		"/C/TIP/repos/tip/tip/report_app/.gitignore",
+		"/C/TIP/repos/tip/tip/report_app/.coverrun"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"-*/bundles/*, -*/node_modules/*, -*/coverage/*",
+			"-*/bundles/*, -*/node_modules/*",
+			"-*/bundles/*, -node_modules",
+			"-*/bundles, -node_modules",
+			"-**/bundles, -node_modules",
+			"-/**/bundles, -node_modules",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/, -tip/report_app/js/bundles, -tip/report_app/node_modules",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/, -tip/report_app/js/bundles, -node_modules",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/, -tip/report_app/js/bundles, node_modules",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/, -tip/report_app/js/bundles",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, -solr/*/data/, <open files>",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports, <open files>",
+			"-.metadata/, -.recommenders/, -doc/, -RemoteSystemsTempFiles, -ucdetector_reports",
+			"-**/.metadata/*",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"display:",
+			"angular",
+			"service",
+			"startTour",
+			"current",
+			"start",
+			"masks",
+			"center",
+			"nztour-masks",
+			",\\s+",
+			"\\s+",
+			"load data",
+			"button",
+			"try",
+			"clear filter",
+			"throw if the column is not found",
+			"fit",
+			"fde",
+			"dynamic",
+			"main",
+			"fit",
+			"fd",
+			"SuperCtrl",
+			"superctrl",
+			"sectiondatactrl",
+			"sectiondatqactrl",
+			"Ctrl",
+			"_processSectionData",
+			"processsectiondata",
+			"fdes",
+			"fit",
+			"ctrl.grid.data",
+			"processsectiondata",
+			"entitytype",
+			"init",
+			"main()",
+			"main",
+			"_depPromises",
+			"timeout",
+			"$timeout",
+			"onRegisterApi ",
+			"tobecalled",
+			"createSpyObj",
+			"init",
+			"_setupDynamicFilters",
+			"processsectiondata",
+			"onregister",
+			"production",
+			"todo",
+			"TCGA_OMICSOFT_DIR",
+			"mainContent",
+			"genetic",
+			"sampleDescription",
+			"btn",
+			"nzTour",
+			"$q",
+			"TipConstantsSrvc",
+			"ModalSrvc",
+			"EntitySrvc",
+			"$window",
+			"main",
+			"success",
+			"warn",
+			"info",
+			"sort:",
+			"\"",
+			"_indexGridData",
+			"cgdap",
+			"dateStr",
+			"lineDict",
+			"GeneValidator",
+			"known",
+			"filtered_data",
+			"SampleType",
+			"timeout",
+			"index",
+			"$timeout",
+			"$q",
+			"EntitySrvc",
+			"GridSrvc",
+			"_gridApi",
+			");\n",
+			"_gridIndex",
+			"find",
+			"debounce",
+			"_gridIndex",
+			"ui-grid-auto-resize ",
+			"ui-grid-auto-resize ui-grid-resize-columns ",
+			"resiz",
+			"sort:",
+			"enablesorting",
+			"true",
+			"isCommonJS",
+			"_indexGridData",
+			"_tipDynamicFilter",
+			"$timeout",
+			"$q",
+			"$timeout",
+			"$q",
+			"TODO",
+			"$timeout",
+			"filter",
+			"newFilter",
+			"_gridIndex",
+			"_gridApi",
+			"uiGridConstants",
+			"(?!.*GridSrvc\\.)uiGridConstants",
+			"^(?!.*GridSrvc\\.)uiGridConstants$",
+			"(?!GridSrvc\\.)uiGridConstants",
+			"(?!.*GridSrvc)uiGridConstants",
+			"(?!GridSrvc)uiGridConstants",
+			"uiGridConstants",
+			"ctrl._uiGridConstants",
+			"uiGridConstants",
+			"uigridconstant",
+			"uiGridConstants",
+			"_gridIndex",
+			"attr",
+			"dynCol",
+			"_gridIndex",
+			"Filter",
+			"OnExonBoundary",
+			"GeneID2",
+			"geneid1",
+			"disease",
+			"sampletype",
+			"outlier",
+			"geneid1"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\\n",
+			", ",
+			"'",
+			"data_str",
+			"line_dict",
+			"filtered_sample_fusions",
+			"",
+			"//sort:",
+			"dynFfilter",
+			"filter",
+			"ctrl._GridSrvc.uiGridConstants",
+			"dynCol",
+			"dynamicCols",
+			"\\n",
+			"filter_data",
+			"filter_annot",
+			"  Independently Filtered ({})",
+			"filtered_count",
+			"col",
+			"filter",
+			"GeneticSummaryCtrl",
+			"SampleAnnotationCtrl",
+			"SampleAnnotationData",
+			"MutationCtrl",
+			"CopynumberCtrl",
+			"ExpressionCtrl",
+			"$apply",
+			"_processSectionData",
+			"_processGridData",
+			"_processColumnDefs",
+			"cnThresholdFunction",
+			"highDeleted",
+			"SectionDataCtrl",
+			"sm",
+			"$document",
+			"true",
+			"isDefinedAndValid",
+			"SidenavCtrl",
+			"getSidenavItems",
+			"",
+			"alterationDetails",
+			"alterationSummary",
+			"tipCopynumberHelp",
+			"threshold",
+			"",
+			"ModalSrvc.open",
+			"$uibModal",
+			"ModalSrvc",
+			"tip-loading-overlay",
+			"uib-tooltip",
+			"var",
+			"{{::$1",
+			"{{::",
+			"pharmacology",
+			"PharmacologyCtrl",
+			"sampleExpression",
+			"ExpressionCtrl",
+			"CopynumberCtrl",
+			"MutationCtrl",
+			", ",
+			"filter",
+			"",
+			"gc",
+			"gistic",
+			"cn",
+			"gn, '",
+			"cnThreshold",
+			"gridDataHandler",
+			"href=\"#\"",
+			"Infinity",
+			"toBe();",
+			"defaultOptions",
+			"q",
+			"simpleSuccessHandler",
+			"windowMock",
+			"ENTREZ_ID_QUERY",
+			", ",
+			"\\n",
+			"  ",
+			"config.deploy_dir.dev",
+			"config.deploy_dir.prod",
+			", ",
+			"\\n",
+			"DEPLOY_DIR",
+			"resource_dir",
+			"    ",
+			",",
+			"",
+			"entity",
+			"\"$1\": \"TIP_REMOVED\",",
+			"    ",
+			"s3",
+			"\\n",
+			",\\n",
+			", ",
+			",\\n",
+			" ",
+			"/>",
+			"    ",
+			"patient_file",
+			"sample_file",
+			"sample_data",
+			"sample",
+			"filepath",
+			"filepaths",
+			"/projects/CGdb/CGDAP/Data_staged/cell_lines/",
+			"$1",
+			"/projects/CGdb/CGDAP/Data_staged/cell_lines",
+			"4.+",
+			"$1",
+			"\\n",
+			"4.0.3.RELEASE",
+			"4.2.3.RELEASE",
+			"4.x",
+			"files",
+			"tip-data-loading.dir",
+			"tip-domain.dir",
+			"deploy.dir",
+			"server.lib.dir",
+			"build.dir",
+			"web.dir",
+			"src.dir",
+			"build-dir",
+			"web-dir",
+			"src-dir",
+			"../images",
+			"./images",
+			"== undefined"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "nz-tour.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42982,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								934,
+								934
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/hbi91877/Desktop/nztour_repo/nzTour/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 728,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								248,
+								248
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/hbi91877/Desktop/nztour_repo/nzTour/bower.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 611,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								40,
+								40
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 169.0
+	},
+	"pinned_build_system": "",
+	"project": "nz-tour.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"beha",
+				"tip/doc/Selection Behaviors.txt"
+			],
+			[
+				"notes",
+				"tip/TIPdb/NOTES.txt"
+			],
+			[
+				"context.xml",
+				"conf/context.xml"
+			],
+			[
+				"conte",
+				"conf/context.xml"
+			],
+			[
+				"server.xml",
+				"conf/server.xml"
+			],
+			[
+				"notes.",
+				"tip/TIPdb/NOTES.txt"
+			],
+			[
+				"schema",
+				"tip/solr/protocols/conf/schema.xml"
+			],
+			[
+				"schem",
+				"tip/solr/genes/conf/schema.xml"
+			],
+			[
+				"schema.xml",
+				"tip/solr/treatments/conf/schema.xml"
+			],
+			[
+				"data-coni",
+				"tip/solr/treatments/conf/data-config.xml"
+			],
+			[
+				"data-config",
+				"tip/solr/protocols/conf/data-config.xml"
+			],
+			[
+				"data-con",
+				"tip/solr/models/conf/data-config.xml"
+			],
+			[
+				"context",
+				"conf/context.xml"
+			],
+			[
+				"che",
+				"protocols/conf/schema.xml"
+			],
+			[
+				"data-co",
+				"treatments/conf/data-config.xml"
+			],
+			[
+				"data-conf",
+				"genes/conf/data-config.xml"
+			],
+			[
+				"sa",
+				"/C/Users/HBI91877/Desktop/sangerDataLoadingStatus.txt"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\TIP\\repos\\tip\\cgdap.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 173.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}
