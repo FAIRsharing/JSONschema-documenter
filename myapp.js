@@ -165,9 +165,10 @@
                     visible: true, // Shows the element mask
                     clickThrough: false, // Allows the user to interact with elements beneath the mask
                     clickExit: false, // Exit the tour when the user clicks on the mask
-                    scrollThrough: true, // Allows the user to scroll while hovered over the mask
+                    scrollThrough: false, // Allows the user to scroll while hovered over the mask
                     color: 'rgba(0,0,0,.7)' // The mask color
                 },
+                scrollBox: 'body',
                 dark: false
             }, // see config
             steps: [
@@ -210,6 +211,21 @@
                     target: "#study_schema .schemaProperties",
                     placementPriority: 'top', //placement for the popover
                     content: "<label>This is the main schema properties</label> <p> This is where you will find the schema fields and their characteristics</p>" // content to display
+                },
+                {
+                    target: "#study_schema_identifier",
+                    placementPriority: 'right', //placement for the popover
+                    content: "<label>This is a non required field (blue)</label> <p> This card display all the characteristics of a field: expected types and value, description, field name, cardinality, references to other schemas, ... </p>" // content to display
+                },
+                {
+                    target: "#study_schema_name",
+                    placementPriority: 'right', //placement for the popover
+                    content: "<label>This is a required field (green)</label> <p> This card display all the characteristics of a field: expected types and value, description, field name, cardinality, references to other schemas, ... </p>" // content to display
+                },
+                {
+                    target: "#study_schema_identifier .referenceLink",
+                    placementPriority: 'right', //placement for the popover
+                    content: "<label>This is reference that points to another item</label> <p> It can point to a sub-schema, another schema or a definition </p>" // content to display
                 }
             ]
         };
