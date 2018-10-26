@@ -680,3 +680,11 @@ div.legend .legend_item span{
 body.json_documenter i.fas{
     color:white;
 }
+
+body.json_documenter .takeTour{
+    font-size: 1.2rem;
+    position: relative;
+    top: 5px;
+    padding: 10px;
+    left: 25px;
+}

@@ -22,6 +22,8 @@
             this.menu_on = false;
             this.subset = ['oneOf', 'anyOf', 'allOf'];
             this.main_schema = "";
+            this.trigger_tour = false;
+
 
             try{
                 json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
@@ -46,6 +48,10 @@
                 }
                 json_schema.next_target = json_schema.target;
                 json_schema.next_mapping = json_schema.mapping_target;
+
+                if (json_schema.target === "https://w3id.org/dats/schema/study_schema.json#"){
+                    json_schema.trigger_tour = true;
+                }
 
             }
             catch(e){

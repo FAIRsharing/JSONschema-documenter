@@ -110,43 +110,58 @@
                                                </div>
                                                "
                                                field-name=null
-                                               tooltip
-                                               ng-click="ac.startTour()"></i>
+                                               tooltip>
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid" style="background-color: white;">
+                                    <div class="row">
+
+                                        <!-- menu button -->
+                                        <div class="col-10">
+                                            <md-menu-bar>
+                                                <md-menu>
+                                                    <button aria-label="Open menu"
+                                                            ng-click="$mdMenu.open($event)" id="schemaMenu">
+                                                        <span class="fas fa-chevron-down" style="margin-right:10px"></span>
+                                                        {{documenter.raw_schemas[documenter.main_schema].title}}
+                                                        <md-tooltip style="padding:10px">
+                                                            Click to display dependency schemas
+                                                        </md-tooltip>
+                                                    </button>
+
+                                                    <md-menu-content width="4">
+
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-6 menuItem"
+                                                                     ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
+                                                                    <a ng-href="#{{specName|removeExtraStr}}"
+                                                                       target="_self"
+                                                                       class="menuItemLink">
+                                                                        {{spec.title}}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </md-menu-content>
+
+                                                </md-menu>
+                                            </md-menu-bar>
+                                        </div>
+
+                                        <!-- take tour button -->
+                                        <div class="col-2" ng-if="documenter.trigger_tour">
+                                            <button class="takeTour" ng-click="ac.startTour()">Take a tour</button>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <md-menu-bar>
-                                    <md-menu>
-                                        <button aria-label="Open menu"
-                                                ng-click="$mdMenu.open($event)" id="schemaMenu">
-                                            <span class="fas fa-chevron-down" style="margin-right:10px"></span>
-                                            {{documenter.raw_schemas[documenter.main_schema].title}}
-                                            <md-tooltip style="padding:10px">
-                                                Click to display dependency schemas
-                                            </md-tooltip>
-                                        </button>
 
-                                        <md-menu-content width="4">
-
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-6 menuItem"
-                                                         ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
-                                                        <a ng-href="#{{specName|removeExtraStr}}"
-                                                                   target="_self"
-                                                                   class="menuItemLink">
-                                                            {{spec.title}}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </md-menu-content>
-
-                                    </md-menu>
-                                </md-menu-bar>
                             </div>
                         </div>
                     </md-toolbar>
