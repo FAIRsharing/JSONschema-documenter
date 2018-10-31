@@ -189,6 +189,11 @@
                     content: '<label>This is the settings button</label> <p> From this menu, you can load the root schema of a network of JSON schemas. If you also have JSON-LD context files associated with the JSON schemas, you can add the URL to a mapping file matching the JSON schmeas to JSON-LD context files, and visualize the semantic annotations.</p>' // content to display
                 },
                 {
+                    target: '#legend', //specify the element
+                    placementPriority: 'bottom', //placement for the popover
+                    content: '<label>This is the legend button</label> <p> This menu allows you to see the color coding we use for the cards: green cards for required properties, blue cards for non-required ones.</p>' // content to display
+                },
+                {
                     target: '#schemaMenu', //specify the element
                     placementPriority: 'bottom', //placement for the popover
                     content: '<label>This is the main menu button</label> <p> This menu allows you to display all the loaded schemas, and each schema name links to its visualization.</p>' // content to display
@@ -232,6 +237,11 @@
                     target: "#study_schema_identifier .referenceLink",
                     placementPriority: 'right', //placement for the popover
                     content: "<label>This is reference that points to another item</label> <p>It can point to a definition within the same schema, a sub-schema, or an external schema.</p>" // content to display
+                },
+                {
+                    target: "#backToTop",
+                    placementPriority: 'right', //placement for the popover
+                    content: "<label>This is the back to top arrow</label> <p>It allows you to go back to the top of the page when you are exploring the schemas. Thanks for visiting the tour!</p>" // content to display
                 }
             ]
         };

@@ -92,7 +92,7 @@
                                     <div class="row">
                                         <h2 class="col-10 md-toolbar-tools">JSON-Schema documenter </h2>
                                         <div class="col-2 legend">
-                                            <i class="fas fa-comment"
+                                            <i id='legend' class="fas fa-comment"
                                                data-toggle="tooltip"
                                                data-placement="bottom"
                                                data-html="true"
@@ -196,8 +196,10 @@
                         <div layout="row">
                             <md-toolbar-filler layout="" layout-align="center center"> </md-toolbar-filler>
                             <div style="display:block;width:100%">
-                                <h2 class="md-toolbar-tools"> <p>This application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> <BR>
-                                    Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> for the University of Oxford and Oxford e-research centre.</p></h2>
+                                <h2 class="md-toolbar-tools">
+                                    <p>This web application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> The source code is available in <a href="https://github.com/fairsharing/jsonschema-documenter">GitHub</a>.<BR>
+                                    Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> and <a href="https://github.com/agbeltran">Alejandra Gonzalez-Beltran</a> for the <a href="https://fairsharing.org">FAIRsharing</a> team, Oxford e-Research Centre, Engineering Science, University of Oxford.</p>
+                                </h2>
                                 <md-menu-bar>
                                     <div class="container">
                                         <div class="row">
@@ -221,7 +223,7 @@
             </div>
 
             <!-- back to top arrow -->
-            <a ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
+            <a id="backToTop" ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
             </a>
 
         </div>
