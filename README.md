@@ -18,3 +18,8 @@ https://fairsharing.github.io/JSONSchema-documenter/index.html?parameters={"targ
 ## License
 
 This code is provided under [BSD 3-Clause License](https://github.com/FAIRsharing/JSONschema-documenter/blob/master/LICENSE)
+
+## Contact
+
+- [Dominique Batista](http://github.com/terazus)
+- [Alejandra Gonzalez-Beltran](http://github.com/agbeltran)
