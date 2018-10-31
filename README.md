@@ -12,7 +12,7 @@ To customize the application to visualize other schemas, include the following J
 }
 
 You can pass it to the URL 'parameters' variable as such:
-https://fairsharing.github.io/JSONSchema-documenter/index.html?parameters={"target":"https://w3id.org/dats/schema/study_schema.json","display":"grid"}
+https://fairsharing.github.io/JSONschema-documenter/index.html?parameters={"target":"https://w3id.org/dats/schema/study_schema.json","display":"grid"}
 
 
 ## License
