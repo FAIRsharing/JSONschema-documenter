@@ -18,6 +18,7 @@
         "@id": { "type": "string", "format": "uri" },
         "@type": { "type": "string", "enum": [ "Dataset"] },
         "identifier": {
+            "description": "The identifier of the dataset.",
             "$ref": "identifier_info_schema.json#"
         },
         "alternateIdentifiers": {
