@@ -1,7 +1,7 @@
 (function(){
 
     var my_app = angular.module('generatorApp',
-        ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages', 'nzTour'])
+        ['ngRoute', 'ngMaterial', 'ngAria', 'ngAnimate', 'ngMessages'])
         .config(function($mdThemingProvider) {
             $mdThemingProvider.theme('altTheme')
                 .primaryPalette('blue');
@@ -161,104 +161,6 @@
 
         }
     ]);
-
-    my_app.controller('tourCtrl', ['nzTour', function(nzTour){
-        var tourConfig = {
-            config: {
-                disableInteraction: true, //disables interaction with focused element
-                animationDuration: 200,
-                mask: {
-                    visible: true, // Shows the element mask
-                    clickThrough: false, // Allows the user to interact with elements beneath the mask
-                    clickExit: false, // Exit the tour when the user clicks on the mask
-                    scrollThrough: false, // Allows the user to scroll while hovered over the mask
-                    color: 'rgba(0,0,0,.7)' // The mask color
-                },
-                dark: false
-            }, // see config
-            steps: [
-                {
-                    target: '#identifier_info_schema', //specify the element
-                    placementPriority: 'top', //placement for the popover
-                    content: 'Just a test' // content to display
-                },
-                {
-                    target: '#pageTop', //specify the element
-                    placementPriority: 'top', //placement for the popover
-                    content: '<label>Welcome to the JSONschema-documenter!</label> <p> This web app will help you document and navigate through sets of JSON schemas, starting with a root schema.</p>' // content to display
-                },
-                {
-                    target: '#settingButton', //specify the element
-                    placementPriority: 'bottom', //placement for the popover
-                    content: '<label>This is the settings button</label> <p> From this menu, you can load the root schema of a network of JSON schemas. If you also have JSON-LD context files associated with the JSON schemas, you can add the URL to a mapping file matching the JSON schmeas to JSON-LD context files, and visualize the semantic annotations.</p>' // content to display
-                },
-                {
-                    target: '#legend', //specify the element
-                    placementPriority: 'bottom', //placement for the popover
-                    content: '<label>This is the legend button</label> <p> This menu allows you to see the color coding we use for the cards: green cards for required properties, blue cards for non-required ones.</p>' // content to display
-                },
-                {
-                    target: '#schemaMenu', //specify the element
-                    placementPriority: 'bottom', //placement for the popover
-                    content: '<label>This is the main menu button</label> <p> This menu allows you to display all the loaded schemas, and each schema name links to its visualization.</p>' // content to display
-                },
-                {
-                    target: '#study_schema', //specify the element
-                    placementPriority: 'right', //placement for the popover
-                    content: '<label>This is the root schema</label> <p> This section shows the root schema metadata and its properties, including links to other referenced schemas when relevant.</p>' // content to display
-                },
-                {
-                    target: "#study_schema .titleText",
-                    placementPriority: 'bottom', //placement for the popover
-                    content: '<label>This is the root schema title</label> <p>Each schema section will start with a title like this one. </p>' // content to display
-                },
-                {
-                    target: '#study_schema .fa-file-alt', //specify the element
-                    placementPriority: 'right', //placement for the popover
-                    content: '<label>Display JSON schema icon</label> <p> By clicking this icon, you can display the underlying JSON schema and copy it to the clipboard if you wish.</p>' // content to display
-                },
-                {
-                    target: "#study_schema .metadata",
-                    placementPriority: 'top', //placement for the popover
-                    content: "<label>This is the root schema metadata</label> <p> This section shows all the metadata attached to a schema, such as schema version, the schema 'id', its description, and so on.</p>" // content to display
-                },
-                {
-                    target: "#study_schema .schemaProperties",
-                    placementPriority: 'top', //placement for the popover
-                    content: "<label>These are the properties of the root schema</label> <p> This displays the schema properties, their cardinality and types. Required properties are displayed in green, and non-required properties in blue.</p>" // content to display
-                },
-                {
-                    target: "#study_schema_identifier",
-                    placementPriority: 'right', //placement for the popover
-                    content: "<label>This is a non-required property (displayed in blue)</label> <p> This card display all the characteristics of the property: its name, its description, expected types (in this case referencing other schema) and cardinality. </p>" // content to display
-                },
-                {
-                    target: "#study_schema_name",
-                    placementPriority: 'right', //placement for the popover
-                    content: "<label>This is a required property (displayed in green)</label> <p> This card display all the characteristics of the property: its name, its description, expected types (in this case referencing other schema) and cardinality.  </p>" // content to display
-                },
-                {
-                    target: "#study_schema_identifier .referenceLink",
-                    placementPriority: 'right', //placement for the popover
-                    content: "<label>This is reference that points to another item</label> <p>It can point to a definition within the same schema, a sub-schema, or an external schema.</p>" // content to display
-                },
-                {
-                    target: "#backToTop",
-                    placementPriority: 'right', //placement for the popover
-                    content: "<label>This is the back to top arrow</label> <p>It allows you to go back to the top of the page when you are exploring the schemas. Thanks for visiting the tour!</p>" // content to display
-                }
-            ]
-        };
-
-        this.startTour = function(){
-            nzTour.start(tourConfig).then(function() { //start tour
-                console.log('Tour Finished!');
-            })
-            .catch(function() {
-                console.log('Tour Aborted!')
-            });
-        };
-    }]);
 
     /* TEMPLATES */
     my_app.directive('schemaLoader', function() {

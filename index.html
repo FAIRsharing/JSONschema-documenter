@@ -7,8 +7,9 @@
         <link rel="stylesheet" href="lib/bootstrap.css">
         <link rel="stylesheet" href="lib/angular-material.min.css">
         <link rel="stylesheet" href="lib/font-awesome/css/all.css">
-        <link rel="stylesheet" href="lib/nz-tour/dist/nz-tour.min.css">
-        
+        <link href="lib/hopscotch/dist/css/hopscotch.css" rel="stylesheet">
+
+
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="https://fairsharing.org/static/img/fairsharing-favicon.ico">
@@ -16,7 +17,7 @@
 
     <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
 
-        <div class="main" id ="mainContainer" ng-controller="tourCtrl as ac">
+        <div class="main" id ="mainContainer">
 
             <!-- ERRORS -->
             <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
@@ -155,7 +156,7 @@
 
                                         <!-- take tour button -->
                                         <div class="col-2" ng-if="documenter.trigger_tour">
-                                            <button class="takeTour" ng-click="ac.startTour()">Take a tour</button>
+                                            <button class="takeTour" onclick="hopscotch.startTour(tour);">Take a tour</button>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +233,6 @@
         <script type="text/javascript" src="lib/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="lib/angular.js"></script>
-        <script type="text/javascript" src="lib/nz-tour/dist/nz-tour.min.js"></script>
 
         <script type="text/javascript" src="lib/angular-material.js"></script>
         <script type="text/javascript" src="lib/angular-aria.min.js"></script>
@@ -240,6 +240,8 @@
         <script type="text/javascript" src="lib/angular-messages.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
 
+        <script src="lib/hopscotch/dist/js/hopscotch.js"></script>
+        <script src="myTour.js"></script>
         <script src="myapp.js"></script>
         <script type="text/javascript" src="loaderFactory.js"></script>
 
