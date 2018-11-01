@@ -6,22 +6,9 @@
         <link rel="stylesheet" href="app.css">
         <link rel="stylesheet" href="lib/bootstrap.css">
         <link rel="stylesheet" href="lib/angular-material.min.css">
-        <link rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-              integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-              crossorigin="anonymous">
+        <link rel="stylesheet" href="lib/font-awesome/css/all.css">
+        <link href="lib/hopscotch_tour/css/hopscotch.css" rel="stylesheet">
 
-
-        <script type="text/javascript" src="lib/angular.js"></script>
-        <script type="text/javascript" src="lib/angular-material.js"></script>
-        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
-        <script type="text/javascript" src="lib/angular-animate.min.js"></script>
-        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
-
-
-        <script src="myapp.js"></script>
-        <script type="text/javascript" src="loaderFactory.js"></script>
 
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +17,7 @@
 
     <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
 
-        <div class="main">
+        <div class="main" id ="mainContainer">
 
             <!-- ERRORS -->
             <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
@@ -55,12 +42,12 @@
             </div>
 
             <!-- MENU -->
-            <div id="pageTop" class="container menuBar" ng-show="documenter.loaded">
+            <div id="pageTop" class="container menuBar">
                 <div class="row">
                     <md-toolbar class="md-menu-toolbar">
-                        <div layout="row">
+                        <div layout="row" id="settingMenu">
                             <md-toolbar-filler layout="" layout-align="center center">
-                                <i class="fas fa-cog" ng-click="documenter.display_menu()"></i>
+                                <i class="fas fa-cog" ng-click="documenter.display_menu()" id="settingButton"></i>
                             </md-toolbar-filler>
 
                             <div class="settings" id="settings">
@@ -75,24 +62,23 @@
                                                     <input required=""
                                                            name="next_target"
                                                            ng-model="documenter.next_target"
-                                                           maxlength="100"
-                                                           ng-value="documenter.target"
-                                                           ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
+                                                           ng-value="documenter.target">
 
                                                     <div ng-messages="setSettings.next_target.$error" role="alert">
-                                                        <div ng-message-exp="['required', 'maxlength', 'pattern']">
-                                                            You must enter a valid URL containing less than 100 characters
+                                                        <div ng-message-exp="['required']">
+                                                            You must enter a file URI (URL or local path)
                                                         </div>
                                                     </div>
                                                 </md-input-container>
 
-                                                <md-input-container class="inputList">
-                                                    <label>Display type</label>
-                                                    <md-select name="type" ng-model="documenter.next_display" required="">
-                                                        <md-option value="grid" ng-selected="true">Grid (default)</md-option>
-                                                        <md-option value="table">Table</md-option>
-                                                    </md-select>
+                                                <md-input-container class="md-block">
+                                                    <label>Mapping URL for context files</label>
+                                                    <input name="mapping_target"
+                                                           ng-model="documenter.next_mapping"
+                                                           ng-value="documenter.mapping_target">
                                                 </md-input-container>
+
+
                                             </form>
 
                                             <button class="reloadButton" ng-click="documenter.reload()"> Reload with new parameters</button>
@@ -103,38 +89,80 @@
 
                             <div style="display:block;width:100%">
 
-                                <h2 class="md-toolbar-tools">JSON-Schema documenter </h2>
-
-                                <md-menu-bar>
-                                    <md-menu>
-                                        <button aria-label="Open menu"
-                                                ng-click="$mdMenu.open($event)">
-                                            <span class="fas fa-chevron-down" style="margin-right:10px"></span>
-                                            {{documenter.main_spec.title}}
-                                            <md-tooltip style="padding:10px">
-                                                Click to display dependency schemas
-                                            </md-tooltip>
-                                        </button>
-
-                                        <md-menu-content width="4">
-
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-6 menuItem"
-                                                         ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
-                                                        <a ng-href="#{{specName|removeExtraStr}}"
-                                                                   target="_self"
-                                                                   class="menuItemLink">
-                                                            {{spec.title}}
-                                                        </a>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <h2 class="col-10 md-toolbar-tools">JSON-Schema documenter </h2>
+                                        <div class="col-2 legend">
+                                            <i id='legend' class="fas fa-comment"
+                                               data-toggle="tooltip"
+                                               data-placement="bottom"
+                                               data-html="true"
+                                               title="
+                                               <div class='legend'>
+                                                    <label>Legend</label>
+                                                    <div>
+                                                        <div class='legend_item'>
+                                                            <div class='legend_color greenLeg'></div> <span> This field is required </span>
+                                                        </div>
+                                                        <div class='legend_item'>
+                                                            <div class='legend_color blueLeg'></div> <span> This field is not required </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                               </div>
+                                               "
+                                               field-name=null
+                                               tooltip>
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                        </md-menu-content>
+                                <div class="container-fluid" style="background-color: white;">
+                                    <div class="row">
 
-                                    </md-menu>
-                                </md-menu-bar>
+                                        <!-- menu button -->
+                                        <div class="col-10">
+                                            <md-menu-bar>
+                                                <md-menu>
+                                                    <button aria-label="Open menu" ng-show="documenter.loaded"
+                                                            ng-click="$mdMenu.open($event)" id="schemaMenu">
+                                                        <span class="fas fa-chevron-down" style="margin-right:10px"></span>
+                                                        {{documenter.raw_schemas[documenter.main_schema].title}}
+                                                        <md-tooltip style="padding:10px">
+                                                            Click to display dependency schemas
+                                                        </md-tooltip>
+                                                    </button>
+
+                                                    <md-menu-content width="4">
+
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-6 menuItem"
+                                                                     ng-repeat="(specName, spec) in documenter.loaded_specs track by $index">
+                                                                    <a ng-href="#{{specName|removeExtraStr}}"
+                                                                       target="_self"
+                                                                       class="menuItemLink">
+                                                                        {{spec.title}}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </md-menu-content>
+
+                                                </md-menu>
+                                            </md-menu-bar>
+                                        </div>
+
+                                        <!-- take tour button -->
+                                        <div class="col-2" ng-if="documenter.trigger_tour">
+                                            <button class="takeTour" onclick="hopscotch.startTour(tour);">Take a tour</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
                     </md-toolbar>
@@ -150,28 +178,16 @@
                 </div>
             </div>
 
-            <!-- specs -->
-            <div class="container mainPage" ng-show="documenter.loaded">
-
-
-
+            <!-- SCHEMAS -->
+            <div class="container mainPage" ng-show="documenter.loaded" id="schemas">
                 <div class="row mainPage">
-                    <!-- main spec -->
-                    <div class="col-lg-12 col-sm-12 col-md-12 schema"
-                         schema-loader="documenter.main_spec"
-                         parent-key="''"
-                         container-ctrl ="documenter">
-                    </div>
-
-                    <!-- Sub specs -->
                     <div ng-repeat="(key, item) in documenter.loaded_specs"
                          class="col-lg-12 col-sm-12 col-md-12 schema"
                          schema-loader="documenter.loaded_specs[key]"
-                         parent-key="key"
-                         container-ctrl="documenter">
+                         schema-name="key"
+                         container="documenter">
                     </div>
                 </div>
-
             </div>
 
             <!-- footer -->
@@ -181,8 +197,10 @@
                         <div layout="row">
                             <md-toolbar-filler layout="" layout-align="center center"> </md-toolbar-filler>
                             <div style="display:block;width:100%">
-                                <h2 class="md-toolbar-tools"> <p>This application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> <BR>
-                                    Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> for the University of Oxford and Oxford e-research centre.</p></h2>
+                                <h2 class="md-toolbar-tools">
+                                    <p>This web application is licensed under <a target="_blank" href="https://github.com/FAIRsharing/json_documenter/blob/master/LICENSE"> BSD-3.</a> The source code is available in <a href="https://github.com/fairsharing/jsonschema-documenter">GitHub</a>.<BR>
+                                    Developed and maintained by <a href="mailto:dominique.batista@oerc.ox.ac.uk">Batista Dominique</a> and <a href="https://github.com/agbeltran">Alejandra Gonzalez-Beltran</a> for the <a href="https://fairsharing.org">FAIRsharing</a> team, Oxford e-Research Centre, Engineering Science, University of Oxford.</p>
+                                </h2>
                                 <md-menu-bar>
                                     <div class="container">
                                         <div class="row">
@@ -205,12 +223,27 @@
 
             </div>
 
-
-
-            <a ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
+            <!-- back to top arrow -->
+            <a id="backToTop" ng-show="documenter.loaded" href="#pageTop" target="_self" class="backUp fas fa-arrow-up">
             </a>
 
         </div>
+
+
+        <script type="text/javascript" src="lib/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/angular.js"></script>
+
+        <script type="text/javascript" src="lib/angular-material.js"></script>
+        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
+        <script type="text/javascript" src="lib/angular-animate.min.js"></script>
+        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+
+        <script src="lib/hopscotch_tour/js/hopscotch.js"></script>
+        <script src="myTour.js"></script>
+        <script src="myapp.js"></script>
+        <script type="text/javascript" src="loaderFactory.js"></script>
 
     </body>
 

@@ -1,0 +1,43 @@
+{
+  "networkName": "DATS",
+  "contexts":{
+    "access_schema": "http://w3id.org/dats/context/sdo/access_sdo_context.jsonld",
+    "activity_schema": "http://w3id.org/dats/context/sdo/activity_sdo_context.jsonld",
+    "alternate_identifier_schema": "http://w3id.org/dats/context/sdo/alternate_identifier_info_sdo_context.jsonld",
+    "anatomical_part_schema": "http://w3id.org/dats/context/sdo/anatomical_part_sdo_context.jsonld",
+    "annotation_schema": "http://w3id.org/dats/context/sdo/annotation_sdo_context.jsonld",
+    "biological_entity_schema": "http://w3id.org/dats/context/sdo/biological_entity_sdo_context.jsonld",
+    "category_values_pair_schema": "http://w3id.org/dats/context/sdo/category_values_pair_sdo_context.jsonld",
+    "data_acquisition_schema": "http://w3id.org/dats/context/sdo/data_acquisition_sdo_context.jsonld",
+    "data_analysis_schema": "http://w3id.org/dats/context/sdo/data_analysis_sdo_context.jsonld",
+    "data_repository_schema": "http://w3id.org/dats/context/sdo/data_repository_sdo_context.jsonld",
+    "data_standard_schema": "http://w3id.org/dats/context/sdo/data_standard_sdo_context.jsonld",
+    "data_type_schema": "http://w3id.org/dats/context/sdo/data_type_sdo_context.jsonld",
+    "dataset_distribution_schema": "http://w3id.org/dats/context/sdo/dataset_distribution_sdo_context.jsonld",
+    "dataset_schema": "http://w3id.org/dats/context/sdo/dataset_sdo_context.jsonld",
+    "date_info_schema": "http://w3id.org/dats/context/sdo/date_info_sdo_context.jsonld",
+    "dimension_schema": "http://w3id.org/dats/context/sdo/dimension_sdo_context.jsonld",
+    "disease_schema": "http://w3id.org/dats/context/sdo/disease_sdo_context.jsonld",
+    "grant_schema": "http://w3id.org/dats/context/sdo/grant_sdo_context.jsonld",
+    "identifier_info_schema": "http://w3id.org/dats/context/sdo/identifier_info_sdo_context.jsonld",
+    "instrument_schema": "http://w3id.org/dats/context/sdo/instrument_sdo_context.jsonld",
+    "license_schema": "http://w3id.org/dats/context/sdo/license_sdo_context.jsonld",
+    "material_schema": "http://w3id.org/dats/context/sdo/material_sdo_context.jsonld",
+    "molecular_schema": "http://w3id.org/dats/context/sdo/molecular_entity_sdo_context.jsonld",
+    "organization_schema": "http://w3id.org/dats/context/sdo/organization_sdo_context.jsonld",
+    "person_schema": "http://w3id.org/dats/context/sdo/person_sdo_context.jsonld",
+    "place_schema": "http://w3id.org/dats/context/sdo/place_sdo_context.jsonld",
+    "provenance_schema": "http://w3id.org/dats/context/sdo/provenance_sdo_context.jsonld",
+    "publication_schema": "http://w3id.org/dats/context/sdo/publication_sdo_context.jsonld",
+    "related_schema": "http://w3id.org/dats/context/sdo/related_identifier_info_sdo_context.jsonld",
+    "software_schema": "http://w3id.org/dats/context/sdo/software_sdo_context.jsonld",
+    "study_group_schema": "http://w3id.org/dats/context/sdo/study_group_sdo_context.jsonld",
+    "study_schema": "http://w3id.org/dats/context/sdo/study_sdo_context.jsonld",
+    "taxonomic_schema": "http://w3id.org/dats/context/sdo/taxonomic_info_sdo_context.jsonld",
+    "treatment_schema": "http://w3id.org/dats/context/sdo/treatment_sdo_context.jsonld"
+  }
+}
+
+
+
+

@@ -5,7 +5,8 @@
         .config(function($mdThemingProvider) {
             $mdThemingProvider.theme('altTheme')
                 .primaryPalette('blue');
-
+            $mdThemingProvider.theme('greenTheme')
+                .primaryPalette('green');
         });
 
     my_app.controller('documenterController', ['$scope','$location','$http','$templateCache','SchemaLoader',
@@ -17,124 +18,96 @@
             this.errors = [];
             this.displayedSpec = null;
             this.next_target = null;
-            this.next_display = null;
+            this.next_mapping = null;
             this.menu_on = false;
+            this.subset = ['oneOf', 'anyOf', 'allOf'];
+            this.main_schema = "";
+            this.trigger_tour = false;
 
-            if (getParamsFromURL()["parameters"]){
-                try{
-                    var params = JSON.parse(getParamsFromURL()["parameters"]);
-                }
-                catch(e){
-                    let error = {"jsonParseError": "Please verify the parameter JSON provided to the URL"};
-                    json_schema.errors.push(error);
-                }
-            }
-            this.target = "https://w3id.org/dats/schema/study_schema.json";
-            this.display = "grid";
-            if (params){
-                if(params.hasOwnProperty('target')){
-                    json_schema.target = params.target
-                }
-                if(params.hasOwnProperty('display')){
-                    json_schema.display = params.display
-                }
-            }
 
-            function getParamsFromURL() {
+            try{
+                json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
+
+                json_schema.mapping_target = null;
                 let query = location.search.substr(1);
-                let result = {};
-                query.split("&").forEach(function(part) {
-                    let item = part.split("=");
-                    result[item[0]] = decodeURIComponent(item[1]);
-                });
-                return result;
+                if (query!==""){
+                    let result = {};
+                    query.split("&").forEach(function(part) {
+                        let item = part.split("=");
+                        result[item[0]] = decodeURIComponent(item[1]);
+                    });
+                    if (result.hasOwnProperty('source_url')){
+                        json_schema.target = result['source_url'];
+                    }
+                    if (result.hasOwnProperty('context_mapping_url')) {
+                        json_schema.mapping_target = result['context_mapping_url']
+                    }
+                }
+                else{
+                    json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
+                }
+                json_schema.next_target = json_schema.target;
+                json_schema.next_mapping = json_schema.mapping_target;
+
+                if (json_schema.target === "https://w3id.org/dats/schema/study_schema.json#"){
+                    json_schema.trigger_tour = true;
+                }
+
+            }
+            catch(e){
+                console.log(e);
+                let error = {"URL parameters error": "Please verify the parameters you provided to the URL"};
+                json_schema.errors.push(error);
             }
 
-            let schemaLoader = new SchemaLoader();
-            schemaLoader.load(json_schema.target, 0, null).then(
+            let schema_loader = new SchemaLoader();
+            schema_loader.load_schema(json_schema.target, 0, null).then(
                 function(){
-                    console.log(schemaLoader.errors.length);
-                    if (schemaLoader.errors.length>0){
-                        json_schema.errors.push(schemaLoader.errors);
-                    }
-                    console.log(json_schema.errors);
-                    json_schema.main_spec=schemaLoader.main_spec;
-                    json_schema.loaded_specs=schemaLoader.loaded_specs;
+                    json_schema.raw_schemas = schema_loader.raw_schemas;
+                    json_schema.loaded_specs=schema_loader.sub_schemas;
                     json_schema.loaded = true;
+                    json_schema.main_schema = schema_loader.main_schema;
+
+                    /* IMPLEMENTING CONTEXT VALUES */
+                    if (json_schema.mapping_target !== null){
+                        $http.get(json_schema.mapping_target).then(
+                            function(res){
+                                json_schema.contexts = {};
+                                let contexts = res.data['contexts'];
+                                for (let context in contexts) {
+                                    if (contexts.hasOwnProperty(context)){
+                                        $http.get(contexts[context]).then(
+                                            function(response){
+                                                json_schema.contexts[context] = response.data;
+                                            }
+                                        ).catch(function(e){
+                                            json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
+                                        })
+                                    }
+                                }
+                            }
+                        ).catch(function(e){
+                            json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
+                        })
+                    }
                 }
             ).catch(function(e){
-                json_schema.errors.push(e);
+                json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
             });
 
-            this.displayItem = function(itemName, itemValue){
 
-                let specToDisplay = angular.copy(itemValue);
-                delete specToDisplay['referencedFrom'];
-
-                for (let item in specToDisplay.properties){
-                    if (specToDisplay.properties[item].hasOwnProperty('items')){
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('referencing')){
-                            delete specToDisplay.properties[item]['items']['referencing'];
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('oneOf')){
-                            for (let subItem in specToDisplay.properties[item]['items']['oneOf']){
-                                if (specToDisplay.properties[item]['items']['oneOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['oneOf'][subItem]['referencing']
-                                }
-                            }
-
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('anyOf')){
-                            for (let subItem in specToDisplay.properties[item]['items']['anyOf']){
-                                if (specToDisplay.properties[item]['items']['anyOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['anyOf'][subItem]['referencing']
-                                }
-                            }
-                        }
-                        if (specToDisplay.properties[item]['items'].hasOwnProperty('allOf')){
-                            for (let subItem in specToDisplay.properties[item]['items'][allOf]){
-                                if (specToDisplay.properties[item]['items']['allOf'][subItem].hasOwnProperty('referencing')){
-                                    delete specToDisplay.properties[item]['items']['allOf'][subItem]['referencing']
-                                }
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('referencing')){
-                        delete specToDisplay.properties[item].hasOwnProperty('referencing');
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('anyOf')){
-                        for (let subItem in specToDisplay.properties[item]['anyOf']){
-                            if (specToDisplay.properties[item]['anyOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['anyOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('oneOf')){
-                        for (let subItem in specToDisplay.properties[item]['oneOf']){
-                            if (specToDisplay.properties[item]['oneOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['oneOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                    if (specToDisplay.properties[item].hasOwnProperty('allOf')){
-                        for (let subItem in specToDisplay.properties[item]['allOf']){
-                            if (specToDisplay.properties[item]['allOf'][subItem].hasOwnProperty('referencing')){
-                                delete specToDisplay.properties[item]['allOf'][subItem]['referencing']
-                            }
-                        }
-                    }
-                }
-
+            this.displayItem = function(itemName){
+                // TODO switch loaded_specs for raw_schemas
                 if (json_schema.displayedSpec != null){
                     if (itemName === json_schema.displayedSpec[0]){
                         json_schema.displayedSpec = null;
                     }
                     else{
-                        json_schema.displayedSpec = [itemName, specToDisplay]
+                        json_schema.displayedSpec = [itemName, json_schema.raw_schemas[itemName]]
                     }
                 }
                 else{
-                    json_schema.displayedSpec = [itemName, specToDisplay]
+                    json_schema.displayedSpec = [itemName, json_schema.raw_schemas[itemName]]
                 }
             };
 
@@ -151,12 +124,39 @@
             };
 
             this.reload = function(){
-                if (json_schema.next_target != null && json_schema.next_display != null){
-                    let url = window.location.origin + window.location.pathname + '?parameters={' +
-                        '"target":"' + json_schema.next_target + '",'+
-                        '"display":"' + json_schema.next_display + '"' + '}'
-                    window.location.href = url;
+                if (json_schema.next_target != null && json_schema.next_mapping != null){
+                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' +
+                        json_schema.next_target + '&context_mapping_url=' + json_schema.next_mapping;
                 }
+                else if (json_schema.next_target != null && json_schema.next_mapping === null) {
+                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' + json_schema.next_target;
+                }
+            };
+
+            this.create_href = function(context, fieldName) {
+
+                function isURL(str) {
+                    return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str);
+                }
+
+                let url = "";
+                if (context != null){
+                    if (context.hasOwnProperty(fieldName) && context[fieldName].hasOwnProperty("@id")){
+                        url = context[fieldName]["@id"];
+                    }
+                    else {
+                        url = context[fieldName];
+                    }
+                    if (!isURL(url) && url !== ""){
+                        let URLArray = url.split(':');
+                        let urlBase = context[URLArray[0]];
+                        url = urlBase + URLArray[1];
+                    }
+
+                    return url;
+
+                }
+
             }
 
         }
@@ -169,15 +169,14 @@
             templateUrl: 'include/schema.html',
             scope: {
                 schemaLoader: '=',
-                parentKey: '=',
-                containerCtrl: "="
+                schemaName: '=',
+                container: "="
             },
-            link: function($scope, element, attr) {
+            link: function($scope) {
                 $scope.$watch('schemaLoader', function(schemaLoader){
                     if(schemaLoader)
                         $scope.json_source = $scope.schemaLoader;
-                        $scope.parent = $scope.parentKey;
-                        $scope.ctrl = $scope.containerCtrl;
+                    $scope.ctrl = $scope.container;
                 });
             }
         }
@@ -189,16 +188,28 @@
             scope: {
                 schemaFields: '=',
                 parentKey: '=',
-                displayType: '=',
-                innerLink: '='
+                contextValues: '=',
+                innerLink: '=',
+                functionController: '='
             },
             link: function($scope){
                 $scope.$watch('schemaFields', function(schemaFields){
-                    if(schemaFields)
-                        $scope.fields = $scope.schemaFields;
+                    if(schemaFields){
+                        if ($scope.schemaFields.hasOwnProperty('properties')){
+                            $scope.fields = $scope.schemaFields['properties'];
+                            if ($scope.schemaFields.hasOwnProperty('required')){
+                                $scope.requiredFields = $scope.schemaFields['required'];
+                            }
+                            else{
+                                $scope.requiredFields = null;
+                            }
+                        }
+                        $scope.ctrl = $scope.functionController;
                         $scope.parent = $scope.parentKey;
-                        $scope.display = $scope.displayType;
+                        $scope.context = $scope.contextValues;
                         $scope.backLink = $scope.innerLink
+                    }
+
 
                 });
             }
@@ -207,7 +218,7 @@
     my_app.directive('fieldType', function(){
         return{
             restrict: 'A',
-            templateUrl: 'include/field.html',
+            templateUrl: 'include/field_type.html',
             scope: {
                 fieldType: '=',
             },
@@ -222,100 +233,28 @@
     my_app.directive('buttonLink', function(){
         return{
             restrict: 'A',
-            templateUrl: 'include/objectLink.html',
+            templateUrl: 'include/link_button.html',
             scope: {
-                buttonLink: '='
+                buttonLink: '=',
+                isRequired: "="
             },
             link: function($scope, element, attr){
                 $scope.$watch('buttonLink',
                     function(buttonLink){
-                    if(buttonLink)
-                        $scope.link = $scope.buttonLink;
+                        if(buttonLink)
+                            $scope.link = $scope.buttonLink;
                     }
                 );
             }
         }
     });
-    my_app.directive('innerReference', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/innerRef.html',
-            scope: {
-                innerReference: '=',
-                backLink: "="
-            },
-            link: function($scope){
-                $scope.$watch('innerReference',
-                    function(innerReference){
-                        if(innerReference)
-                            $scope.link = $scope.innerReference;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('miniObject', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/miniObject.html',
-            scope: {
-                miniObject: '='
-            },
-            link: function($scope){
-                $scope.$watch('miniObject',
-                    function(miniObject){
-                        if(miniObject)
-                            $scope.link = $scope.miniObject;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('fieldName', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/subCard.html',
-            scope: {
-                fieldName: '='
-            },
-            link: function($scope){
-                $scope.$watch('fieldName',
-                    function(fieldName){
-                        if(fieldName)
-                            $scope.field_name = $scope.fieldName;
-                    }
-                );
-            }
-        }
-    });
-    my_app.directive('buttonInnerLink', function(){
-        return{
-            restrict: 'A',
-            templateUrl: 'include/innerLink.html',
-            scope: {
-                buttonInnerLink: '=',
-                buttonLabel: '='
-            },
-            link: function($scope){
-                $scope.$watch('buttonInnerLink',
-                    function(buttonInnerLink){
-                        if(buttonInnerLink)
-                            $scope.button_link = $scope.buttonInnerLink;
-                    }
-                );
-            }
-        }
-    });
-
 
     /* FILTERS */
     my_app.filter('removeExtraStr', function() {
-
-        // In the return function, we must pass in a single parameter which will be the data we will work on.
-        // We have the ability to support multiple other parameters that can be passed into the filter optionally
         return function(input) {
             if (input) {
-                return input.replace('#', '').replace('.json', '').replace('https://w3id.org/dats/schema/', '');
+                let returned_value = input.split('/').slice(-1)[0];
+                return returned_value.replace('#', '').replace('.json', '').replace(/:/g, '_');
             }
         }
 
@@ -374,16 +313,54 @@
         }
     }]);
     my_app.directive('ngClickCopy', ['ngCopy', function (ngCopy) {
-            return {
-                restrict: 'A',
-                link: function (scope, element, attrs) {
-                    element.bind('click', function (e) {
-                        ngCopy(attrs.ngClickCopy);
-                    });
-                }
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.bind('click', function (e) {
+                    ngCopy(attrs.ngClickCopy);
+                });
             }
-        }])
+        }
+    }]);
+
+    /* bootstrap tooltip */
+    my_app.directive('tooltip', function(){
+        return {
+            restrict: 'A',
+            scope: {
+              fieldName: '='
+            },
+            link: function($scope, element){
+                $scope.$watch(element,
+                    function(){
+                        if(element){
+                            if ($scope.fieldName){
+                                let context_data = JSON.parse(element[0]['title']);
+                                let title = context_data[$scope.fieldName];
+                                if (title.hasOwnProperty('@id')){
+                                    title = title['@id'];
+                                }
+                                // TODO: only split if not already an URL
+                                // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
+                                let title_base = title.split(':');
+                                let title_base_url = context_data[title_base[0]];
+                                title = title_base_url + title_base[1];
+                                element[0]['title'] = "<label>Semantic Value:</label> " +title;
+                            }
+                            element.hover(function(){
+                                // on mouseenter
+                                element.tooltip('show');
+                            }, function(){
+                                // on mouseleave
+                                element.tooltip('hide');
+                            });
+                        }
+                    }
+                );
 
 
+            }
+        };
+    })
 
 })();

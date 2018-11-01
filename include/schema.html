@@ -1,56 +1,41 @@
-<div class="main_container" id="{{parent | removeExtraStr}}">
+<div class="main_container" id="{{schemaName | removeExtraStr}}">
 
-
+    <!-- Header containing the JSON variable to display -->
     <h1 class="container">
         <div class="row">
             <div class="col-10 titleText">{{json_source.title}} </div>
 
 
-            <div class="col-2" ng-if="parent != ''">
-                <span class="fas fa-file-alt" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"></span>
+            <div class="col-2" ng-if="schemaName !== ''">
+                <span class="fas fa-file-alt" ng-click="ctrl.displayItem(schemaName)"></span>
             </div>
-            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'json_'+parent && parent != ''" id="json_{{parent}}">
+            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === schemaName && schemaName != ''" id="json_{{schemaName}}">
                 <div class="jsonHeader">
-                    <i class="fas fa-times" ng-click="ctrl.displayItem('json_'+parent, ctrl.loaded_specs[parent])"> </i>
+                    <i class="fas fa-times" ng-click="ctrl.displayItem(schemaName)"> </i>
                     <i class="fas fa-clipboard" ng-click-copy="{{ctrl.displayedSpec[1]}}"></i>
                 </div>
                 <div class="jsonContainer">
                     <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
                 </div>
             </div>
-
-            <div class="col-2" ng-if="parent === ''">
-                <span class="fas fa-file-alt" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"></span>
-            </div>
-
-            <div class="jsonDump" ng-show="ctrl.displayedSpec[0] === 'mainItem' && parent === ''">
-                <div class="jsonHeader">
-                    <i class="fas fa-times" ng-click="ctrl.displayItem('mainItem', ctrl.main_spec)"> </i>
-                    <i class="fas fa-clipboard" ng-click-copy="{{ctrl.displayedSpec[1]}}"></i>
-                </div>
-                <div class="jsonContainer">
-                    <pre>{{ctrl.displayedSpec[1]| json:4}}</pre>
-                </div>
-            </div>
-
-
-
         </div>
     </h1>
 
+    <!-- Contains the JSON schema metadata -->
     <div class="metadata">
         <h2> Schema Metadata </h2>
         <ul>
             <li ng-if="json_source['$schema']">
-                <b>$schema : </b> {{json_source['$schema']}}
+                <b>Schema version ($schema) : </b> {{json_source['$schema']}}
             </li>
 
-            <li ng-if="!json_source['id']">
-                <b style="color:red">Note: </b> This schema is a subset of <span ng-repeat="(refKey, refVal) in json_source['referencedFrom']">{{refKey}}<i ng-if="!$last">, </i></span>
+            <li ng-if="json_source.hasOwnProperty('$subset')">
+                <b style="color:red"> Note: </b>
+                This schema is a subset of <span ng-repeat="(refKey, refVal) in json_source['referencedFrom']">{{refKey}}<i ng-if="!$last">, </i></span>
             </li>
 
             <li ng-repeat="(key, item) in json_source"
-                ng-if="key != 'properties' && key != 'referencedFrom'">
+                ng-if="key != 'properties' && key != 'referencedFrom' && !json_source.hasOwnProperty('$subset')">
 
                 <!-- key is not 'id' and is not 'required' -->
                 <div ng-if="key != 'id' && key != 'required' ">
@@ -70,64 +55,26 @@
                                             <label class="descriptionLabel">{{objectName}}</label> {{objectVal}}
                                         </li>
                                     </ul>
+
                                     <div class="card definitionCard"
-                                         id="{{json_source['id'] + '_definitions_' + objectName}}"
+                                         id="{{schemaName + '_definitions_' + objectName}}"
                                          ng-if="(objectVal | typeOf) === 'object'">
                                         <div class="card-header">
                                             {{objectName}}
                                         </div>
+
                                         <div class="card-body">
+
+
                                             <div class="" ng-repeat="(defKey, defVal) in objectVal">
-                                                <b>{{defKey}}:</b>
-
-                                                <span ng-if="(defVal | typeOf) === 'string' || (defVal | typeOf) === 'number'">
-                                                    {{defVal}}
+                                                <span ng-if="((defVal | typeOf) === 'string' || (defVal | typeOf) === 'number') && defKey != 'referenceTo'">
+                                                    <b>{{defKey}}:</b> {{defVal}}
                                                 </span>
+                                            </div>
 
-                                                <div ng-if="(defVal | typeOf) === 'object'">
-
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="col-6 definitionSubCard" ng-repeat="(fieldName, fieldVal) in defVal" ng-if="(fieldVal |typeOf) ==='object'">
-                                                                <div class="text-muted card miniCard subCard">
-                                                                    <div class="">
-                                                                        <div class="card-header">
-                                                                            {{fieldName}}
-                                                                        </div>
-
-                                                                        <div class="card-body">
-                                                                            <h6 class="card-subtitle">
-                                                                                <div ng-repeat="(subKey, subVal) in fieldVal">
-                                                                                    <label class="descriptionLabel"> {{subKey}}: </label>
-                                                                                    <span ng-if="(subVal | typeOf) == 'string'">{{subVal}}</span>
-                                                                                    <ul ng-if="(subVal | typeOf) == 'array'">
-                                                                                        <li ng-repeat="subItem in subVal">{{subItem}}</li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </h6>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <ul>
-                                                                <li class="" ng-repeat="(fieldName, fieldVal) in defVal" ng-if="(fieldVal |typeOf) ==='string'">
-                                                                    <label class="descriptionLabel">{{fieldName}}: </label> {{fieldVal}}
-                                                                </li>
-                                                            </ul>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div ng-if="(defVal | typeOf) === 'array'">
-                                                    <ul>
-                                                        <li ng-repeat="val in defVal">
-                                                            {{val}}
-                                                        </li>
-                                                    </ul>
-
-                                                </div>
+                                            <div ng-if="objectVal.hasOwnProperty('referenceTo')">
+                                                <label>Expected types: </label>
+                                                <div button-link="objectVal['referenceTo']"> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +90,7 @@
                 </div>
 
                 <!-- key is 'id' -->
-                <div ng-if="key === 'id' ">
+                <div ng-if="key === 'id'">
                     <b>{{key}} : </b>
                     <a class="link" ng-href="{{item}}" target="_blank">{{item}}</a>
                 </div>
@@ -157,25 +104,18 @@
 
             </li>
 
-            <li ng-if="parent != ''">
+            <!-- referenced from -->
+            <li ng-if="json_source.hasOwnProperty('referencedFrom')">
                 <b>Referenced from: </b>
-
-                <ul ng-if="ctrl.display==='table'">
-                    <li ng-repeat="(childKey, childVal) in json_source.referencedFrom">
-                        {{childKey}} : <span ng-repeat="item in childVal">{{item}} <span ng-if="!$last">, </span></span>
-                    </li>
-                </ul>
-
-                <div class="container" ng-if="ctrl.display==='grid'">
+                <div class="container">
                     <div class="row">
-                        <div class=" miniCard col-lg-2 col-sm-6 col-md-6" ng-repeat="(childKey, childVal) in json_source.referencedFrom">
+                        <div class="referencedFrom miniCard col-lg-2 col-sm-6 col-md-6" ng-repeat="(childKey, childVal) in json_source.referencedFrom">
                             <div class="card">
                                 <div class="card-body">
                                     <h6 class="card-subtitle mb-2 text-muted">
                                         <label class="descriptionLabel">{{childKey}}: </label>
                                     </h6>
                                     <h6 class="card-subtitle mb-2 text-muted">
-                                        <!--<label class="descriptionLabel">Referencing fields: </label>-->
                                         <span ng-repeat="item in childVal">
                                             {{item}}<span ng-if="!$last">, </span>
                                         </span>
@@ -191,14 +131,14 @@
     </div>
 
 
-    <div class="main_container">
+    <div class="main_container schemaProperties">
         <h2> Schema Fields </h2>
-        <div schema-fields="json_source.properties"
-             parent-key="parent"
+        <div schema-fields="json_source"
+             parent-key="schemaName"
              inner-link="json_source.id"
-             display-type="ctrl.display">
+             context-values="ctrl['contexts']"
+             function-controller="ctrl">
         </div>
-
     </div>
 
 </div>

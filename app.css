@@ -256,12 +256,24 @@ body.json_documenter .menuItemLink{
     height:100%;
 }
 
-
-body.json_documenter .menuBar h2{
+body.json_documenter .menuBar .container-fluid{
     background-color:#2980B9;
     color:#fcfcfc;
     border-bottom:1px solid #ccc;
     width:100%
+}
+
+body.json_documenter .menuBar h2{
+    background-color:#2980B9;
+    color:#fcfcfc;
+}
+
+body.json_documenter .menuBar i.fa-comment {
+    vertical-align: middle;
+    position: relative;
+    top: 30%;
+    left: 80%;
+    font-size: 1.4rem;
 }
 
 body.json_documenter .menuBar div.row{
@@ -352,10 +364,12 @@ body.json_documenter .md-panel{
     opacity: 1;
 }
 
+/*
 body.json_documenter .tooltip{
     padding:10px;
     border:1px solid #ccc;
 }
+*/
 
 body.json_documenter .card{
     margin-top:0;
@@ -596,4 +610,81 @@ body.json_documenter  .reloadButton {
 
 body.json_documenter .col-6{
     padding: 5px;
+}
+
+
+div.tooltip{
+    opacity: 1 !important;
+}
+
+div.tooltip .tooltip-inner{
+    padding:10px;
+    color: #2980B9 !important;
+    background-color:white;
+    border:1px solid #2980B9;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    width: 400px !important;
+}
+
+div.requiredField .card-header{
+    background-color: #45A93A;
+}
+
+div.card.requiredField:hover{
+    border-color: #45A93A;
+}
+
+div.card.requiredField div.tooltip .tooltip-inner{
+    color: #45A93A !important;
+    border-color: #45A93A;
+}
+
+
+div.legend label {
+    border-bottom:1px solid #2980B9;
+    width:100%;
+    padding:5px 0;
+}
+
+div.legend .tooltip-inner{
+    padding:0 !important;
+}
+
+div.legend .legend_color{
+    width:10px;
+    height:10px;
+    border:1px solid #ccc;
+    display: inline-block;
+    text-align: left !important;
+}
+
+div.legend .legend_item{
+    text-align: left !important;
+    padding: 0 5px;
+}
+
+div.legend .greenLeg{
+    background-color:  #45A93A;
+}
+
+div.legend .blueLeg{
+    background-color: #2980B9;
+}
+
+div.legend .legend_item span{
+    margin-left:5px;
+}
+
+body.json_documenter i.fas{
+    color:white;
+}
+
+body.json_documenter .takeTour{
+    font-size: 1.2rem;
+    position: relative;
+    top: 5px;
+    padding: 10px;
+    left: 25px;
 }
