@@ -125,7 +125,6 @@ angular.module('generatorApp').factory('SchemaLoader',
                 if (reference.hasOwnProperty('$ref')){
                     if (reference['$ref'][0] !== '#'){
                         if (specLoader.isURL(reference['$ref'])){
-                            console.log('this is an URL');
                             reference['referenceTo'] = reference['$ref'];
                             specLoader.load_schema(reference['$ref'], current_level+1, parentReference);
                         }
