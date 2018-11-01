@@ -36,8 +36,8 @@
                         let item = part.split("=");
                         result[item[0]] = decodeURIComponent(item[1]);
                     });
-                    if (result.hasOwnProperty('source_url')){
-                        json_schema.target = result['source_url'];
+                    if (result.hasOwnProperty('schema_url')){
+                        json_schema.target = result['schema_url'];
                     }
                     if (result.hasOwnProperty('context_mapping_url')) {
                         json_schema.mapping_target = result['context_mapping_url']
@@ -125,11 +125,11 @@
 
             this.reload = function(){
                 if (json_schema.next_target != null && json_schema.next_mapping != null){
-                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' +
+                    window.location.href = window.location.origin + window.location.pathname + '?schema_url=' +
                         json_schema.next_target + '&context_mapping_url=' + json_schema.next_mapping;
                 }
                 else if (json_schema.next_target != null && json_schema.next_mapping === null) {
-                    window.location.href = window.location.origin + window.location.pathname + '?source_url=' + json_schema.next_target;
+                    window.location.href = window.location.origin + window.location.pathname + '?schema_url=' + json_schema.next_target;
                 }
             };
 
