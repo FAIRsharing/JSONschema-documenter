@@ -10,11 +10,11 @@ To customize the application to visualize other schemas, you can use two paramet
 
 
 You can pass it to the URL 'parameters' variable as such:
+
 https://fairsharing.github.io/JSONschema-documenter/index.html?schema_url=https://w3id.org/dats/schema/study_schema.json
 
 If you have a mapping file of your JSON-LD context files, you can also pass it as a parameter as such:
 https://fairsharing.github.io/JSONschema-documenter/index.html?schema_url=https://w3id.org/dats/schema/study_schema.json&context_mapping_url=schemas/dats_mapping.json
-
 
 
 ## License
