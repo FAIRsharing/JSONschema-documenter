@@ -17,14 +17,14 @@ var tour = {
         },
         {
             target: '#settingButton',
-            placement: 'left',
+            placement: 'right',
             title: "This is the settings button",
             content: ' From this menu, you can load the root schema of a network of JSON schemas. If you also have JSON-LD context files associated with the JSON schemas, you can add the URL to a mapping file matching the JSON schmeas to JSON-LD context files, and visualize the semantic annotations',
             yOffset: -30
         },
         {
             target: '#legend',
-            placement: 'right',
+            placement: 'left',
             title: "This is the legend button",
             content: 'This menu allows you to see the color coding we use for the cards: green cards for required properties, blue cards for non-required ones',
             yOffset: -30
@@ -38,9 +38,10 @@ var tour = {
         },
         {
             target: '#study_schema',
-            placement: 'left',
+            placement: 'top',
             title: "This is the root schema",
-            content: 'This section shows the root schema metadata and its properties, including links to other referenced schemas when relevant'
+            content: 'This section shows the schema metadata and properties with links to other referenced schemas, when relevant.',
+            yOffset: 40
         },
         {
             target: "#study_schema .titleText",
@@ -50,7 +51,7 @@ var tour = {
         },
         {
             target: '#study_schema .fa-file-alt', //specify the element
-            placement: 'right', //placement for the popover
+            placement: 'left', //placement for the popover
             title: "Display JSON schema icon",
             content: 'By clicking this icon, you can display the underlying JSON schema and copy it to the clipboard if you wish.', // content to display
             yOffset: -20
@@ -89,7 +90,7 @@ var tour = {
             target: "#backToTop",
             placement: 'top', //placement for the popover
             title: "This is the back to top arrow",
-            content: "It allows you to go back to the top of the page when you are exploring the schemas. Thanks for visiting the tour!" // content to display
+            content: "It allows you to go back to the top of the page when you are exploring the schemas. <bold>Thanks for visiting the tour!</bold>" // content to display
         }
     ],
     showPrevButton: true,
