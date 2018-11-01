@@ -42,7 +42,7 @@
             </div>
 
             <!-- MENU -->
-            <div id="pageTop" class="container menuBar" ng-show="documenter.loaded">
+            <div id="pageTop" class="container menuBar">
                 <div class="row">
                     <md-toolbar class="md-menu-toolbar">
                         <div layout="row" id="settingMenu">
@@ -124,7 +124,7 @@
                                         <div class="col-10">
                                             <md-menu-bar>
                                                 <md-menu>
-                                                    <button aria-label="Open menu"
+                                                    <button aria-label="Open menu" ng-show="documenter.loaded"
                                                             ng-click="$mdMenu.open($event)" id="schemaMenu">
                                                         <span class="fas fa-chevron-down" style="margin-right:10px"></span>
                                                         {{documenter.raw_schemas[documenter.main_schema].title}}
