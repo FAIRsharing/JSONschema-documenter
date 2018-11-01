@@ -42,6 +42,12 @@
                     if (result.hasOwnProperty('context_mapping_url')) {
                         json_schema.mapping_target = result['context_mapping_url']
                     }
+                    if (result.hasOwnProperty('parameters')){
+                        let params = JSON.parse(result['parameters']);
+                        let redirect_URL = window.location.origin + window.location.pathname + '?schema_url=' + params['target'];
+                        json_schema.errors.push({'Old parameters used': 'you are using an old version of URL parameters so the default schema has been loaded for you, if you want to access your schema, use ' + redirect_URL});
+                    }
+
                 }
                 else{
                     json_schema.target = "https://w3id.org/dats/schema/study_schema.json#";
