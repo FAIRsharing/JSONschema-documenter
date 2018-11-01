@@ -18,6 +18,8 @@ If you have a mapping file of your JSON-LD context files, you can also pass it a
 
 https://fairsharing.github.io/JSONschema-documenter/index.html?schema_url=https://w3id.org/dats/schema/study_schema.json&context_mapping_url=schemas/dats_mapping.json
 
+For an example of a mapping file, check https://fairsharing.github.io/JSONschema-documenter/schemas/dats_mapping.json
+
 
 ## License
 
