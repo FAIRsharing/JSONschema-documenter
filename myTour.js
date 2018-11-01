@@ -38,9 +38,9 @@ var tour = {
         },
         {
             target: '#study_schema',
-            placement: 'left',
+            placement: 'top',
             title: "This is the root schema",
-            content: 'This section shows the root schema metadata and its properties, including links to other referenced schemas when relevant'
+            content: 'showing the schema metadata and properties with links to other referenced schemas, when relevant.'
         },
         {
             target: "#study_schema .titleText",
@@ -50,7 +50,7 @@ var tour = {
         },
         {
             target: '#study_schema .fa-file-alt', //specify the element
-            placement: 'right', //placement for the popover
+            placement: 'left', //placement for the popover
             title: "Display JSON schema icon",
             content: 'By clicking this icon, you can display the underlying JSON schema and copy it to the clipboard if you wish.', // content to display
             yOffset: -20
@@ -89,7 +89,7 @@ var tour = {
             target: "#backToTop",
             placement: 'top', //placement for the popover
             title: "This is the back to top arrow",
-            content: "It allows you to go back to the top of the page when you are exploring the schemas. Thanks for visiting the tour!" // content to display
+            content: "It allows you to go back to the top of the page when you are exploring the schemas. <bold>Thanks for visiting the tour!</bold>" // content to display
         }
     ],
     showPrevButton: true,
