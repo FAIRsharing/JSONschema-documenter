@@ -5,15 +5,16 @@ The JSON schema documeter is an [AngularJS](https://angularjs.org/) web applicat
 A live version of the JSONSchema-documenter is available at: https://fairsharing.github.io/JSONschema-documenter/. By default, it will load the [DAta Tag Suite (DATS)](https://github.com/datatagsuite) [study schema](https://w3id.org/dats/schema/study_schema.json).
 
 To customize the application to visualize other schemas, you can use two parameters:
-    schema_url is the URL to the main schema of the network
-    context_mapping_url is the URL to a file that maps each schema to a context file (this is optional)
+- ```schema_url``` is the URL to the main JSON schema of a network of schemas (this is required, by default, we use the [DATS.study schema](https://w3id.org/dats/schema/study_schema.json))
+- ```context_mapping_url``` is the URL to a file that maps each schema to a context file (this is optional)
 
 
-You can pass it to the URL 'parameters' variable as such:
+These parameters are set in the web application URL, for example:
 
 https://fairsharing.github.io/JSONschema-documenter/index.html?schema_url=https://w3id.org/dats/schema/study_schema.json
 
-If you have a mapping file of your JSON-LD context files, you can also pass it as a parameter as such:
+If you have a mapping file of your JSON-LD context files, you can also pass it as a parameter. For example:
+
 https://fairsharing.github.io/JSONschema-documenter/index.html?schema_url=https://w3id.org/dats/schema/study_schema.json&context_mapping_url=schemas/dats_mapping.json
 
 
