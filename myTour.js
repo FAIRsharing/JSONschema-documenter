@@ -17,14 +17,14 @@ var tour = {
         },
         {
             target: '#settingButton',
-            placement: 'left',
+            placement: 'right',
             title: "This is the settings button",
             content: ' From this menu, you can load the root schema of a network of JSON schemas. If you also have JSON-LD context files associated with the JSON schemas, you can add the URL to a mapping file matching the JSON schmeas to JSON-LD context files, and visualize the semantic annotations',
             yOffset: -30
         },
         {
             target: '#legend',
-            placement: 'right',
+            placement: 'left',
             title: "This is the legend button",
             content: 'This menu allows you to see the color coding we use for the cards: green cards for required properties, blue cards for non-required ones',
             yOffset: -30
