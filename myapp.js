@@ -166,7 +166,7 @@
         var tourConfig = {
             config: {
                 disableInteraction: true, //disables interaction with focused element
-                animationDuration: 300,
+                animationDuration: 200,
                 mask: {
                     visible: true, // Shows the element mask
                     clickThrough: false, // Allows the user to interact with elements beneath the mask
@@ -174,10 +174,14 @@
                     scrollThrough: false, // Allows the user to scroll while hovered over the mask
                     color: 'rgba(0,0,0,.7)' // The mask color
                 },
-                scrollBox: 'body',
                 dark: false
             }, // see config
             steps: [
+                {
+                    target: '#identifier_info_schema', //specify the element
+                    placementPriority: 'top', //placement for the popover
+                    content: 'Just a test' // content to display
+                },
                 {
                     target: '#pageTop', //specify the element
                     placementPriority: 'top', //placement for the popover
