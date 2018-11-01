@@ -124,8 +124,15 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                 if (reference.hasOwnProperty('$ref')){
                     if (reference['$ref'][0] !== '#'){
-                        reference['referenceTo'] = reference['$ref'].replace("#", "").replace(".json", "");
-                        specLoader.load_schema(baseURL+'/'+reference['$ref'], current_level+1, parentReference);
+                        if (specLoader.isURL(reference['$ref'])){
+                            console.log('this is an URL')
+                            reference['referenceTo'] = reference['$ref'];
+                            specLoader.load_schema(reference['$ref'], current_level+1, parentReference);
+                        }
+                        else{
+                            reference['referenceTo'] = reference['$ref{'].replace("#", "").replace(".json", "");
+                            specLoader.load_schema(baseURL+'/'+reference['$ref'], current_level+1, parentReference);
+                        }
                     }
                     else{
                         // TODO split the string, get attributes after # and change '/' for '_'
@@ -155,6 +162,11 @@ angular.module('generatorApp').factory('SchemaLoader',
 
                 }
             }
+
+            specLoader.isURL = function(str) {
+                return /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/.test(str);
+            }
+
         }
         return SchemaLoader;
     }
