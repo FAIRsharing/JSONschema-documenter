@@ -7,6 +7,7 @@ A live version of the JSONSchema-documenter is available at: https://fairsharing
 To customize the application to visualize other schemas, you can use two parameters:
 - ```schema_url``` is the URL to the main JSON schema of a network of schemas (this is required, by default, we use the [DATS.study schema](https://w3id.org/dats/schema/study_schema.json))
 - ```context_mapping_url``` is the URL to a file that maps each schema to a context file (this is optional)
+- Note: make sure that all mapping URLs in the mapping file points to https endpoints or the page will trigger an error
 
 
 These parameters are set in the web application URL, for example:
