@@ -40,7 +40,8 @@ var tour = {
             target: '#study_schema',
             placement: 'top',
             title: "This is the root schema",
-            content: 'showing the schema metadata and properties with links to other referenced schemas, when relevant.'
+            content: 'This section shows the schema metadata and properties with links to other referenced schemas, when relevant.',
+            yOffset: 40
         },
         {
             target: "#study_schema .titleText",
