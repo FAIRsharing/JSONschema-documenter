@@ -87,7 +87,7 @@ var tour = {
         },
         {
             target: "#backToTop",
-            placement: 'right', //placement for the popover
+            placement: 'top', //placement for the popover
             title: "This is the back to top arrow",
             content: "It allows you to go back to the top of the page when you are exploring the schemas. Thanks for visiting the tour!" // content to display
         }
