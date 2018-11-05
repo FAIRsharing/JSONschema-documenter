@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="generatorApp">
+<html lang="en">
 
     <head>
         <meta charset="UTF-8">
@@ -13,14 +13,19 @@
         <title> JSON schema document generator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="https://fairsharing.org/static/img/fairsharing-favicon.ico">
+
+
+        <script data-main="lib/main" src="lib/require.min.js"></script>
+
+
     </head>
 
-    <body ng-controller="documenterController as documenter" class="json_documenter" md-theme="altTheme">
+    <body class="json_documenter" md-theme="altTheme" id="ng-app">
 
         <div class="main" id ="mainContainer">
 
             <!-- ERRORS -->
-            <div class="container mainPage error" ng-show="documenter.errors.length>0 ">
+            <div class="container mainPage error" ng-show="controller.errors.length>0 ">
 
                 <h2> There is one or more errors with your request </h2>
 
@@ -228,22 +233,6 @@
             </a>
 
         </div>
-
-
-        <script type="text/javascript" src="lib/jquery.min.js"></script>
-        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
-        <script type="text/javascript" src="lib/angular.js"></script>
-
-        <script type="text/javascript" src="lib/angular-material.js"></script>
-        <script type="text/javascript" src="lib/angular-aria.min.js"></script>
-        <script type="text/javascript" src="lib/angular-animate.min.js"></script>
-        <script type="text/javascript" src="lib/angular-messages.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
-
-        <script src="lib/hopscotch_tour/js/hopscotch.js"></script>
-        <script src="myTour.js"></script>
-        <script src="myapp.js"></script>
-        <script type="text/javascript" src="loaderFactory.js"></script>
 
     </body>
 
