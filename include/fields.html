@@ -12,11 +12,21 @@
                                 <div class="col-10">{{fieldKey}}</div>
                                 <div class="col-2" ng-if="context[parent]['@context'].hasOwnProperty(fieldKey)">
                                     <a ng-href="{{ctrl.create_href(context[parent]['@context'], fieldKey)}}" target="_blank">
-                                        <i class="fas fa-network-wired"
+                                        <i ng-if="!ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])"
+                                           class="fas fa-network-wired"
                                            data-toggle="tooltip"
                                            data-placement="bottom"
                                            data-html="true"
                                            title="{{context[parent]['@context']}}"
+                                           field-name="fieldKey"
+                                           tooltip>
+                                        </i>
+                                        <i ng-if="ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])"
+                                           class="fas fa-network-wired"
+                                           data-toggle="tooltip"
+                                           data-placement="bottom"
+                                           data-html="true"
+                                           title="{{ctrl['labels'][context[parent]['@context'][fieldKey]]}}"
                                            field-name="fieldKey"
                                            tooltip>
                                         </i>
