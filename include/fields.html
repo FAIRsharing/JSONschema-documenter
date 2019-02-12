@@ -10,9 +10,12 @@
                         <h5 class="card-title">
                             <div class="row">
                                 <div class="col-10">{{fieldKey}}</div>
-                                <div class="col-2" ng-if="context[parent]['@context'].hasOwnProperty(fieldKey)">
+                                <div class="col-2"
+                                     ng-if="context[parent]['@context'].hasOwnProperty(fieldKey)">
                                     <a ng-href="{{ctrl.create_href(context[parent]['@context'], fieldKey)}}" target="_blank">
-                                        <i ng-if="!ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])"
+
+                                        <i ng-if="!ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])
+                                                  || ctrl['labels'][context[parent]['@context'][fieldKey]] == null"
                                            class="fas fa-network-wired"
                                            data-toggle="tooltip"
                                            data-placement="bottom"
@@ -21,7 +24,8 @@
                                            field-name="fieldKey"
                                            tooltip>
                                         </i>
-                                        <i ng-if="ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])"
+                                        <i ng-if="ctrl['labels'].hasOwnProperty(context[parent]['@context'][fieldKey])
+                                                  && ctrl['labels'][context[parent]['@context'][fieldKey]] != null"
                                            class="fas fa-network-wired"
                                            data-toggle="tooltip"
                                            data-placement="bottom"
