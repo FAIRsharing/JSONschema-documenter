@@ -359,10 +359,10 @@
                                     let title_base = title.split(':');
                                     let title_base_url = context_data[title_base[0]];
                                     title = title_base_url + title_base[1];
-                                    element[0]['title'] = "<label>Semantic Value:</label> " +title;
+                                    element[0]['title'] = "<label>Semantic Value:</label> " +title + "<br> <i style='color:black;'>(Click icon to open label)</i>";
                                 }
                                 catch(error){
-                                    element[0]['title'] = "<label>Semantic Value:</label> " +element[0]['title'] ;
+                                    element[0]['title'] = "<label>Semantic Value:</label> " +element[0]['title'] + "<br> <i style='color:black;'>(Click icon to open label)</i>" ;
                                 }
                             }
                             element.hover(function(){
