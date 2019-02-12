@@ -92,7 +92,7 @@
                                         })
                                     }
                                 }
-                                console.log(json_schema.contexts);
+                                json_schema.labels = res.data["labels"]
                             }
 
                         ).catch(function(e){
@@ -217,6 +217,7 @@
                         $scope.parent = $scope.parentKey;
                         $scope.context = $scope.contextValues;
                         $scope.backLink = $scope.innerLink;
+                        $scope.labels = $scope.functionController['labels']
                     }
                 });
                 $scope.$watch('contextValues', function(contextValues){
@@ -347,17 +348,22 @@
                     function(){
                         if(element){
                             if ($scope.fieldName){
-                                let context_data = JSON.parse(element[0]['title']);
-                                let title = context_data[$scope.fieldName];
-                                if (title.hasOwnProperty('@id')){
-                                    title = title['@id'];
+                                try {
+                                    let context_data = JSON.parse(element[0]['title']);
+                                    let title = context_data[$scope.fieldName];
+                                    if (title.hasOwnProperty('@id')){
+                                        title = title['@id'];
+                                    }
+                                    // TODO: only split if not already an URL
+                                    // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
+                                    let title_base = title.split(':');
+                                    let title_base_url = context_data[title_base[0]];
+                                    title = title_base_url + title_base[1];
+                                    element[0]['title'] = "<label>Semantic Value:</label> " +title + "<br> <i style='color:black;'>(Click icon to open label)</i>";
                                 }
-                                // TODO: only split if not already an URL
-                                // TODO: handle multiple semantic values with different types 'eg: obo/sdo')
-                                let title_base = title.split(':');
-                                let title_base_url = context_data[title_base[0]];
-                                title = title_base_url + title_base[1];
-                                element[0]['title'] = "<label>Semantic Value:</label> " +title;
+                                catch(error){
+                                    element[0]['title'] = "<label>Semantic Value:</label> " +element[0]['title'] + "<br> <i style='color:black;'>(Click icon to open label)</i>" ;
+                                }
                             }
                             element.hover(function(){
                                 // on mouseenter
