@@ -67,6 +67,7 @@
             }
 
             let schema_loader = new SchemaLoader();
+
             schema_loader.load_schema(json_schema.target, 0, null).then(
                 function(){
                     json_schema.raw_schemas = schema_loader.raw_schemas;
@@ -75,7 +76,7 @@
                     json_schema.main_schema = schema_loader.main_schema;
 
                     /* IMPLEMENTING CONTEXT VALUES */
-                    if (json_schema.mapping_target !== null){
+                    if (json_schema.mapping_target != null){
                         $http.get(json_schema.mapping_target).then(
                             function(res){
                                 json_schema.contexts = {};
@@ -84,14 +85,16 @@
                                     if (contexts.hasOwnProperty(context)){
                                         $http.get(contexts[context]).then(
                                             function(response){
-                                                json_schema.contexts[context] = response.data;
+                                                json_schema.contexts[context.replace(".json", "")] = response.data;
                                             }
                                         ).catch(function(e){
                                             json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
                                         })
                                     }
                                 }
+                                console.log(json_schema.contexts);
                             }
+
                         ).catch(function(e){
                             json_schema.errors.push({'404': (e.config.url + ' ' + e.statusText).toString()});
                         })
@@ -213,10 +216,13 @@
                         $scope.ctrl = $scope.functionController;
                         $scope.parent = $scope.parentKey;
                         $scope.context = $scope.contextValues;
-                        $scope.backLink = $scope.innerLink
+                        $scope.backLink = $scope.innerLink;
                     }
-
-
+                });
+                $scope.$watch('contextValues', function(contextValues){
+                    if(contextValues){
+                        $scope.context = $scope.contextValues;
+                    }
                 });
             }
         }
