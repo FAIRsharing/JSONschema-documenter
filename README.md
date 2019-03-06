@@ -29,3 +29,5 @@ This code is provided under [BSD 3-Clause License](https://github.com/FAIRsharin
 
 - [Dominique Batista](http://github.com/terazus)
 - [Alejandra Gonzalez-Beltran](http://github.com/agbeltran)
+- [Philippe Rocca-Serra](http://gitub.com/proccaserra)
+- [Susanna-Assunta Sansone](http://github.com/SusannaSansone)
