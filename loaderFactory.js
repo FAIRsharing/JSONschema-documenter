@@ -1,5 +1,5 @@
 angular.module('generatorApp').factory('SchemaLoader',
-    function($q, $http) {
+    function($q, $http, $location) {
 
         function SchemaLoader(){
 
@@ -13,6 +13,7 @@ angular.module('generatorApp').factory('SchemaLoader',
 
             // Method to load a schema from given URL (recursive)
             specLoader.load_schema = function(fileURL, nesting_level, referencingParent){
+                fileURL = fileURL.replace('.json#', '.json');
                 let deferred = $q.defer();
                 let specName = fileURL.split('/').slice(-1)[0].replace('.json#', '').replace('.json', '');
 
@@ -65,6 +66,11 @@ angular.module('generatorApp').factory('SchemaLoader',
                 // set base URL based on id attribute
                 let baseURL = schema.hasOwnProperty('id') ? schema['id'] : '';
                 baseURL = baseURL.substr(0, baseURL.lastIndexOf('/'));
+
+                let schema_input = location.search.substr(1).split('=');
+                if (schema_input[0] === 'schema_url' && !specLoader.isURL(schema_input[1])) {
+                    baseURL = schema_input[1].substr(0, schema_input[1].lastIndexOf('/'))
+                }
 
                 // For each property
                 for (let propertyName in properties){
