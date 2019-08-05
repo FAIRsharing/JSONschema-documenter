@@ -69,19 +69,14 @@ angular.module('generatorApp').factory('SchemaLoader',
                 // set base URL based on id attribute
                 let current_schema_id = schema.hasOwnProperty('id') ? schema['id'] : '';
                 let baseURL = current_schema_id.substr(0, current_schema_id.lastIndexOf('/'));
-                console.log(baseURL);
 
                 let schema_input = location.search.substr(1).split('=');
 
                 // Are we trying to resolve locally ? (schema_input isn't a URL)
                 if (schema_input[0] === 'schema_url' && !specLoader.isURL(schema_input[1])) {
-
                     if (baseURL === specLoader.main_schema_url){
                         baseURL = schema_input[1].substr(0, schema_input[1].lastIndexOf('/'));
-                        console.log("OK")
                     }
-
-                    console.log(baseURL);
                 }
 
                 // For each property
