@@ -9,6 +9,7 @@ angular.module('generatorApp').factory('SchemaLoader',
             specLoader.sub_schemas = {}; // sub schemas once processed (with added variables)
             specLoader.schema_errors = []; // loading errors
             specLoader.ignored_keys = ["@type", "@id", "@context"];
+
             let possible_references = ["allOf", "oneOf", "anyOf"];
 
             // Method to load a schema from given URL (recursive)
@@ -41,12 +42,14 @@ angular.module('generatorApp').factory('SchemaLoader',
                         }
 
                         else {
+                            specLoader.main_schema_url = response.data['id'].substr(0, response.data['id'].lastIndexOf('/'));
                             specLoader.main_schema = specName;
                         }
 
                         // search for sub schemas that need to be loaded
                         searchSubSpecs(response.data, response.data.properties, specName, nesting_level, 'properties');
 
+                        // search for references in ['definitions']
                         if (response.data.hasOwnProperty('definitions')){
                             searchSubSpecs(response.data, response.data['definitions'], specName, nesting_level, 'definitions');
                         }
@@ -64,12 +67,21 @@ angular.module('generatorApp').factory('SchemaLoader',
             var searchSubSpecs = function(schema, properties, parentName, nested_level, processingType){
 
                 // set base URL based on id attribute
-                let baseURL = schema.hasOwnProperty('id') ? schema['id'] : '';
-                baseURL = baseURL.substr(0, baseURL.lastIndexOf('/'));
+                let current_schema_id = schema.hasOwnProperty('id') ? schema['id'] : '';
+                let baseURL = current_schema_id.substr(0, current_schema_id.lastIndexOf('/'));
+                console.log(baseURL);
 
                 let schema_input = location.search.substr(1).split('=');
+
+                // Are we trying to resolve locally ? (schema_input isn't a URL)
                 if (schema_input[0] === 'schema_url' && !specLoader.isURL(schema_input[1])) {
-                    baseURL = schema_input[1].substr(0, schema_input[1].lastIndexOf('/'))
+
+                    if (baseURL === specLoader.main_schema_url){
+                        baseURL = schema_input[1].substr(0, schema_input[1].lastIndexOf('/'));
+                        console.log("OK")
+                    }
+
+                    console.log(baseURL);
                 }
 
                 // For each property
